@@ -1,0 +1,25 @@
+fileFormatVersion: 2
+guid: 7f050b1172e35504bb54c6ddc0b00dc4
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Silian Rail PERSONAL USE
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: e0b34055a31723f42bd884038e6c2a48, type: 3}
+  - {fileID: 12800000, guid: 76500d81a481a14489a5d381d4a69726, type: 3}
+  - {fileID: 12800000, guid: 0519319fd78f5b640932cea6c0a9a437, type: 3}
+  - {fileID: 12800000, guid: 16cbcc7891671d340ad92ea70d789fdd, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
