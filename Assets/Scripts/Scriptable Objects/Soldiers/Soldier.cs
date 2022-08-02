@@ -7,6 +7,7 @@ public class Soldier : ScriptableObject
     public int id;
     public new string name;
     public string description;
+    public GameObject Prefab;
 
     public Sprite icon;
     [Header("Cost")]
@@ -14,6 +15,13 @@ public class Soldier : ScriptableObject
     [Tooltip("Cost per Month")] public float cpm; // cost per month
 
     [Header("Stats")]
+    public float heath;
     public float maxHealth;
+
+
+    private void Awake()
+    {
+        heath = maxHealth;
+    }
 
 }

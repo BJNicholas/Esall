@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fa4b25da6239f549ba69a8d786ca271, type: 3}
   m_Name: Swordsman
   m_EditorClassIdentifier: 
+  id: 0
   name: Swordsman
   description: Deals good damage, but takes alot too...
+  Prefab: {fileID: 2955642822019962399, guid: 91645b749d62928468ca458ac3715a7b, type: 3}
   icon: {fileID: 21300000, guid: 7a29e2017be3f894f8d306561901d413, type: 3}
   buyPrice: 10
   cpm: 5

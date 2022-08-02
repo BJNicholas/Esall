@@ -72,6 +72,8 @@ public class Army : MonoBehaviour
         }
 
         if (inBattle) target = transform.position;
+
+        if (numOfSoldiers == 0) Death();
     }
 
     public void Death()
@@ -80,9 +82,11 @@ public class Army : MonoBehaviour
         if (isGarrison)
         {
             SettlementInspector.instance.TakeProvince();
+            Destroy(gameObject);
         }
         else
         {
+            transform.position = ownerObject.GetComponent<Faction>().capitalCity.transform.position;
             ownerObject.GetComponent<Faction>().Invoke("SpawnNewArmy", 30f);
             if (owner != GameManager.instance.playerFaction)
             {
@@ -120,15 +124,12 @@ public class Army : MonoBehaviour
             if (numOfSoldiers == 0)
             {
                 print("DEFENDER WINS");
-                Death();
                 Encounter.instance.dialogue += " Better luck next time child.";
-                if (isGarrison) Destroy(gameObject);
                 Encounter.instance.Invoke("CloseUI", 1.5f);
             }
             else
             {
                 print("ATTACKER WINS");
-                defendingArmy.GetComponent<Army>().Death();
                 Encounter.instance.dialogue += " You have bested me.";
                 Encounter.instance.Invoke("CloseUI", 1.5f);
             }
