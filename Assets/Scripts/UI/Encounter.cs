@@ -16,6 +16,7 @@ public class Encounter : MonoBehaviour
     public Text factionName;
     public Image homeFlag, awayFlag;
     public Text homeSoldiers, awaySoldiers;
+    public GameObject leaveButton;
     [Space]
     public Text dialogueTXT;
 

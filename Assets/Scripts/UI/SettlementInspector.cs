@@ -16,6 +16,7 @@ public class SettlementInspector : MonoBehaviour
     public GameObject enemy;
     public GameObject owned;
     public GameObject capital;
+    public GameObject siege;
 
     [Header("Non-static Tabs")]
     public GameObject administerHub;
@@ -83,30 +84,8 @@ public class SettlementInspector : MonoBehaviour
 
     public void Attack()
     {
-        Encounter.instance.gameObject.SetActive(true);
-
-        Encounter.instance.otherfaction = settlement.GetComponent<Settlement>().province.GetComponent<Tile>().ownerObject;
-        GameObject garrisonArmy = Instantiate(GameManager.instance.armyPrefab, settlement.transform);
-        Encounter.instance.otherArmy = garrisonArmy;
-        //setup
-        garrisonArmy.name = settlement.name + " Garrison";
-        garrisonArmy.GetComponent<Army>().isGarrison = true;
-        garrisonArmy.GetComponent<Army>().owner = settlement.GetComponent<Settlement>().province.GetComponent<Tile>().owner;
-        garrisonArmy.GetComponent<Army>().ownerObject = Encounter.instance.otherfaction;
-        garrisonArmy.GetComponent<Army>().currentProvince = settlement.GetComponent<Settlement>().province;
-        //soldiers setup
-        while(garrisonArmy.GetComponent<Army>().soldiers.ToArray().Length < settlement.GetComponent<Settlement>().garrisonSize)
-        {
-            garrisonArmy.GetComponent<Army>().soldiers.Add(garrisonArmy.GetComponent<Army>().soldiers[0]);
-        }
-        //positioning
-        garrisonArmy.transform.position = settlement.transform.position;
-        //colouring
-        Color32 colour = Encounter.instance.otherfaction.GetComponent<Faction>().colour;
-        garrisonArmy.GetComponent<SpriteRenderer>().color = new Color32(colour.r, colour.g, colour.b, 200);
-
-
-        Encounter.instance.dialogue += settlement.name + " will never fall!";
+        siege.SetActive(true);
+        siege.GetComponent<Siege>().StartSiege();
     }
 
     public void TakeProvince()
