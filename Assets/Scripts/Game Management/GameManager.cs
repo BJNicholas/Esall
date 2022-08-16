@@ -231,7 +231,7 @@ public class GameManager : MonoBehaviour
             merchant.GetComponent<Merchant>().storedItems.Clear();
 
             //target
-            merchant.GetComponent<Merchant>().target = new Vector3(data.target[0], data.target[1], data.target[2]);
+            merchant.GetComponent<Merchant>().target.position = new Vector3(data.target[0], data.target[1], data.target[2]);
 
             //position
             merchant.transform.position = new Vector3(data.position[0], data.position[1], data.position[2]);

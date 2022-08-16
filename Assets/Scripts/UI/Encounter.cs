@@ -38,6 +38,16 @@ public class Encounter : MonoBehaviour
 
             awayFlag.sprite = otherfaction.GetComponent<Faction>().flag;
             awaySoldiers.text = otherfaction.GetComponent<Faction>().army.GetComponent<Army>().numOfSoldiers.ToString();
+
+
+            if (GameManager.instance.playerFactionObject.GetComponent<Faction>().enemies.Contains(otherfaction))
+            {
+                leaveButton.SetActive(false);
+            }
+            else
+            {
+                leaveButton.SetActive(true);
+            }
         }
     }
 
@@ -46,6 +56,12 @@ public class Encounter : MonoBehaviour
         dialogue += "Prepare to die. ";
         GameManager.instance.timeSpeed = 1f;
         Time.timeScale = 1;
+
+        if (!GameManager.instance.playerFactionObject.GetComponent<Faction>().enemies.Contains(otherfaction))
+        {
+            DiploHub.instance.faction = otherfaction;
+            DiploHub.instance.DeclareWar();
+        }
 
         GameManager.instance.playerFactionObject.GetComponent<Faction>().army.GetComponent<Army>().Battle(otherArmy);
         //close UI after

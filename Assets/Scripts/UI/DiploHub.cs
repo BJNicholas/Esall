@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class DiploHub : MonoBehaviour
 {
+    public static DiploHub instance;
     [Header("stats")]
     public GameObject faction;
 
@@ -15,6 +16,7 @@ public class DiploHub : MonoBehaviour
     private void Awake()
     {
         gameObject.SetActive(false);
+        instance = this;
     }
 
     private void Update()

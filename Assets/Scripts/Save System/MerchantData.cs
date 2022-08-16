@@ -24,9 +24,9 @@ public class MerchantData
 
         //target
         target = new float[3];
-        target[0] = merchant.target.x;
-        target[1] = merchant.target.y;
-        target[2] = merchant.target.z;
+        target[0] = merchant.target.position.x;
+        target[1] = merchant.target.position.y;
+        target[2] = merchant.target.position.z;
 
         //position
         position = new float[3];

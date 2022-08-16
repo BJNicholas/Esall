@@ -10,7 +10,7 @@ public class Event : MonoBehaviour
 
     private void Start()
     {
-        Invoke("Dismiss", 15f);
+        Invoke("Dismiss", 5f);
     }
 
 

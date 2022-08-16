@@ -69,6 +69,7 @@ public class Army : MonoBehaviour
         {
             Inventory.instance.gameObject.SetActive(true);
             Inventory.instance.GenerateListings();
+            Inventory.instance.LiveUpdateListings();
         }
 
         if (inBattle) target = transform.position;
@@ -79,20 +80,22 @@ public class Army : MonoBehaviour
     public void Death()
     {
         gameObject.SetActive(false);
-        if (isGarrison)
+
+        transform.position = ownerObject.GetComponent<Faction>().capitalCity.transform.position;
+        Destroy(gameObject);
+        ownerObject.GetComponent<Faction>().Invoke("SpawnNewArmy", 30f);
+        if (owner != GameManager.instance.playerFaction)
         {
-            SettlementInspector.instance.TakeProvince();
-            Destroy(gameObject);
+            ownerObject.GetComponent<AI_Faction>().currentTask = AI_Faction.PossibleTasks.Null;
+            ownerObject.GetComponent<AI_Faction>().StopAllCoroutines();
         }
         else
         {
-            transform.position = ownerObject.GetComponent<Faction>().capitalCity.transform.position;
-            ownerObject.GetComponent<Faction>().Invoke("SpawnNewArmy", 30f);
-            if (owner != GameManager.instance.playerFaction)
+            if (SettlementInspector.instance.gameObject.activeInHierarchy)
             {
-                ownerObject.GetComponent<AI_Faction>().currentTask = AI_Faction.PossibleTasks.Null;
+                SettlementInspector.instance.Leave();
             }
-        }         
+        }
     }
 
     float GenerateEntireArmyCPM(float cpm)

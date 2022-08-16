@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Siege : MonoBehaviour
 {
     public float timeRemaining;
-    GameObject army;
+    public GameObject army;
 
 
     [Header("UI SET UP")]
@@ -51,8 +51,9 @@ public class Siege : MonoBehaviour
         if (timeRemaining <= 0)
         {
             //siege won
+            print("SIEGE WON!");
             SettlementInspector.instance.TakeProvince();
-            gameObject.SetActive(false);
+            Abandon();
         }
         else
         {

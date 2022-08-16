@@ -105,6 +105,7 @@ public class SettlementInspector : MonoBehaviour
         TradingHub.instance.gameObject.SetActive(true);
         TradingHub.instance.settlement = settlement;
         TradingHub.instance.GenerateListings();
+        TradingHub.instance.LiveUpdateListings();
         //gameObject.SetActive(false);
     }
     public void Recruit()
@@ -112,6 +113,7 @@ public class SettlementInspector : MonoBehaviour
         RecruitmentHub.instance.gameObject.SetActive(true);
         RecruitmentHub.instance.settlement = settlement;
         RecruitmentHub.instance.GenerateListings();
+        RecruitmentHub.instance.LiveUpdateListings();
         //gameObject.SetActive(false);
     }
     public void Administer()

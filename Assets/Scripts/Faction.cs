@@ -36,7 +36,10 @@ public class Faction : MonoBehaviour
 
     private void Start()
     {
-        Invoke("UpdateOwnedTiles", 0.01f);
+        if(faction != FactionManager.factions.Observer)
+        {
+            Invoke("UpdateOwnedTiles", 0.01f);
+        }
     }
 
     private void FixedUpdate()
@@ -75,7 +78,7 @@ public class Faction : MonoBehaviour
             //adding to the total dev of the faction
             development += tile.GetComponent<Tile>().development;
         }
-        if (ownedTiles.ToArray().Length > 0) GenerateNamePlacement(); // name placement
+        GenerateNamePlacement(); // name placement
         UpdateNieghbouringTiles();
     }
     public void UpdateNieghbouringTiles()
@@ -97,7 +100,7 @@ public class Faction : MonoBehaviour
 
     public void Capitulate(GameObject victoriousFaction)
     {
-        army.SetActive(false);
+        if (army != null) Destroy(army);
         int tilesLeft = ownedTiles.ToArray().Length -1;
         while(tilesLeft != 0 -1)
         {

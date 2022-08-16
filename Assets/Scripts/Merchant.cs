@@ -21,7 +21,7 @@ public class Merchant : MonoBehaviour
     [HideInInspector] public GameObject ownerObject;
     public possibleStates currentSate;
     [Header("NAV MESH")]
-    public Vector3 target;
+    public Transform target;
     private NavMeshAgent agent;
     [Header("Trading")]
     public float treasury = 10;
@@ -45,10 +45,15 @@ public class Merchant : MonoBehaviour
 
     private void Update()
     {
-        agent.SetDestination(target);
+        agent.SetDestination(target.position);
         stateTXT.text = currentSate.ToString();
 
         if (treasury <= 0) print("I have no money");
+        if(Vector3.Distance(target.position,transform.position) <= 0.2f)
+        {
+            print(homeCity.name + " Merchant " + "AT TARGET");
+            Trade(target.gameObject);
+        }
     }
 
     public void UpdateOwner(FactionManager.factions newOwner)
@@ -65,13 +70,13 @@ public class Merchant : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.gameObject.transform.position == target)
-        {
-            Trade(collision.gameObject);
-        }
-    }
+    //private void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    if(collision.gameObject.transform == target)
+    //    {
+    //        Trade(collision.gameObject);
+    //    }
+    //}
 
     void Idle()
     {
@@ -82,7 +87,7 @@ public class Merchant : MonoBehaviour
         }
         else
         {
-            target = GameManager.instance.settlements[roll].transform.position;
+            target = GameManager.instance.settlements[roll].transform;
             currentSate = possibleStates.Travelling;
         }
     }
@@ -106,7 +111,7 @@ public class Merchant : MonoBehaviour
     }
     void ReturnHome()
     {
-        target = homeCity.transform.position;
+        target = homeCity.transform;
         currentSate = possibleStates.Returning;
     }
 
