@@ -22,7 +22,12 @@ public class FactionManager : MonoBehaviour
         //"Arab-moors / Beduin people"
         Unand,
         Ukin,
-        Chohari
+        Chohari,
+
+        //TUTORIAL
+        You,
+        Friend,
+        Enemy
     }
     public GameObject[] factionObjects;
 

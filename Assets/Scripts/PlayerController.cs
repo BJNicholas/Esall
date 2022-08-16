@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && SettlementInspector.instance.gameObject.activeInHierarchy == false)
         {
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+            Debug.DrawLine(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
             if (hit.collider != null)
             {
                 if (hit.collider.tag == "UI")

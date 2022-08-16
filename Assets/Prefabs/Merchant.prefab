@@ -111,9 +111,9 @@ GameObject:
   - component: {fileID: 4454809734871231419}
   - component: {fileID: 2341384886348369440}
   - component: {fileID: 921908524}
-  - component: {fileID: 921908525}
   - component: {fileID: 3990407957686655914}
   - component: {fileID: 946789238891838665}
+  - component: {fileID: 921908525}
   m_Layer: 0
   m_Name: Merchant
   m_TagString: Merchant
@@ -204,32 +204,10 @@ MonoBehaviour:
   owner: 0
   ownerObject: {fileID: 0}
   currentSate: 0
-  target: {x: 0, y: 0, z: 0}
+  target: {fileID: 0}
   treasury: 10
   oldTreasuryValue: 0
   storedItems: []
---- !u!195 &921908525
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5264912686396863402}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.01
-  m_Speed: 0.35
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 0.32
-  m_BaseOffset: 0.16
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
 --- !u!50 &3990407957686655914
 Rigidbody2D:
   serializedVersion: 4
@@ -277,6 +255,28 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.5}
   m_EdgeRadius: 0
+--- !u!195 &921908525
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5264912686396863402}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.01
+  m_Speed: 0.35
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 0.32
+  m_BaseOffset: 0.16
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &6903532950870610395
 GameObject:
   m_ObjectHideFlags: 0
