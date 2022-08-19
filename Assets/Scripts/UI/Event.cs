@@ -6,11 +6,35 @@ using UnityEngine.UI;
 public class Event : MonoBehaviour
 {
     public Text title, description, dismiss;
+    public float lifeSpan = 5f;
+    public bool important = false;
 
 
     private void Start()
     {
-        Invoke("Dismiss", 5f);
+        if (!important)
+        {
+            Invoke("Dismiss", lifeSpan);
+            dismiss.text = "Dismiss";
+        }
+    }
+
+    public void Peace()
+    {
+        DiploHub.instance.ProposePeace();
+        description.text += " Thank you, I'm sure it will never come to this again...";
+
+        DiploHub.instance.faction.GetComponent<AI_Faction>().CancelCurrentTask();
+
+        Invoke("Dismiss", 1.5f);
+    }
+
+    public void Decline()
+    {
+        description.text += " You will regret this...";
+        DiploHub.instance.faction.GetComponent<AI_Faction>().CancelCurrentTask();
+
+        Invoke("Dismiss", 1.5f);
     }
 
 

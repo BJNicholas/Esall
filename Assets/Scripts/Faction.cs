@@ -207,7 +207,11 @@ public class Faction : MonoBehaviour
 
     public void CalculateTax()
     {
-        taxIncome = development / 10;
+        taxIncome = 0;
+        foreach(GameObject tile in ownedTiles)
+        {
+            taxIncome += tile.GetComponent<Tile>().taxIncome;
+        }
     }
     public void chargeTax()
     {

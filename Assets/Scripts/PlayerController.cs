@@ -63,9 +63,15 @@ public class PlayerController : MonoBehaviour
 
             Encounter.instance.otherfaction = collision.gameObject.GetComponent<Army>().ownerObject;
             Encounter.instance.otherArmy = collision.gameObject;
-
-            Encounter.instance.otherfaction.GetComponent<AI_Faction>().currentTask = AI_Faction.PossibleTasks.Encounter;
-            Encounter.instance.otherfaction.GetComponent<AI_Faction>().CancelCurrentTask();
+            if(Encounter.instance.otherfaction.GetComponent<AI_Faction>().currentTask != AI_Faction.PossibleTasks.Negotiate)
+            {
+                Encounter.instance.otherfaction.GetComponent<AI_Faction>().currentTask = AI_Faction.PossibleTasks.Encounter;
+                Encounter.instance.otherfaction.GetComponent<AI_Faction>().CancelCurrentTask();
+            }
+            else
+            {
+                print("Didn't cancel task because its negotiate");
+            }
 
             Encounter.instance.dialogue += "What does the King of " + GameManager.instance.playerFaction.ToString() + " want from me? ";
         }

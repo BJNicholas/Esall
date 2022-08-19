@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public GameObject armyPrefab;
     public Soldier[] soldierTypes;
     public GameObject eventPrefab;
+    public GameObject offerPrefab;
     public GameObject pauseMenu;
 
     [Header("Game Details")]

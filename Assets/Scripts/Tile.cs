@@ -11,11 +11,18 @@ public class Tile : MonoBehaviour
     public List<GameObject> neighbouringTiles;
 
     [Header("Tile Stats")]
-    [Range(0,10)]public int development;
+    [Range(0,10)]public float development;
+    public float taxIncome;
     public bool coastal;
 
     private void Start()
     {
+        //starting tax income calculation
+        for (float i = 0; i <= development; i++)
+        {
+            taxIncome += i / 10;
+        }
+
         foreach(GameObject faction in FactionManager.instance.factionObjects)
         {
             if(faction.GetComponent<Faction>().faction == owner)
@@ -34,6 +41,7 @@ public class Tile : MonoBehaviour
             //develop
             ownerObject.GetComponent<Faction>().treasury -= price;
             development += 1;
+            taxIncome += development / 10;
             ownerObject.GetComponent<Faction>().UpdateOwnedTiles();
         }
         else
@@ -54,21 +62,28 @@ public class Tile : MonoBehaviour
                 {
                     if (newOwner.activeInHierarchy)
                     {
-                        if (ownerObject.GetComponent<Faction>().capitalCity == settlement)
+                        if (newOwner.GetComponent<Faction>().enemies.Contains(ownerObject))
                         {
-                            print("capital secured");
-                            ownerObject.GetComponent<Faction>().Capitulate(newOwner);
+                            if (ownerObject.GetComponent<Faction>().capitalCity == settlement)
+                            {
+                                print("capital secured");
+                                ownerObject.GetComponent<Faction>().Capitulate(newOwner);
+                            }
+                            else
+                            {
+                                ownerObject.GetComponent<Faction>().ownedTiles.Remove(gameObject);
+                                ownerObject.GetComponent<Faction>().UpdateOwnedTiles();
+                                ownerObject.GetComponent<Faction>().UpdateNieghbouringTiles();
+
+                                newOwner.GetComponent<Faction>().AddTile(gameObject);
+                                newOwner.GetComponent<Faction>().UpdateOwnedTiles();
+                                newOwner.GetComponent<Faction>().UpdateNieghbouringTiles();
+
+                            }
                         }
                         else
                         {
-                            ownerObject.GetComponent<Faction>().ownedTiles.Remove(gameObject);
-                            ownerObject.GetComponent<Faction>().UpdateOwnedTiles();
-                            ownerObject.GetComponent<Faction>().UpdateNieghbouringTiles();
-
-                            newOwner.GetComponent<Faction>().AddTile(gameObject);
-                            newOwner.GetComponent<Faction>().UpdateOwnedTiles();
-                            newOwner.GetComponent<Faction>().UpdateNieghbouringTiles();
-
+                            print(newOwner.name + "Wasn't fast enough " + ownerObject.name + " got there first");
                         }
                     }
                     else print(newOwner.ToString() + " sadly was too late, and died");

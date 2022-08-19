@@ -56,10 +56,12 @@ public class AdministrationHub : MonoBehaviour
     public void RaiseDEV()
     {
         //can afford
-        if (GameManager.instance.playerFactionObject.GetComponent<Faction>().treasury > FindDevPrice(0f, settlement))
+        if (GameManager.instance.playerFactionObject.GetComponent<Faction>().treasury >= FindDevPrice(0f, settlement))
         {
             GameManager.instance.playerFactionObject.GetComponent<Faction>().treasury -= FindDevPrice(0f, settlement);
             settlement.GetComponent<Settlement>().province.GetComponent<Tile>().development += 1;
+            settlement.GetComponent<Settlement>().province.GetComponent<Tile>().taxIncome += settlement.GetComponent<Settlement>().province.GetComponent<Tile>().development / 10;
+            print("Tax income in " + settlementName.text + " increased by: " + settlement.GetComponent<Settlement>().province.GetComponent<Tile>().development / 10);
             GameManager.instance.playerFactionObject.GetComponent<Faction>().UpdateOwnedTiles();
             GameManager.instance.playerFactionObject.GetComponent<Faction>().CalculateTax();
 

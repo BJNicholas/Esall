@@ -58,7 +58,6 @@ public class AI_ArmyController : MonoBehaviour
         if(collision.gameObject == ownerObject.GetComponent<AI_Faction>().chosenSettlement && ownerObject.GetComponent<AI_Faction>().arrived == false)
         {
             ownerObject.GetComponent<AI_Faction>().arrived = true;
-            print(gameObject.name + " ARRIVED ");
         }
     }
 }

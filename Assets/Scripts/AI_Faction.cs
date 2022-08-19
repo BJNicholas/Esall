@@ -58,6 +58,11 @@ public class AI_Faction : MonoBehaviour
 
     private void Update()
     {
+        if (army.transform.position == chosenSettlement.transform.localPosition)
+        {
+
+            arrived = true;
+        }
         if (GetComponent<Faction>().atWar)
         {
             if(GetComponent<Faction>().enemies.ToArray().Length == 0)
@@ -121,6 +126,7 @@ public class AI_Faction : MonoBehaviour
             int roll = Random.Range(0, 4); // more likely to attack provinces - add attack soon
             if (roll == 0) currentTask = PossibleTasks.Muster;
             if (roll == 1) currentTask = PossibleTasks.Attack;
+            //if (roll == 2) currentTask = PossibleTasks.Negotiate;
             else currentTask = PossibleTasks.Siege;
         }
         else
@@ -312,6 +318,23 @@ public class AI_Faction : MonoBehaviour
 
                 otherFaction.GetComponent<Faction>().atWar = true;
                 otherFaction.GetComponent<Faction>().enemies.Add(gameObject);
+
+                if (otherFaction.GetComponent<Faction>().allies.ToArray().Length > 0)
+                {
+                    foreach(GameObject ally in otherFaction.GetComponent<Faction>().allies)
+                    {
+                        GetComponent<Faction>().enemies.Add(ally);
+                        ally.GetComponent<Faction>().atWar = true;
+                        ally.GetComponent<Faction>().enemies.Add(gameObject);
+
+                        if(ally != GameManager.instance.playerFactionObject)
+                        {
+                            ally.GetComponent<AI_Faction>().CancelCurrentTask();
+                            print(ally.name + " CANCELLED BECAUSE A WAR STARTED");
+                        }
+                    }
+                }
+
                 if(GameManager.instance.playerFactionObject != otherFaction)
                 {
                     otherFaction.GetComponent<AI_Faction>().CancelCurrentTask();
@@ -321,6 +344,15 @@ public class AI_Faction : MonoBehaviour
                 newEvent.GetComponent<Event>().title.text = "WAR";
                 newEvent.GetComponent<Event>().description.text = GetComponent<Faction>().faction.ToString() + " has declared war with " + otherFaction.GetComponent<Faction>().faction.ToString();
                 newEvent.GetComponent<Event>().dismiss.text = "So be it";
+
+                if (otherFaction.GetComponent<Faction>().allies.ToArray().Length > 0)
+                {
+                    newEvent.GetComponent<Event>().description.text += " and their allies: ";
+                    foreach (GameObject ally in otherFaction.GetComponent<Faction>().allies)
+                    {
+                        newEvent.GetComponent<Event>().description.text += ", " + ally.GetComponent<Faction>().faction.ToString();
+                    }
+                }
             }
             else
             {
@@ -350,6 +382,11 @@ public class AI_Faction : MonoBehaviour
                 {
                     if (tile.GetComponent<Tile>().ownerObject == enemy) hostileTiles.Add(tile);
                 }
+            }
+            if (hostileTiles.ToArray().Length == 0)
+            {
+                print(gameObject.name + " wont siege as they dont border any hostile tiles");
+                CancelCurrentTask();
             }
 
             //discovering if our capital is in danger
@@ -404,20 +441,90 @@ public class AI_Faction : MonoBehaviour
         int roll = Random.Range(0, GetComponent<Faction>().enemies.ToArray().Length);
         GameObject chosenArmy = GetComponent<Faction>().enemies[roll].GetComponent<Faction>().army;
         chosenSettlement = chosenArmy; //just roll with it, it doesn't matter
+
+        if (!chosenArmy.gameObject.activeInHierarchy)
+        {
+            CancelCurrentTask();
+            print(gameObject.name + " cant attack a dead guy lmao --> " + chosenArmy.name);
+        }
         //setting the army target to that settlement
         yield return new WaitUntil(() => arrived == true); // wait until arrived
         yield return new WaitForSeconds(delay);
         arrived = false;
 
+
         //task is run on collison with other army
-        chosenArmy.GetComponent<Army>().ownerObject.GetComponent<AI_Faction>().currentTask = PossibleTasks.Encounter;
-        chosenArmy.GetComponent<Army>().ownerObject.GetComponent<AI_Faction>().CancelCurrentTask();
-        chosenArmy.GetComponent<Army>().ownerObject.GetComponent<AI_Faction>().chosenSettlement = army;
-        army.GetComponent<Army>().Battle(chosenArmy);
+        if(chosenArmy != GameManager.instance.playerFactionObject.GetComponent<Faction>().army)
+        {
+            if(chosenArmy.GetComponent<Army>().ownerObject.GetComponent<AI_Faction>().currentTask == PossibleTasks.Encounter)
+            {
+                chosenArmy.GetComponent<Army>().ownerObject.GetComponent<AI_Faction>().CancelCurrentTask();
+                print(chosenArmy.name + " decided not to attack as the enemy was already in a battle");
+            }
+            chosenArmy.GetComponent<Army>().ownerObject.GetComponent<AI_Faction>().StopAllCoroutines();
+            chosenArmy.GetComponent<Army>().ownerObject.GetComponent<AI_Faction>().currentTask = PossibleTasks.Encounter;
+            chosenArmy.GetComponent<Army>().ownerObject.GetComponent<AI_Faction>().CancelCurrentTask();
+            //chosenArmy.GetComponent<Army>().ownerObject.GetComponent<AI_Faction>().chosenSettlement = army;
+            army.GetComponent<Army>().Battle(chosenArmy);
+        }
 
 
         //running the next task
         //this is an exception it is only done when the battle is complete
+    }
+
+    public IEnumerator Negotiate(float delay)
+    {
+        if (GetComponent<Faction>().atWar)
+        {
+            //choose an army to focus on
+            int roll = Random.Range(0, GetComponent<Faction>().enemies.ToArray().Length);
+            GameObject chosenArmy = GetComponent<Faction>().enemies[roll].GetComponent<Faction>().army;
+            chosenSettlement = chosenArmy; //just roll with it, it doesn't matter
+
+            if (!chosenArmy.gameObject.activeInHierarchy)
+            {
+                CancelCurrentTask();
+                print(gameObject.name + " wont peace out with a dead guy lmao --> " + chosenArmy.name);
+            }
+            //setting the army target to that settlement
+            army.GetComponent<Army>().target = chosenSettlement.transform.position;
+
+            yield return new WaitUntil(() => arrived == true); // wait until arrived
+            delay = 0;
+            yield return new WaitForSeconds(delay);
+            arrived = false;
+
+            //starting coroutine
+            StartCoroutine(ProposePeace(chosenArmy.GetComponent<Army>().ownerObject, 0));
+        }
+        else //bug fixing
+        {
+            print(gameObject.name + " NOT A WAR, NO NEED TO NEGOTIATE - DUMB DUMB");
+            CancelCurrentTask();
+        }
+    }
+    public IEnumerator ProposePeace(GameObject otherFaction, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        if (gameObject.activeInHierarchy)
+        {
+            if(otherFaction == GameManager.instance.playerFactionObject)
+            {
+                DiploHub.instance.faction = otherFaction;
+                GameObject newEvent = Instantiate(GameManager.instance.offerPrefab, GameObject.Find("UI").transform);
+                newEvent.GetComponent<Event>().title.text = "PEACE";
+                newEvent.GetComponent<Event>().description.text = GetComponent<Faction>().faction.ToString() + " wishes to end this unnecessary violence and pain, how do you respond?";
+            }
+            else
+            {
+                otherFaction.GetComponent<Faction>().enemies.Remove(gameObject);
+                gameObject.GetComponent<Faction>().enemies.Remove(otherFaction);
+                //playing next task after completion
+                GenerateNextTask();
+                taskComplete = true;
+            }
+        }
     }
 
 

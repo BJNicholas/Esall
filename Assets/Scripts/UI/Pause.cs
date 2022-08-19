@@ -29,6 +29,7 @@ public class Pause : MonoBehaviour
 
     public void MainMenu()
     {
+        Destroy(GameObject.Find("Audio Manager"));
         SceneManager.LoadScene(0);
         Time.timeScale = 1f;
     }

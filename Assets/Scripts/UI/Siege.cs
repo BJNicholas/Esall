@@ -29,6 +29,7 @@ public class Siege : MonoBehaviour
 
     public void StartSiege()
     {
+        GetComponent<AudioSource>().Play();
         army = GameManager.instance.playerFactionObject.GetComponent<Faction>().army;
         //reseting UI
         fill.fillAmount = 0;
@@ -64,6 +65,7 @@ public class Siege : MonoBehaviour
 
     public void Abandon()
     {
+        GetComponent<AudioSource>().Stop();
         StopAllCoroutines();
         gameObject.SetActive(false);
     }

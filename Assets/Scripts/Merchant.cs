@@ -48,10 +48,8 @@ public class Merchant : MonoBehaviour
         agent.SetDestination(target.position);
         stateTXT.text = currentSate.ToString();
 
-        if (treasury <= 0) print("I have no money");
         if(Vector3.Distance(target.position,transform.position) <= 0.2f)
         {
-            print(homeCity.name + " Merchant " + "AT TARGET");
             Trade(target.gameObject);
         }
     }

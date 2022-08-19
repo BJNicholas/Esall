@@ -45,7 +45,6 @@ public class Settlement : MonoBehaviour
         startingNum = Mathf.RoundToInt(startingNum);
 
         if (capital) startingNum += 1;
-        print(settlementName + startingNum);
         garrisonSize = startingNum;
         
     }

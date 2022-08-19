@@ -54,8 +54,10 @@ public class Encounter : MonoBehaviour
     public void AutoResolve()
     {
         dialogue += "Prepare to die. ";
+        GetComponent<AudioSource>().Play();
         GameManager.instance.timeSpeed = 1f;
         Time.timeScale = 1;
+        DiploHub.instance.gameObject.SetActive(false);
 
         if (!GameManager.instance.playerFactionObject.GetComponent<Faction>().enemies.Contains(otherfaction))
         {
@@ -68,14 +70,24 @@ public class Encounter : MonoBehaviour
 
     }
 
+    public void Diplomacy()
+    {
+        DiploHub.instance.gameObject.SetActive(true);
+        DiploHub.instance.faction = otherfaction;
+        DiploHub.instance.SetDecisions();
+        DiploHub.instance.SetDecisions();
+    }
+
     public void Leave()
     {
+        GetComponent<AudioSource>().Stop();
         dialogue += "Fairwell then... ";
         otherfaction.GetComponent<AI_Faction>().GenerateNextTask();
         Invoke("CloseUI", 1f);
     }
     public void CloseUI()
     {
+        GetComponent<AudioSource>().Stop();
         dialogue = ""; // clear dialogue
 
         //reset buttons 

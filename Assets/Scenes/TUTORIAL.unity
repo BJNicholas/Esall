@@ -623,6 +623,7 @@ MonoBehaviour:
   ownerObject: {fileID: 0}
   neighbouringTiles: []
   development: 2
+  taxIncome: 0
   coastal: 1
 --- !u!212 &34191010
 SpriteRenderer:
@@ -2064,7 +2065,7 @@ GameObject:
   - component: {fileID: 126037913}
   - component: {fileID: 126037914}
   m_Layer: 0
-  m_Name: TUT MAP
+  m_Name: MAP
   m_TagString: Map
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2085,6 +2086,7 @@ Transform:
   - {fileID: 1261784591}
   - {fileID: 926218737}
   - {fileID: 1856166516}
+  - {fileID: 526138585}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9393,6 +9395,88 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &526138584
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 526138585}
+  - component: {fileID: 526138586}
+  m_Layer: 0
+  m_Name: Coastline
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &526138585
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 526138584}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -1.0138414, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 126037913}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &526138586
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 526138584}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 1
+  m_Sprite: {fileID: 21300000, guid: bbe91f06c8d0e2f44a8523878457e4c4, type: 3}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 10, y: 10}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
 --- !u!1 &533628852
 GameObject:
   m_ObjectHideFlags: 0
@@ -12123,6 +12207,7 @@ MonoBehaviour:
   ownerObject: {fileID: 0}
   neighbouringTiles: []
   development: 6
+  taxIncome: 0
   coastal: 1
 --- !u!212 &746295967
 SpriteRenderer:
@@ -15034,6 +15119,7 @@ MonoBehaviour:
   ownerObject: {fileID: 0}
   neighbouringTiles: []
   development: 5
+  taxIncome: 0
   coastal: 1
 --- !u!212 &864884832
 SpriteRenderer:
@@ -18343,6 +18429,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a3939e78baad81e4b967ae771b5b3d9b, type: 2}
   - {fileID: 11400000, guid: 78609e1eb3809f245b0967456152cf3b, type: 2}
   eventPrefab: {fileID: 6314514229048610394, guid: 50e94ec88c670374cbe26dd279391e09, type: 3}
+  offerPrefab: {fileID: 6314514229048610394, guid: afa609d8dfaa8f4418e476f3b9b3b393, type: 3}
   pauseMenu: {fileID: 13540490}
   playerFaction: 0
   playerFactionObject: {fileID: 0}
@@ -24089,6 +24176,7 @@ MonoBehaviour:
   ownerObject: {fileID: 0}
   neighbouringTiles: []
   development: 2
+  taxIncome: 0
   coastal: 1
 --- !u!212 &1347157159
 SpriteRenderer:
@@ -26215,6 +26303,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   faction: {fileID: 0}
+  decisions: []
   factionName: {fileID: 1732422258}
   flag: {fileID: 1338416359}
 --- !u!1 &1474915691
@@ -28684,6 +28773,7 @@ MonoBehaviour:
   ownerObject: {fileID: 0}
   neighbouringTiles: []
   development: 5
+  taxIncome: 0
   coastal: 1
 --- !u!212 &1571412955
 SpriteRenderer:
@@ -29106,7 +29196,8 @@ MonoBehaviour:
   taxIncome: 0
   expenses: 0
   atWar: 0
-  allies: []
+  allies:
+  - {fileID: 1631928770}
   enemies: []
 --- !u!1 &1593961891
 GameObject:
@@ -29806,7 +29897,8 @@ MonoBehaviour:
   taxIncome: 0
   expenses: 0
   atWar: 0
-  allies: []
+  allies:
+  - {fileID: 1593791697}
   enemies: []
 --- !u!1 &1632820992
 GameObject:
@@ -35577,6 +35669,7 @@ MonoBehaviour:
   ownerObject: {fileID: 0}
   neighbouringTiles: []
   development: 1
+  taxIncome: 0
   coastal: 1
 --- !u!212 &1952452336
 SpriteRenderer:
