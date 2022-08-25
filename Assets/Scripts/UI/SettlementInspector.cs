@@ -10,7 +10,7 @@ public class SettlementInspector : MonoBehaviour
     [Header("UI setup")]
     public Text settlementName, factionName;
     public Image flag;
-    public Text development, garrison, merchants;
+    public Text development, garrison, merchants, culture, income;
     [Header("Sub Panels")]
     public GameObject foreign;
     public GameObject enemy;
@@ -78,6 +78,16 @@ public class SettlementInspector : MonoBehaviour
         development.text = settlement.GetComponent<Settlement>().province.GetComponent<Tile>().development.ToString();
         merchants.text = settlement.GetComponent<Settlement>().merchants.ToArray().Length.ToString();
         garrison.text = settlement.GetComponent<Settlement>().garrisonSize.ToString();
+        culture.text = settlement.GetComponent<Settlement>().province.GetComponent<Tile>().culture.ToString();
+        if(culture.text == settlement.GetComponent<Settlement>().province.GetComponent<Tile>().ownerObject.GetComponent<Faction>().culture.ToString())
+        {
+            culture.color = Color.green;
+        }
+        else
+        {
+            culture.color = Color.red;
+        }
+        income.text = settlement.GetComponent<Settlement>().province.GetComponent<Tile>().taxIncome.ToString();
 
         SetCorrectSettlementType();
     }

@@ -9,6 +9,7 @@ public class Faction : MonoBehaviour
     [Header("Setup")]
     public int id;
     public FactionManager.factions faction;
+    public CultureManager.cultures culture;
     public Color32 colour;
     public Sprite flag;
     public GameObject factionTxtObject;
@@ -70,11 +71,8 @@ public class Faction : MonoBehaviour
     public void UpdateOwnedTiles()
     {
         development = 0;
-        //colouring tiles
         foreach (GameObject tile in ownedTiles)
         {
-            tile.GetComponent<SpriteRenderer>().color = colour;
-
             //adding to the total dev of the faction
             development += tile.GetComponent<Tile>().development;
         }

@@ -16,5 +16,5 @@ MonoBehaviour:
   name: Iron
   type: 0
   description: The hardened metal that stays our foes
-  icon: {fileID: 21300000, guid: 092b5f215ba2a2242beb76874e1461a2, type: 3}
+  icon: {fileID: 21300000, guid: 35ed1a5051ff6a441bf3c23902a65ccf, type: 3}
   baseValue: 0.8

@@ -6,6 +6,7 @@ public class Tile : MonoBehaviour
 {
     [HideInInspector] public int id;
     public FactionManager.factions owner;
+    public CultureManager.cultures culture;
     public GameObject settlement;
     public GameObject ownerObject;
     public List<GameObject> neighbouringTiles;

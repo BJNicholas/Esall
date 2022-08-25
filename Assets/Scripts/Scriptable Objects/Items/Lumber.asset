@@ -16,5 +16,5 @@ MonoBehaviour:
   name: Lumber
   type: 0
   description: The building blocks to our homes
-  icon: {fileID: 21300000, guid: dd4afd379a0863a4fb492a5e11dd2b6d, type: 3}
+  icon: {fileID: 21300000, guid: 4a6d8976f47d9114a971d3a382949c47, type: 3}
   baseValue: 0.4

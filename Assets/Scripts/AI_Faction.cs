@@ -37,7 +37,7 @@ public class AI_Faction : MonoBehaviour
     public float processingSpeed = 30;[Tooltip("time in seconds it takes for the AI to actually perform the task")]
     public GameObject army;
 
-    
+    public GameObject oldSettlement;
     public GameObject chosenSettlement;
     public bool arrived = false;
     public bool taskComplete = true;
@@ -58,10 +58,11 @@ public class AI_Faction : MonoBehaviour
 
     private void Update()
     {
-        if (army.transform.position == chosenSettlement.transform.localPosition)
+        //print(gameObject.name + oldSettlement + " object");
+        if (oldSettlement == chosenSettlement)
         {
-
             arrived = true;
+            print(gameObject.name + " HAS CHOSEN THEIR CURRENT SETTLEMENT");
         }
         if (GetComponent<Faction>().atWar)
         {
@@ -80,7 +81,7 @@ public class AI_Faction : MonoBehaviour
             {
                 print(gameObject.name + " Looking for location to travel to");
                 //this is a debug but it works
-                chosenSettlement = army;
+                //chosenSettlement = army;
                 taskComplete = true;
                 CancelCurrentTask();
             }
@@ -120,7 +121,6 @@ public class AI_Faction : MonoBehaviour
     public void GenerateNextTask()
     {
         taskComplete = true;
-        chosenSettlement = army;
         if (GetComponent<Faction>().atWar)
         {
             int roll = Random.Range(0, 4); // more likely to attack provinces - add attack soon
@@ -161,16 +161,11 @@ public class AI_Faction : MonoBehaviour
 
     public void RunTask(string taskName, float delay)
     {
+        oldSettlement = chosenSettlement;
         arrived = false;
-        GameObject oldSettlement = chosenSettlement;
+
         print(GetComponent<Faction>().faction.ToString() + " Running " + taskName);
         StartCoroutine(taskName, delay);
-
-        if(oldSettlement == chosenSettlement)
-        {
-            arrived = true;
-            print(gameObject.name + " HAS CHOSEN THEIR CURRENT SETTLEMENT");
-        }
     }
 
     public IEnumerator Develop(float delay)
@@ -183,7 +178,7 @@ public class AI_Faction : MonoBehaviour
 
         yield return new WaitUntil(() => arrived == true); // wait until arrived
         yield return new WaitForSeconds(delay);
-        arrived = false;
+
 
         //invoking the change 
         chosenSettlement.GetComponent<Settlement>().province.GetComponent<Tile>().Invoke("IncreaseDevelopment", 0);
@@ -200,7 +195,7 @@ public class AI_Faction : MonoBehaviour
 
         yield return new WaitUntil(() => arrived == true); // wait until arrived
         yield return new WaitForSeconds(delay);
-        arrived = false;
+
 
         //invoking the change after prolonged time;
         //no change on patrol
@@ -218,7 +213,7 @@ public class AI_Faction : MonoBehaviour
 
         yield return new WaitUntil(() => arrived == true); // wait until arrived
         yield return new WaitForSeconds(delay);
-        arrived = false;
+
 
         //invoking the change after prolonged time; Long one this time aye, this one is a coroutine
         chosenSettlement.GetComponent<Settlement>().StartCoroutine(chosenSettlement.GetComponent<Settlement>().Muster(army));
@@ -233,7 +228,7 @@ public class AI_Faction : MonoBehaviour
 
         yield return new WaitUntil(() => arrived == true); // wait until arrived
         yield return new WaitForSeconds(delay);
-        arrived = false;
+
 
         //invoking the change after prolonged time; Long one this time aye, this one is a coroutine
         chosenSettlement.GetComponent<Settlement>().StartCoroutine(chosenSettlement.GetComponent<Settlement>().Stockpile(army));
@@ -248,7 +243,7 @@ public class AI_Faction : MonoBehaviour
 
         yield return new WaitUntil(() => arrived == true); // wait until arrived
         yield return new WaitForSeconds(delay);
-        arrived = false;
+
 
         //invoking the change 
         chosenSettlement.GetComponent<Settlement>().StartCoroutine(chosenSettlement.GetComponent<Settlement>().Invest(gameObject));
@@ -267,7 +262,6 @@ public class AI_Faction : MonoBehaviour
 
             yield return new WaitUntil(() => arrived == true); // wait until arrived
             yield return new WaitForSeconds(delay);
-            arrived = false;
 
             List<GameObject> neighbours = new List<GameObject>();
             //get faction to focus on
@@ -422,7 +416,7 @@ public class AI_Faction : MonoBehaviour
             yield return new WaitUntil(() => arrived == true); // wait until arrived
             print("Arrived at Enemy Settlement");
             yield return new WaitForSeconds(processingSpeed);
-            arrived = false;
+
 
             //invoking the change after prolonged time; Long one this time aye, this one is a coroutine
             chosenSettlement.GetComponent<Settlement>().province.GetComponent<Tile>().StartCoroutine(chosenSettlement.GetComponent<Settlement>().province.GetComponent<Tile>().ChangeOwner(gameObject, 0));
@@ -450,7 +444,7 @@ public class AI_Faction : MonoBehaviour
         //setting the army target to that settlement
         yield return new WaitUntil(() => arrived == true); // wait until arrived
         yield return new WaitForSeconds(delay);
-        arrived = false;
+
 
 
         //task is run on collison with other army
@@ -493,7 +487,7 @@ public class AI_Faction : MonoBehaviour
             yield return new WaitUntil(() => arrived == true); // wait until arrived
             delay = 0;
             yield return new WaitForSeconds(delay);
-            arrived = false;
+
 
             //starting coroutine
             StartCoroutine(ProposePeace(chosenArmy.GetComponent<Army>().ownerObject, 0));

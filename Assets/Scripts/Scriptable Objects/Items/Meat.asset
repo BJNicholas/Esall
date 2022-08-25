@@ -16,5 +16,5 @@ MonoBehaviour:
   name: Meat
   type: 1
   description: The life-blood of men
-  icon: {fileID: 21300000, guid: e80ddf8410130014dab81616a156aa9f, type: 3}
+  icon: {fileID: 21300000, guid: 3378d65347f57854a9aac34258dccefe, type: 3}
   baseValue: 0.5

@@ -16,5 +16,5 @@ MonoBehaviour:
   name: Gem Stones
   type: 0
   description: For the wealthy to display said wealth
-  icon: {fileID: 21300000, guid: 3b82b144035c8cd4cad375103deec21c, type: 3}
+  icon: {fileID: 21300000, guid: cd061823550a63248abff3765b21abc7, type: 3}
   baseValue: 2
