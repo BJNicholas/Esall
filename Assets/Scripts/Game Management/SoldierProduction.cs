@@ -18,7 +18,7 @@ public class SoldierProduction : MonoBehaviour
         foreach (GameObject tile in producingTiles)
         {
             int temp = baseProductionRate;
-            while (temp > 0)
+            while (temp > 0 && tile.GetComponent<Tile>().settlement.GetComponent<Settlement>().availableSoldiers.ToArray().Length <= tile.GetComponent<Tile>().manpowerCap)
             {
                 tile.GetComponent<Tile>().settlement.GetComponent<Settlement>().availableSoldiers.Add(type);
                 temp -= 1;

@@ -10,12 +10,14 @@ public class MapModes : MonoBehaviour
         Political,
         Terrain,
         Development,
-        Cultural
+        Cultural,
+        Order
     }
     public modes currentMode;
 
     [Header("Gradients")]
     public Gradient developmentGradient;
+    public Gradient orderGradient;
 
     private void Awake()
     {
@@ -32,6 +34,12 @@ public class MapModes : MonoBehaviour
     private void Update()
     {
         RenderMap(currentMode.ToString());
+
+        if (Input.GetKeyDown(KeyCode.Alpha1)) PolButton();
+        else if (Input.GetKeyDown(KeyCode.Alpha2)) DevButton();
+        else if (Input.GetKeyDown(KeyCode.Alpha3)) TerButton();
+        else if (Input.GetKeyDown(KeyCode.Alpha4)) CulButton();
+        else if (Input.GetKeyDown(KeyCode.Alpha5)) OrdButton();
     }
 
     public IEnumerator Political()
@@ -83,6 +91,17 @@ public class MapModes : MonoBehaviour
             }
         }
     }
+    public IEnumerator Order()
+    {
+        yield return new WaitForEndOfFrame();
+        foreach (GameObject tile in GameManager.instance.provinces)
+        {
+            float point = tile.GetComponent<Tile>().publicOrder / 100;
+            tile.GetComponent<SpriteRenderer>().color = orderGradient.Evaluate(point);
+            Color32 tileColour = tile.GetComponent<SpriteRenderer>().color;
+            tile.GetComponent<SpriteRenderer>().color = new Color32(tileColour.r, tileColour.g, tileColour.b, 150);
+        }
+    }
 
 
 
@@ -102,5 +121,9 @@ public class MapModes : MonoBehaviour
     public void CulButton()
     {
         currentMode = modes.Cultural;
+    }
+    public void OrdButton()
+    {
+        currentMode = modes.Order;
     }
 }

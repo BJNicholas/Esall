@@ -19,6 +19,7 @@ public class AI_Faction : MonoBehaviour
         //civil
         Develop,
         Stockpile,
+        Trade,
         //both
         Invest,
         Patrol,
@@ -133,28 +134,32 @@ public class AI_Faction : MonoBehaviour
         {
             if (personality == leaderType.Administrator)
             {
-                int roll = Random.Range(0, 5); // possible choices, increase number if more are added
+                int roll = Random.Range(0, 6); // possible choices, increase number if more are added
                 if (roll == 0) currentTask = PossibleTasks.Develop;
                 else if (roll == 1) currentTask = PossibleTasks.Stockpile;
                 else if (roll == 2) currentTask = PossibleTasks.Patrol;
                 else if (roll == 3) currentTask = PossibleTasks.Muster;
                 else if (roll == 4) currentTask = PossibleTasks.Invest;
+                else if (roll == 5) currentTask = PossibleTasks.Trade;
             }
             else if (personality == leaderType.Warmonger)
             {
-                int roll = Random.Range(0, 3); // possible choices, increase number if more are added
+                int roll = Random.Range(0, 5); // possible choices, increase number if more are added
                 if (roll == 0) currentTask = PossibleTasks.Muster;
                 else if (roll == 1) currentTask = PossibleTasks.Strategise;
                 else if (roll == 2) currentTask = PossibleTasks.Patrol;
+                else if (roll == 3) currentTask = PossibleTasks.Develop;
+                else if (roll == 4) currentTask = PossibleTasks.Invest;
             }
             else if (personality == leaderType.Diplomat)
             {
-                int roll = Random.Range(0, 5); // possible choices, increase number if more are added
+                int roll = Random.Range(0, 6); // possible choices, increase number if more are added
                 if (roll == 0) currentTask = PossibleTasks.Develop;
                 else if (roll == 1) currentTask = PossibleTasks.Stockpile;
                 else if (roll == 2) currentTask = PossibleTasks.Patrol;
                 else if (roll == 3) currentTask = PossibleTasks.Muster;
                 else if (roll == 4) currentTask = PossibleTasks.Invest;
+                else if (roll == 5) currentTask = PossibleTasks.Trade;
             }
         }
     }
@@ -185,6 +190,37 @@ public class AI_Faction : MonoBehaviour
 
         GenerateNextTask();
     }
+    public IEnumerator Trade(float delay)
+    {
+        //choose a tile to focus on
+        int roll = Random.Range(0, GetComponent<Faction>().ownedTiles.ToArray().Length);
+        chosenSettlement = GetComponent<Faction>().ownedTiles[roll].GetComponent<Tile>().settlement;
+        //setting the army target to that settlement
+        army.GetComponent<Army>().target = chosenSettlement.transform.position;
+
+        yield return new WaitUntil(() => arrived == true); // wait until arrived
+        yield return new WaitForSeconds(delay);
+
+
+        //invoking the change 
+        if(army.GetComponent<Army>().storedItems.ToArray().Length > 0)
+        {
+            for (int i = 0; i < army.GetComponent<Army>().storedItems.ToArray().Length; i++)
+            {
+                chosenSettlement.GetComponent<Settlement>().storedItems.Add(army.GetComponent<Army>().storedItems[i]);
+                gameObject.GetComponent<Faction>().treasury += army.GetComponent<Army>().storedItems[i].baseValue;
+                print(gameObject.name + " SOLD: " + army.GetComponent<Army>().storedItems[i] + " FOR: $" + army.GetComponent<Army>().storedItems[i].baseValue);
+            }
+            army.GetComponent<Army>().storedItems.Clear();
+            GenerateNextTask();
+        }
+        else
+        {
+            GenerateNextTask();
+            print(gameObject.name + " has no items to trade");
+        }
+        
+    }
     public IEnumerator Patrol(float delay)
     {
         //choose a tile to focus on
@@ -205,18 +241,27 @@ public class AI_Faction : MonoBehaviour
     }
     public IEnumerator Muster(float delay)
     {
-        //choose a tile to focus on
-        int roll = Random.Range(0, GetComponent<Faction>().ownedTiles.ToArray().Length);
-        chosenSettlement = GetComponent<Faction>().ownedTiles[roll].GetComponent<Tile>().settlement;
-        //setting the army target to that settlement
-        army.GetComponent<Army>().target = chosenSettlement.transform.position;
+        if(gameObject.GetComponent<Faction>().taxIncome >= gameObject.GetComponent<Faction>().expenses)
+        {
+            //choose a tile to focus on
+            int roll = Random.Range(0, GetComponent<Faction>().ownedTiles.ToArray().Length);
+            chosenSettlement = GetComponent<Faction>().ownedTiles[roll].GetComponent<Tile>().settlement;
+            //setting the army target to that settlement
+            army.GetComponent<Army>().target = chosenSettlement.transform.position;
 
-        yield return new WaitUntil(() => arrived == true); // wait until arrived
-        yield return new WaitForSeconds(delay);
+            yield return new WaitUntil(() => arrived == true); // wait until arrived
+            yield return new WaitForSeconds(delay);
 
 
-        //invoking the change after prolonged time; Long one this time aye, this one is a coroutine
-        chosenSettlement.GetComponent<Settlement>().StartCoroutine(chosenSettlement.GetComponent<Settlement>().Muster(army));
+            //invoking the change after prolonged time; Long one this time aye, this one is a coroutine
+            chosenSettlement.GetComponent<Settlement>().StartCoroutine(chosenSettlement.GetComponent<Settlement>().Muster(army));
+        }
+        else
+        {
+            print(gameObject.name + " can not afford to waste money on more soldiers");
+            GenerateNextTask();
+        }
+        
     }
     public IEnumerator Stockpile(float delay)
     {

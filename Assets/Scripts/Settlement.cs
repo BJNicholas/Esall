@@ -21,6 +21,7 @@ public class Settlement : MonoBehaviour
     public List<GameObject> merchants;
     public List<Item> storedItems;
     public List<Soldier> availableSoldiers;
+    public List<Item> producedItems;
     [Header("Military")]
     public float garrisonSize;
 

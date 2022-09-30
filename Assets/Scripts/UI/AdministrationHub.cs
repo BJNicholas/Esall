@@ -11,7 +11,7 @@ public class AdministrationHub : MonoBehaviour
 
     [Header("UI Setup")]
     public Text settlementName;
-    public Text development, garrison, merchants, culture, income;
+    public Text development, garrison, merchants, culture, publicOrder, income;
     public Text devPRICE, merchantPRICE, garrisonPRICE;
 
     private void Awake()
@@ -36,6 +36,7 @@ public class AdministrationHub : MonoBehaviour
         {
             culture.color = Color.red;
         }
+        publicOrder.text = settlement.GetComponent<Settlement>().province.GetComponent<Tile>().publicOrder.ToString();
         income.text = settlement.GetComponent<Settlement>().province.GetComponent<Tile>().taxIncome.ToString();
 
         //prices
@@ -82,6 +83,7 @@ public class AdministrationHub : MonoBehaviour
         //can afford
         if (GameManager.instance.playerFactionObject.GetComponent<Faction>().treasury >= FindDevPrice(0f, settlement))
         {
+            settlement.GetComponent<Settlement>().province.GetComponent<Tile>().manpowerCap += 1.5f;
             GameManager.instance.playerFactionObject.GetComponent<Faction>().treasury -= FindDevPrice(0f, settlement);
             settlement.GetComponent<Settlement>().province.GetComponent<Tile>().development += 1;
             settlement.GetComponent<Settlement>().province.GetComponent<Tile>().taxIncome += settlement.GetComponent<Settlement>().province.GetComponent<Tile>().development / 10;

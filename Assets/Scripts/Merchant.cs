@@ -24,8 +24,8 @@ public class Merchant : MonoBehaviour
     public Transform target;
     private NavMeshAgent agent;
     [Header("Trading")]
-    public float treasury = 10;
-    public float oldTreasuryValue;
+    public float sellValue;
+    public float purchasePrice;
     public List<Item> storedItems;
 
     private void Start()
@@ -36,8 +36,8 @@ public class Merchant : MonoBehaviour
 
         UpdateOwner(owner);
         currentSate = possibleStates. Idle;
-        oldTreasuryValue = treasury;
-        BuyAndSell(homeCity);
+        purchasePrice = 0;
+        BuyAndSell(homeCity, true);
         Idle();
 
         transform.rotation = Quaternion.identity; // fixes rotation bug that makes armies/merhcants invisible
@@ -48,7 +48,7 @@ public class Merchant : MonoBehaviour
         agent.SetDestination(target.position);
         stateTXT.text = currentSate.ToString();
 
-        if(Vector3.Distance(target.position,transform.position) <= 0.2f)
+        if(Vector3.Distance(target.position,transform.position) <= 0.5f)
         {
             Trade(target.gameObject);
         }
@@ -67,14 +67,6 @@ public class Merchant : MonoBehaviour
             }
         }
     }
-
-    //private void OnTriggerEnter2D(Collider2D collision)
-    //{
-    //    if(collision.gameObject.transform == target)
-    //    {
-    //        Trade(collision.gameObject);
-    //    }
-    //}
 
     void Idle()
     {
@@ -96,13 +88,13 @@ public class Merchant : MonoBehaviour
             currentSate = possibleStates.Trading;
 
             //hand over goods
-            BuyAndSell(settlement);
+            BuyAndSell(settlement, false);
             Invoke("ReturnHome", 2f);
         }
         else if (currentSate == possibleStates.Returning)
         {
             currentSate = possibleStates.Trading;
-            BuyAndSell(settlement);
+            BuyAndSell(settlement, true);
             Invoke("Idle", 2f);
         }
 
@@ -113,56 +105,74 @@ public class Merchant : MonoBehaviour
         currentSate = possibleStates.Returning;
     }
 
-    void BuyAndSell(GameObject settlement)
+    void BuyAndSell(GameObject settlement, bool home)
     {
-        //selling
-        float saleProfit = 0;
-        foreach(Item item in storedItems)//items stored in the merchant's inventory
+        if (!home)
         {
-            float numAlreadyStored = 0;
-            foreach(Item storedItem in settlement.GetComponent<Settlement>().storedItems)
+            //selling
+            sellValue = 0;
+            float saleProfit = 0;
+            foreach (Item item in storedItems)//items stored in the merchant's inventory
             {
-                if (storedItem == item) numAlreadyStored += 1;
+                float numAlreadyStored = 0;
+                foreach (Item storedItem in settlement.GetComponent<Settlement>().storedItems)
+                {
+                    if (storedItem == item) numAlreadyStored += 1;
+                }
+                saleProfit += item.baseValue;
+                settlement.GetComponent<Settlement>().storedItems.Add(item);
+                //print("sold " + item.name + " for a profit of: " + (localPrice - item.baseValue).ToString());
             }
-            float localPrice = item.baseValue;
-            localPrice += 0.1f * (10 - numAlreadyStored);
-            if (localPrice <= item.baseValue) localPrice = item.baseValue;
-            saleProfit += item.baseValue + (localPrice - item.baseValue);
-            settlement.GetComponent<Settlement>().storedItems.Add(item);
-            //print("sold " + item.name + " for a profit of: " + (localPrice - item.baseValue).ToString());
-        }
-        treasury += saleProfit;
-        //print("after sale, I have " + treasury.ToString() + " due to a profit of " + (saleProfit).ToString());
-        PayTax();
-        storedItems.Clear();
-        //buying
-        List<Item> desiredItems = new List<Item>();
-        desiredItems.Add(settlement.GetComponent<Settlement>().storedItems[0]);
-        foreach(Item item in settlement.GetComponent<Settlement>().storedItems)//items stored in the settlements market
-        {
-            if (desiredItems.Contains(item));
-            else desiredItems.Add(item);
-        }
-        //print("DESIRES: " + desiredItems.ToArray().Length + " Items");
+            sellValue += (saleProfit + saleProfit / 2);
+            print(sellValue + " and bought for " + purchasePrice);
+            storedItems.Clear();
 
-        if(desiredItems.ToArray().Length > 0)
+            PayTax();
+        }
+        else
         {
-            foreach (Item item in desiredItems) // purchasing items
+            sellValue = 0;
+        }
+
+        if (home)
+        {
+            //buying
+            purchasePrice = 0;
+            List<Item> desiredItems = new List<Item>();
+            desiredItems.Add(settlement.GetComponent<Settlement>().storedItems[0]);
+            foreach (Item item in settlement.GetComponent<Settlement>().storedItems)//items stored in the settlements market
             {
-                if (treasury >= item.baseValue)
+                if (settlement.GetComponent<Settlement>().producedItems.Contains(item))
+                {
+                    if (!desiredItems.Contains(item))
+                    {
+                        desiredItems.Add(item);
+                    }
+                }
+            }
+            //print("DESIRES: " + desiredItems.ToArray().Length + " Items");
+
+            if (desiredItems.ToArray().Length > 0)
+            {
+                foreach (Item item in desiredItems) // purchasing items
                 {
                     storedItems.Add(item);
                     settlement.GetComponent<Settlement>().storedItems.Remove(item);
 
-                    treasury -= item.baseValue;
+                    purchasePrice += item.baseValue;
                 }
             }
+            //print("after purchase, I have " + treasury.ToString() + " due to a cost of " + (oldTreasuryValue - treasury).ToString());
+            ownerObject.GetComponent<Faction>().treasury += (purchasePrice);
+            //print(owner.ToString() + " has collected: $" + (purchasePrice).ToString() + " from the purchase of Items in " + homeCity.ToString());
         }
-        //print("after purchase, I have " + treasury.ToString() + " due to a cost of " + (oldTreasuryValue - treasury).ToString());
-
+        else
+        {
+            purchasePrice = 0;
+        }
 
         //update the trading hub if it is open by player
-        if(TradingHub.instance.gameObject.activeInHierarchy && TradingHub.instance.settlement == settlement)
+        if (TradingHub.instance.gameObject.activeInHierarchy && TradingHub.instance.settlement == settlement)
         {
             TradingHub.instance.LiveUpdateListings();
         }
@@ -170,14 +180,12 @@ public class Merchant : MonoBehaviour
 
     void PayTax()
     {
-        float profit = treasury - oldTreasuryValue;
+        float profit = sellValue - purchasePrice;
         if(profit > 0)
         {
             ownerObject.GetComponent<Faction>().treasury += (profit * 0.5f); // maybe have an ajustable tax rate later
-            treasury -= (profit * 0.5f);
         }
-
-        oldTreasuryValue = treasury;
+        //print(owner.ToString() + " has collected: $" + (profit * 0.5f).ToString() + " in taxes from a merchant of " + homeCity.ToString());
     }
 
 

@@ -13,6 +13,8 @@ public class Tile : MonoBehaviour
 
     [Header("Tile Stats")]
     [Range(0,10)]public float development;
+    [Range(0,100)]public float publicOrder;
+    public float manpowerCap;
     public float taxIncome;
     public bool coastal;
 
@@ -22,6 +24,7 @@ public class Tile : MonoBehaviour
         for (float i = 0; i <= development; i++)
         {
             taxIncome += i / 10;
+            manpowerCap += 1.5f;
         }
 
         foreach(GameObject faction in FactionManager.instance.factionObjects)
@@ -31,6 +34,23 @@ public class Tile : MonoBehaviour
                 ownerObject = faction;
                 ownerObject.GetComponent<Faction>().ownedTiles.Add(gameObject);
             }
+        }
+
+        //calculate the starting public order
+        GenerateStartingOrder();
+
+    }
+
+    public void GenerateStartingOrder()
+    {
+        publicOrder = Random.Range(30, 80); // base value
+        if (culture != ownerObject.GetComponent<Faction>().culture) publicOrder -= 10;
+
+        publicOrder += development;
+
+        if (settlement == ownerObject.GetComponent<Faction>().capitalCity)
+        {
+            publicOrder = 100;
         }
     }
 
@@ -42,6 +62,7 @@ public class Tile : MonoBehaviour
             //develop
             ownerObject.GetComponent<Faction>().treasury -= price;
             development += 1;
+            manpowerCap += 1.5f;
             taxIncome += development / 10;
             ownerObject.GetComponent<Faction>().UpdateOwnedTiles();
         }

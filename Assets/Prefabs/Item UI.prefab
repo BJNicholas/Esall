@@ -211,6 +211,7 @@ MonoBehaviour:
   item: {fileID: 0}
   amountRemaining: 0
   price: 0
+  soundEffect: {fileID: 8300000, guid: db0f355248b3e274e9f5066f3411bec5, type: 3}
   icon: {fileID: 600790448973208704}
   itemName: {fileID: 600790449124197599}
   priceTXT: {fileID: 600790449144139210}

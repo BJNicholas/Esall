@@ -28,6 +28,14 @@ public class TradingHub : MonoBehaviour
         LiveUpdateListings();
     }
 
+    private void Update()
+    {
+        foreach(GameObject item in listings)
+        {
+            print(item.name + " listing is selling: " + item.GetComponent<ItemUI>().item);
+        }
+    }
+
 
     public void LiveUpdateListings()
     {
@@ -38,6 +46,7 @@ public class TradingHub : MonoBehaviour
         }
         listings.Clear();
         //re run for new
+        //settlement.GetComponent<Settlement>().storedItems.Sort();
         GenerateListings();
 
         foreach (GameObject listing in listings)
@@ -50,12 +59,12 @@ public class TradingHub : MonoBehaviour
 
     public void GenerateListings()
     {
-        foreach(Item item in settlement.GetComponent<Settlement>().storedItems)
+        foreach (Item item in settlement.GetComponent<Settlement>().storedItems)
         {
             if(listings.ToArray().Length > 0)
             {
                 bool foundListing = false;
-                foreach (GameObject listing in listings) // finding out if item already hasa listing
+                foreach (GameObject listing in listings) // finding out if item already has a listing
                 {
                     if(item == listing.GetComponent<ItemUI>().item)
                     {

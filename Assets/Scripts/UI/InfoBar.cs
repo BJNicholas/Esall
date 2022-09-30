@@ -10,13 +10,17 @@ public class InfoBar : MonoBehaviour
     public Text factionNameTXT;
     [Header("Economy")]
     public Text treasuryTXT;
-    public Text incomeTXT;
-    public Text expensesTXT;
+    public Text monthlyChangeTXT;
 
 
     [Header("Time/Date Info")]
     public Text hour;
     public Text day, month, year;
+
+    private void Awake()
+    {
+        gameObject.transform.parent.gameObject.SetActive(false);
+    }
 
     private void Start()
     {
@@ -27,8 +31,7 @@ public class InfoBar : MonoBehaviour
     private void Update()
     {
         treasuryTXT.text = GameManager.instance.playerFactionObject.GetComponent<Faction>().treasury.ToString("0.0");
-        incomeTXT.text = GameManager.instance.playerFactionObject.GetComponent<Faction>().taxIncome.ToString("0.0");
-        expensesTXT.text = GameManager.instance.playerFactionObject.GetComponent<Faction>().expenses.ToString("0.0");
+        monthlyChangeTXT.text = (GameManager.instance.playerFactionObject.GetComponent<Faction>().taxIncome - GameManager.instance.playerFactionObject.GetComponent<Faction>().expenses).ToString("0.0");
         hour.text = Mathf.Round(GameManager.instance.hour).ToString();
         day.text = GameManager.instance.date.x.ToString();
         month.text = GameManager.instance.date.y.ToString();
@@ -39,5 +42,12 @@ public class InfoBar : MonoBehaviour
     public void ChangeTimeSpeed(float newSpeed)
     {
         GameManager.instance.timeSpeed = newSpeed;
+    }
+
+    public void ToggleTab(GameObject tab)
+    {
+        if (tab.activeInHierarchy) tab.SetActive(false);
+        else tab.SetActive(true);
+        tab.GetComponent<AudioSource>().Play();
     }
 }

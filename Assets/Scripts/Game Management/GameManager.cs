@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public List<GameObject> merchants;
     public List<GameObject> settlements;
     public List<GameObject> resources;
+    public List<GameObject> manpowerResources;
 
     [Header("Prefabs")]
     public GameObject merchantPrefab;
@@ -58,6 +59,7 @@ public class GameManager : MonoBehaviour
         {
             hour = 0;
             date.x += 1;
+            EconomyTab.instance.UpdateGraph(playerFactionObject.GetComponent<Faction>().treasury);
         }
         if(date.x >= 32) //end of Month
         {
@@ -73,6 +75,7 @@ public class GameManager : MonoBehaviour
             }
 
             foreach (GameObject resource in resources) resource.GetComponent<ProductionManager>().Produce();
+            foreach (GameObject resource in manpowerResources) resource.GetComponent<SoldierProduction>().Produce();
 
         }
         if (date.y >= 13) //end of Year
@@ -223,8 +226,8 @@ public class GameManager : MonoBehaviour
 
             //easy conversion
 
-            merchant.GetComponent<Merchant>().treasury = data.treasury;
-            merchant.GetComponent<Merchant>().oldTreasuryValue = data.oldValue;
+            merchant.GetComponent<Merchant>().sellValue = data.sellValue;
+            merchant.GetComponent<Merchant>().purchasePrice = data.purchasePrice;
 
             //complex conversion
 

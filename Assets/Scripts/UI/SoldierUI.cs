@@ -8,6 +8,7 @@ public class SoldierUI : MonoBehaviour
     public Soldier soldier;
     public int amountRemaining = 0;
     public float price;
+    public AudioClip soundEffect;
     [Header("UI Setup")]
     public Image icon;
     public Text itemName, priceTXT, cpmTXT, amountRemainingTXT;
@@ -34,6 +35,8 @@ public class SoldierUI : MonoBehaviour
         //can afford
         if (GameManager.instance.playerFactionObject.GetComponent<Faction>().treasury >= price && amountRemaining > 0)
         {
+            SettlementInspector.instance.GetComponent<AudioSource>().clip = soundEffect;
+            SettlementInspector.instance.GetComponent<AudioSource>().Play();
             Inventory.instance.army.GetComponent<Army>().soldiers.Add(soldier);
             Inventory.instance.LiveUpdateListings();
 

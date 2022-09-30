@@ -48,12 +48,13 @@ public class Inventory : MonoBehaviour
 
     public void GenerateListings()
     {
+        //army.GetComponent<Army>().storedItems.Sort();
         foreach (Item item in army.GetComponent<Army>().storedItems)
         {
             if (listings.ToArray().Length > 0)
             {
                 bool foundListing = false;
-                foreach (GameObject listing in listings) // finding out if item already hasa listing
+                foreach (GameObject listing in listings) // finding out if item already has a listing
                 {
                     if (item == listing.GetComponent<ItemUI>().item)
                     {
@@ -85,14 +86,14 @@ public class Inventory : MonoBehaviour
 
         foreach (GameObject listing in listings)
         {
-
-            PriceCheck(listing, listing.GetComponent<ItemUI>().item);
             //positioning
             listing.transform.position += new Vector3(0, -40 * listings.IndexOf(listing));
             //scrollViewArea.GetComponent<RectTransform>().sizeDelta += new Vector2(0, 40);
 
             //set action
             listing.GetComponent<Button>().onClick.AddListener(listing.GetComponent<ItemUI>().Sell);
+
+            PriceCheck(listing, listing.GetComponent<ItemUI>().item);
         }
     }
 
@@ -116,6 +117,32 @@ public class Inventory : MonoBehaviour
     {
         listing.GetComponent<ItemUI>().price = item.baseValue + 0.1f * (10 - listing.GetComponent<ItemUI>().amountRemaining);
         if (listing.GetComponent<ItemUI>().price <= item.baseValue) listing.GetComponent<ItemUI>().price = item.baseValue;
+
+        //if (SettlementInspector.instance.gameObject.activeInHierarchy == false)
+        //{
+        //    listing.GetComponent<ItemUI>().price = item.baseValue + 0.1f * (10 - listing.GetComponent<ItemUI>().amountRemaining);
+        //    if (listing.GetComponent<ItemUI>().price <= item.baseValue) listing.GetComponent<ItemUI>().price = item.baseValue;
+        //}
+        //else
+        //{
+        //    if (SettlementInspector.instance.settlement.GetComponent<Settlement>().storedItems.Contains(item))
+        //    {
+        //        print("Market already contains: " + item.name);
+        //        foreach (GameObject listedItem in TradingHub.instance.listings)
+        //        {
+        //            if (listedItem.GetComponent<ItemUI>().item = item)
+        //            {
+        //                listing.GetComponent<ItemUI>().price = listedItem.GetComponent<ItemUI>().price;
+        //            }
+        //        }
+        //    }
+        //    else
+        //    {
+        //        print("Market does not contain: " + item.name);
+        //        listing.GetComponent<ItemUI>().price = item.baseValue + 0.1f * (10 - listing.GetComponent<ItemUI>().amountRemaining);
+        //        if (listing.GetComponent<ItemUI>().price <= item.baseValue) listing.GetComponent<ItemUI>().price = item.baseValue;
+        //    }
+        //}
     }
 
     public void CloseMenu()

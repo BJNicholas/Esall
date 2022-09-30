@@ -509,6 +509,8 @@ MonoBehaviour:
   ownerObject: {fileID: 0}
   neighbouringTiles: []
   development: 7
+  publicOrder: 0
+  manpowerCap: 0
   taxIncome: 0
   coastal: 1
 --- !u!60 &23208284
@@ -775,11 +777,7 @@ MonoBehaviour:
   taxIncome: 0
   expenses: 0
   atWar: 0
-  allies:
-  - {fileID: 1631928770}
-  - {fileID: 492243823}
-  - {fileID: 549654900}
-  - {fileID: 1546921307}
+  allies: []
   enemies: []
 --- !u!1 &65234198
 GameObject:
@@ -1458,6 +1456,8 @@ MonoBehaviour:
   ownerObject: {fileID: 0}
   neighbouringTiles: []
   development: 1
+  publicOrder: 0
+  manpowerCap: 0
   taxIncome: 0
   coastal: 1
 --- !u!60 &200222304
@@ -1739,6 +1739,8 @@ MonoBehaviour:
   ownerObject: {fileID: 0}
   neighbouringTiles: []
   development: 3
+  publicOrder: 0
+  manpowerCap: 0
   taxIncome: 0
   coastal: 1
 --- !u!60 &249223426
@@ -1972,7 +1974,7 @@ MonoBehaviour:
   - {fileID: 873677582}
   - {fileID: 1168830211}
   - {fileID: 1481884701}
-  baseProductionRate: 5
+  baseProductionRate: 3
 --- !u!1001 &283953011
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2219,6 +2221,8 @@ MonoBehaviour:
   ownerObject: {fileID: 0}
   neighbouringTiles: []
   development: 1
+  publicOrder: 0
+  manpowerCap: 0
   taxIncome: 0
   coastal: 1
 --- !u!60 &333679374
@@ -2518,6 +2522,8 @@ MonoBehaviour:
   ownerObject: {fileID: 0}
   neighbouringTiles: []
   development: 2
+  publicOrder: 0
+  manpowerCap: 0
   taxIncome: 0
   coastal: 1
 --- !u!60 &427286470
@@ -2767,11 +2773,7 @@ MonoBehaviour:
   taxIncome: 0
   expenses: 0
   atWar: 0
-  allies:
-  - {fileID: 1631928770}
-  - {fileID: 62466151}
-  - {fileID: 549654900}
-  - {fileID: 1546921307}
+  allies: []
   enemies: []
 --- !u!1 &517999540
 GameObject:
@@ -3115,6 +3117,8 @@ MonoBehaviour:
   ownerObject: {fileID: 0}
   neighbouringTiles: []
   development: 2
+  publicOrder: 0
+  manpowerCap: 0
   taxIncome: 0
   coastal: 1
 --- !u!60 &532028977
@@ -3347,11 +3351,7 @@ MonoBehaviour:
   taxIncome: 0
   expenses: 0
   atWar: 0
-  allies:
-  - {fileID: 1631928770}
-  - {fileID: 62466151}
-  - {fileID: 492243823}
-  - {fileID: 1546921307}
+  allies: []
   enemies: []
 --- !u!1 &552974319
 GameObject:
@@ -3557,7 +3557,7 @@ MonoBehaviour:
   - {fileID: 810837704}
   - {fileID: 1481884701}
   - {fileID: 1658144740}
-  baseProductionRate: 7
+  baseProductionRate: 5
 --- !u!1 &622861585
 GameObject:
   m_ObjectHideFlags: 0
@@ -3941,6 +3941,8 @@ MonoBehaviour:
   ownerObject: {fileID: 0}
   neighbouringTiles: []
   development: 1
+  publicOrder: 0
+  manpowerCap: 0
   taxIncome: 0
   coastal: 0
 --- !u!60 &680387823
@@ -4235,6 +4237,8 @@ MonoBehaviour:
   ownerObject: {fileID: 0}
   neighbouringTiles: []
   development: 5
+  publicOrder: 0
+  manpowerCap: 0
   taxIncome: 0
   coastal: 1
 --- !u!60 &700138930
@@ -4472,6 +4476,8 @@ MonoBehaviour:
   ownerObject: {fileID: 0}
   neighbouringTiles: []
   development: 2
+  publicOrder: 0
+  manpowerCap: 0
   taxIncome: 0
   coastal: 0
 --- !u!60 &723274753
@@ -5177,6 +5183,8 @@ MonoBehaviour:
   ownerObject: {fileID: 0}
   neighbouringTiles: []
   development: 7
+  publicOrder: 0
+  manpowerCap: 0
   taxIncome: 0
   coastal: 1
 --- !u!60 &810837708
@@ -5477,6 +5485,8 @@ MonoBehaviour:
   ownerObject: {fileID: 0}
   neighbouringTiles: []
   development: 1
+  publicOrder: 0
+  manpowerCap: 0
   taxIncome: 0
   coastal: 0
 --- !u!60 &873677586
@@ -5651,7 +5661,7 @@ MonoBehaviour:
   - {fileID: 810837704}
   - {fileID: 1481884701}
   - {fileID: 1658144740}
-  baseProductionRate: 10
+  baseProductionRate: 7
 --- !u!1 &893044159 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8900545898975127988, guid: 271bcdc7b878d114a8a536c8b5bdafb0, type: 3}
@@ -6192,6 +6202,10 @@ MonoBehaviour:
   - {fileID: 1387122614}
   - {fileID: 2070659454}
   - {fileID: 1234080160}
+  manpowerResources:
+  - {fileID: 1323956105}
+  - {fileID: 536331918}
+  - {fileID: 407632095}
   merchantPrefab: {fileID: 5264912686396863402, guid: 84ea444ff225a0f47a516add120bf1c1, type: 3}
   armyPrefab: {fileID: 6581271770117110711, guid: 4fc68d29fd545c64fab63f0d8d310c30, type: 3}
   soldierTypes:
@@ -6343,6 +6357,35 @@ MonoBehaviour:
     atime7: 0
     m_Mode: 0
     m_NumColorKeys: 5
+    m_NumAlphaKeys: 2
+  orderGradient:
+    serializedVersion: 2
+    key0: {r: 1, g: 0, b: 0, a: 1}
+    key1: {r: 0, g: 1, b: 0.14167738, a: 1}
+    key2: {r: 0, g: 1, b: 0.14167738, a: 0}
+    key3: {r: 0, g: 1, b: 0.14167738, a: 0}
+    key4: {r: 0, g: 1, b: 0.14167738, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 65535
+    ctime2: 65535
+    ctime3: 65535
+    ctime4: 65535
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 32768
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_NumColorKeys: 2
     m_NumAlphaKeys: 2
 --- !u!1 &1022064790
 GameObject:
@@ -6972,6 +7015,8 @@ MonoBehaviour:
   ownerObject: {fileID: 0}
   neighbouringTiles: []
   development: 1
+  publicOrder: 0
+  manpowerCap: 0
   taxIncome: 0
   coastal: 1
 --- !u!60 &1123021158
@@ -7189,6 +7234,8 @@ MonoBehaviour:
   ownerObject: {fileID: 0}
   neighbouringTiles: []
   development: 1
+  publicOrder: 0
+  manpowerCap: 0
   taxIncome: 0
   coastal: 0
 --- !u!60 &1127860974
@@ -7438,6 +7485,8 @@ MonoBehaviour:
   ownerObject: {fileID: 0}
   neighbouringTiles: []
   development: 1
+  publicOrder: 0
+  manpowerCap: 0
   taxIncome: 0
   coastal: 1
 --- !u!60 &1168830215
@@ -7674,6 +7723,8 @@ MonoBehaviour:
   ownerObject: {fileID: 0}
   neighbouringTiles: []
   development: 1
+  publicOrder: 0
+  manpowerCap: 0
   taxIncome: 0
   coastal: 1
 --- !u!60 &1200320950
@@ -7900,6 +7951,8 @@ MonoBehaviour:
   ownerObject: {fileID: 0}
   neighbouringTiles: []
   development: 6
+  publicOrder: 0
+  manpowerCap: 0
   taxIncome: 0
   coastal: 1
 --- !u!60 &1201331501
@@ -8094,6 +8147,8 @@ MonoBehaviour:
   ownerObject: {fileID: 0}
   neighbouringTiles: []
   development: 1
+  publicOrder: 0
+  manpowerCap: 0
   taxIncome: 0
   coastal: 0
 --- !u!60 &1206247980
@@ -8190,6 +8245,50 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!1 &1226881994
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1226881996}
+  - component: {fileID: 1226881995}
+  m_Layer: 0
+  m_Name: Dev Tools
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1226881995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1226881994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b3ef674928a0304e8a611c22ff74889, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  simulationSpeed: 1
+--- !u!4 &1226881996
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1226881994}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1228733534 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8900545898975127988, guid: 271bcdc7b878d114a8a536c8b5bdafb0, type: 3}
@@ -8248,7 +8347,7 @@ MonoBehaviour:
   - {fileID: 1378885098}
   - {fileID: 810837704}
   - {fileID: 1658144740}
-  baseProductionRate: 3
+  baseProductionRate: 2
 --- !u!1 &1242595548
 GameObject:
   m_ObjectHideFlags: 0
@@ -8433,6 +8532,8 @@ MonoBehaviour:
   ownerObject: {fileID: 0}
   neighbouringTiles: []
   development: 5
+  publicOrder: 0
+  manpowerCap: 0
   taxIncome: 0
   coastal: 1
 --- !u!60 &1243337091
@@ -8634,6 +8735,8 @@ MonoBehaviour:
   ownerObject: {fileID: 0}
   neighbouringTiles: []
   development: 5
+  publicOrder: 0
+  manpowerCap: 0
   taxIncome: 0
   coastal: 0
 --- !u!60 &1267373439
@@ -8887,7 +8990,7 @@ MonoBehaviour:
   - {fileID: 1168830211}
   - {fileID: 810837704}
   - {fileID: 1481884701}
-  baseProductionRate: 10
+  baseProductionRate: 5
 --- !u!1001 &1291991718
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9059,6 +9162,8 @@ MonoBehaviour:
   ownerObject: {fileID: 0}
   neighbouringTiles: []
   development: 5
+  publicOrder: 0
+  manpowerCap: 0
   taxIncome: 0
   coastal: 1
 --- !u!60 &1304847716
@@ -9596,6 +9701,8 @@ MonoBehaviour:
   ownerObject: {fileID: 0}
   neighbouringTiles: []
   development: 5
+  publicOrder: 0
+  manpowerCap: 0
   taxIncome: 0
   coastal: 1
 --- !u!60 &1353206688
@@ -9880,6 +9987,8 @@ MonoBehaviour:
   ownerObject: {fileID: 0}
   neighbouringTiles: []
   development: 5
+  publicOrder: 0
+  manpowerCap: 0
   taxIncome: 0
   coastal: 1
 --- !u!60 &1378885102
@@ -10130,7 +10239,7 @@ MonoBehaviour:
   - {fileID: 23208280}
   - {fileID: 1267373435}
   - {fileID: 810837704}
-  baseProductionRate: 2
+  baseProductionRate: 1
 --- !u!1 &1393446434
 GameObject:
   m_ObjectHideFlags: 0
@@ -10320,6 +10429,8 @@ MonoBehaviour:
   ownerObject: {fileID: 0}
   neighbouringTiles: []
   development: 2
+  publicOrder: 0
+  manpowerCap: 0
   taxIncome: 0
   coastal: 1
 --- !u!60 &1432238840
@@ -10713,6 +10824,8 @@ MonoBehaviour:
   ownerObject: {fileID: 0}
   neighbouringTiles: []
   development: 5
+  publicOrder: 0
+  manpowerCap: 0
   taxIncome: 0
   coastal: 1
 --- !u!60 &1481884705
@@ -10940,6 +11053,8 @@ MonoBehaviour:
   ownerObject: {fileID: 0}
   neighbouringTiles: []
   development: 2
+  publicOrder: 0
+  manpowerCap: 0
   taxIncome: 0
   coastal: 0
 --- !u!60 &1500138539
@@ -11109,11 +11224,7 @@ MonoBehaviour:
   taxIncome: 0
   expenses: 0
   atWar: 0
-  allies:
-  - {fileID: 1631928770}
-  - {fileID: 62466151}
-  - {fileID: 492243823}
-  - {fileID: 549654900}
+  allies: []
   enemies: []
 --- !u!1001 &1577836897
 PrefabInstance:
@@ -11390,6 +11501,8 @@ MonoBehaviour:
   ownerObject: {fileID: 0}
   neighbouringTiles: []
   development: 3
+  publicOrder: 0
+  manpowerCap: 0
   taxIncome: 0
   coastal: 1
 --- !u!60 &1584036076
@@ -12414,11 +12527,7 @@ MonoBehaviour:
   taxIncome: 0
   expenses: 0
   atWar: 0
-  allies:
-  - {fileID: 62466151}
-  - {fileID: 492243823}
-  - {fileID: 549654900}
-  - {fileID: 1546921307}
+  allies: []
   enemies: []
 --- !u!1 &1632820992
 GameObject:
@@ -12709,6 +12818,8 @@ MonoBehaviour:
   ownerObject: {fileID: 0}
   neighbouringTiles: []
   development: 5
+  publicOrder: 0
+  manpowerCap: 0
   taxIncome: 0
   coastal: 1
 --- !u!60 &1651397201
@@ -12931,6 +13042,8 @@ MonoBehaviour:
   ownerObject: {fileID: 0}
   neighbouringTiles: []
   development: 5
+  publicOrder: 0
+  manpowerCap: 0
   taxIncome: 0
   coastal: 1
 --- !u!60 &1658144744
@@ -13173,6 +13286,8 @@ MonoBehaviour:
   ownerObject: {fileID: 0}
   neighbouringTiles: []
   development: 1
+  publicOrder: 0
+  manpowerCap: 0
   taxIncome: 0
   coastal: 0
 --- !u!60 &1685988494
@@ -15183,6 +15298,8 @@ MonoBehaviour:
   ownerObject: {fileID: 0}
   neighbouringTiles: []
   development: 2
+  publicOrder: 0
+  manpowerCap: 0
   taxIncome: 0
   coastal: 1
 --- !u!60 &2075954735
@@ -15447,6 +15564,8 @@ MonoBehaviour:
   ownerObject: {fileID: 0}
   neighbouringTiles: []
   development: 5
+  publicOrder: 0
+  manpowerCap: 0
   taxIncome: 0
   coastal: 1
 --- !u!60 &2089824391
@@ -15623,6 +15742,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1840983309, guid: 5f1547743acab1b438d8d25e8c2f13ca, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1016264427}
+    - target: {fileID: 1744709804525414672, guid: 5f1547743acab1b438d8d25e8c2f13ca, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1744709804525414672, guid: 5f1547743acab1b438d8d25e8c2f13ca, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2207711813501728399, guid: 5f1547743acab1b438d8d25e8c2f13ca, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
       value: 
@@ -15775,5 +15906,77 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
       value: 
       objectReference: {fileID: 492243823}
+    - target: {fileID: 3592508378769536275, guid: 5f1547743acab1b438d8d25e8c2f13ca, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3592508378769536275, guid: 5f1547743acab1b438d8d25e8c2f13ca, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3592508378769536275, guid: 5f1547743acab1b438d8d25e8c2f13ca, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3831066491828685608, guid: 5f1547743acab1b438d8d25e8c2f13ca, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3831066491828685608, guid: 5f1547743acab1b438d8d25e8c2f13ca, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5316470384029021460, guid: 5f1547743acab1b438d8d25e8c2f13ca, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5316470384029021460, guid: 5f1547743acab1b438d8d25e8c2f13ca, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5901421177644438445, guid: 5f1547743acab1b438d8d25e8c2f13ca, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5901421177644438445, guid: 5f1547743acab1b438d8d25e8c2f13ca, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5901421177644438445, guid: 5f1547743acab1b438d8d25e8c2f13ca, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7065827772984546379, guid: 5f1547743acab1b438d8d25e8c2f13ca, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7065827772984546379, guid: 5f1547743acab1b438d8d25e8c2f13ca, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7298883274873902449, guid: 5f1547743acab1b438d8d25e8c2f13ca, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7298883274873902449, guid: 5f1547743acab1b438d8d25e8c2f13ca, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7298883274873902449, guid: 5f1547743acab1b438d8d25e8c2f13ca, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9117945361021028230, guid: 5f1547743acab1b438d8d25e8c2f13ca, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9117945361021028230, guid: 5f1547743acab1b438d8d25e8c2f13ca, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9117945361021028230, guid: 5f1547743acab1b438d8d25e8c2f13ca, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f1547743acab1b438d8d25e8c2f13ca, type: 3}

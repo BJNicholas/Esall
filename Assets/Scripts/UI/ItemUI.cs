@@ -8,6 +8,7 @@ public class ItemUI : MonoBehaviour
     public Item item;
     public int amountRemaining = 0;
     public float price;
+    public AudioClip soundEffect;
     [Header("UI Setup")]
     public Image icon;
     public Text itemName, priceTXT, amountRemainingTXT;
@@ -33,6 +34,8 @@ public class ItemUI : MonoBehaviour
         //can afford
         if(GameManager.instance.playerFactionObject.GetComponent<Faction>().treasury >= price && amountRemaining > 0)
         {
+            SettlementInspector.instance.GetComponent<AudioSource>().clip = soundEffect;
+            SettlementInspector.instance.GetComponent<AudioSource>().Play();
             Inventory.instance.army.GetComponent<Army>().storedItems.Add(item);
             Inventory.instance.LiveUpdateListings();
 
@@ -51,6 +54,8 @@ public class ItemUI : MonoBehaviour
     {
         if (TradingHub.instance.gameObject.activeInHierarchy)
         {
+            Inventory.instance.GetComponent<AudioSource>().clip = soundEffect;
+            Inventory.instance.GetComponent<AudioSource>().Play();
             TradingHub.instance.settlement.GetComponent<Settlement>().storedItems.Add(item);
             TradingHub.instance.LiveUpdateListings();
 

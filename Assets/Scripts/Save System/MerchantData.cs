@@ -9,16 +9,16 @@ public class MerchantData
     public int ownerID;
     public float[] target;
     public float[] position;
-    public float treasury;
-    public float oldValue;
+    public float purchasePrice;
+    public float sellValue;
     public int[] storedItems;
 
     public MerchantData(Merchant merchant)
     {
         //easy conversion
 
-        treasury = merchant.treasury;
-        oldValue = merchant.oldTreasuryValue;
+        purchasePrice = merchant.purchasePrice;
+        sellValue = merchant.sellValue;
 
         //complex conversion
 
