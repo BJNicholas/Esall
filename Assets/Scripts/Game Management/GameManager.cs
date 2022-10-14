@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public List<GameObject> settlements;
     public List<GameObject> resources;
     public List<GameObject> manpowerResources;
+    public Modifier[] modifiers;
 
     [Header("Prefabs")]
     public GameObject merchantPrefab;
@@ -49,8 +50,37 @@ public class GameManager : MonoBehaviour
             pauseMenu.SetActive(true);
             Time.timeScale = 0;
         }
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            StartCoroutine(ChangeSpeedShortcut());
+        }
+        if (Input.GetKeyDown(KeyCode.F1))
+        {
+            if(Console.instance.gameObject.activeInHierarchy) Console.instance.gameObject.SetActive(false);
+            else Console.instance.gameObject.SetActive(true);
+        }
     }
 
+    public IEnumerator ChangeSpeedShortcut()
+    {
+        yield return new WaitForEndOfFrame();
+        if (timeSpeed == 1)
+        {
+            timeSpeed = 2.5f;
+            StopCoroutine(ChangeSpeedShortcut());
+        }
+        else if (timeSpeed == 2.5f)
+        {
+            timeSpeed = 5f;
+            StopCoroutine(ChangeSpeedShortcut());
+        }
+        else if (timeSpeed == 5f)
+        {
+            timeSpeed = 1f;
+            StopCoroutine(ChangeSpeedShortcut());
+        }
+
+    }
     public void CalculateTime()
     {
         Time.timeScale = timeSpeed;
@@ -65,12 +95,22 @@ public class GameManager : MonoBehaviour
         {
             date.x = 1;
             date.y += 1;
+
+            //monthly public order changes in each province
+            foreach(GameObject tile in provinces)
+            {
+                tile.GetComponent<Tile>().PublicOrderChange();
+            }
             //monthly Taxes from provinces
             foreach (GameObject faction in FactionManager.instance.factionObjects)
             {
                 faction.GetComponent<Faction>().chargeTax();
                 faction.GetComponent<Faction>().PayExpenses();
                 GetComponent<AudioSource>().Play();
+
+                faction.GetComponent<Faction>().monthlyTrade = 0; //reset monthly trade profit
+
+                faction.GetComponent<Faction>().AdjustRelations(); //revise the current relations in regard to their modifiers
 
             }
 

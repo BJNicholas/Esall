@@ -13,41 +13,44 @@ public class PlayerController : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && SettlementInspector.instance.gameObject.activeInHierarchy == false)
+        if (!EventSystem.current.IsPointerOverGameObject())
         {
-            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-            Debug.DrawLine(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-            if (hit.collider != null)
+            if (Input.GetMouseButtonDown(0) && SettlementInspector.instance.gameObject.activeInHierarchy == false)
             {
-                if (hit.collider.tag == "UI")
+                RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+                Debug.DrawLine(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+                if (hit.collider != null)
                 {
-                    print("Clicked On UI");
+                    if (hit.collider.tag == "UI")
+                    {
+                        print("Clicked On UI");
+                    }
+                    else if (hit.collider.tag == "Map")
+                    {
+                        army.GetComponent<Army>().target = hit.point;
+                    }
+                    else if (hit.collider.tag == "Settlement")
+                    {
+                        print("Going to Settlement");
+                        army.GetComponent<Army>().target = hit.collider.gameObject.transform.position;
+                    }
+                    else if (hit.collider.tag == "Army")
+                    {
+                        print("Moving to attack");
+                        army.GetComponent<Army>().target = hit.collider.gameObject.transform.position;
+                    }
+                    else if (hit.collider.tag == "Merchant")
+                    {
+                        print("Intercepting Merchant");
+                        army.GetComponent<Army>().target = hit.collider.gameObject.transform.position;
+                    }
+                    else
+                    {
+                        print("CANT GO THERE");
+                    }
                 }
-                else if (hit.collider.tag == "Map")
-                {
-                    army.GetComponent<Army>().target = hit.point;
-                }
-                else if (hit.collider.tag == "Settlement")
-                {
-                    print("Going to Settlement");
-                    army.GetComponent<Army>().target = hit.collider.gameObject.transform.position;
-                }
-                else if (hit.collider.tag == "Army")
-                {
-                    print("Moving to attack");
-                    army.GetComponent<Army>().target = hit.collider.gameObject.transform.position;
-                }
-                else if (hit.collider.tag == "Merchant")
-                {
-                    print("Intercepting Merchant");
-                    army.GetComponent<Army>().target = hit.collider.gameObject.transform.position;
-                }
-                else
-                {
-                    print("CANT GO THERE");
-                }
+                else print("CANT GO THERE");
             }
-            else print("CANT GO THERE");
         }
 
         if (Encounter.instance.gameObject.activeInHierarchy) army.GetComponent<Army>().target = army.transform.position;

@@ -77,6 +77,8 @@ public class DiploHub : MonoBehaviour
         if (!player.GetComponent<Faction>().enemies.Contains(faction))
         {
             print("PLAYER DECLARES WAR WITH " + faction.name);
+            Console.instance.PrintMessage("YOU HAVE DECLARED WAR WITH " + faction.name, Color.blue);
+            player.GetComponent<Faction>().CommittedAct(GameManager.instance.modifiers[2]); // started agro war
 
             player.GetComponent<Faction>().atWar = true;
             player.GetComponent<Faction>().enemies.Add(faction);

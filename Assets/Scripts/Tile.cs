@@ -20,13 +20,7 @@ public class Tile : MonoBehaviour
 
     private void Start()
     {
-        //starting tax income calculation
-        for (float i = 0; i <= development; i++)
-        {
-            taxIncome += i / 10;
-            manpowerCap += 1.5f;
-        }
-
+        TaxIncomeCalculation();
         foreach(GameObject faction in FactionManager.instance.factionObjects)
         {
             if(faction.GetComponent<Faction>().faction == owner)
@@ -39,6 +33,23 @@ public class Tile : MonoBehaviour
         //calculate the starting public order
         GenerateStartingOrder();
 
+    }
+
+    public void TaxIncomeCalculation()
+    {
+        //starting tax income calculation
+        for (float i = 0; i <= development; i++)
+        {
+            taxIncome += i / 10;
+            manpowerCap += 1.5f;
+        }
+    }
+
+    private void Update()
+    {
+        //capping the values
+        if (publicOrder > 100) publicOrder = 100;
+        else if (publicOrder < 0) publicOrder = 0;
     }
 
     public void GenerateStartingOrder()
@@ -71,6 +82,21 @@ public class Tile : MonoBehaviour
             //not enough money
             print(owner.ToString() + " cannot afford to develop " + settlement.GetComponent<Settlement>().settlementName);
         }
+
+        if (development >= 5) settlement.GetComponent<SpriteRenderer>().sprite = settlement.GetComponent<Settlement>().city;
+    }
+
+    public void PublicOrderChange()
+    {
+        float change = 0;
+        //cultural effect
+        if (culture == ownerObject.GetComponent<Faction>().culture) change += 1.5f;
+        else change -= 1.5f;
+        //taxtion effect
+        if (ownerObject.GetComponent<Faction>().taxRate > 1) change -= ownerObject.GetComponent<Faction>().taxRate * 2;
+        else change +=  (1 - ownerObject.GetComponent<Faction>().taxRate) * 2;
+        print(change + " more public order for: " + owner.ToString() + " in... " +gameObject.name);
+        publicOrder += change;
     }
 
     public IEnumerator ChangeOwner(GameObject newOwner, float delay)
@@ -132,6 +158,8 @@ public class Tile : MonoBehaviour
             }
             else newOwner.GetComponent<Faction>().AddTile(settlement.transform.parent.gameObject);
         }
+        publicOrder -= 50;
+        if (culture == newOwner.GetComponent<Faction>().culture) publicOrder += 20;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

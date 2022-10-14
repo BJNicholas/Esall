@@ -60,7 +60,7 @@ public class AI_Faction : MonoBehaviour
     private void Update()
     {
         //print(gameObject.name + oldSettlement + " object");
-        if (oldSettlement == chosenSettlement)
+        if (oldSettlement == chosenSettlement && arrived == false)
         {
             arrived = true;
             print(gameObject.name + " HAS CHOSEN THEIR CURRENT SETTLEMENT");
@@ -166,10 +166,12 @@ public class AI_Faction : MonoBehaviour
 
     public void RunTask(string taskName, float delay)
     {
+        army.GetComponent<AI_ArmyController>().resetTimer = 0;
         oldSettlement = chosenSettlement;
         arrived = false;
 
         print(GetComponent<Faction>().faction.ToString() + " Running " + taskName);
+        Console.instance.PrintMessage(GetComponent<Faction>().faction.ToString() + " Running " + taskName);
         StartCoroutine(taskName, delay);
     }
 
@@ -347,7 +349,11 @@ public class AI_Faction : MonoBehaviour
             {
                 //announcment
                 print(gameObject.name + " DECLARES WAR WITH " + otherFaction.name);
+                Console.instance.PrintMessage(gameObject.name + " DECLARES WAR WITH " + otherFaction.name, Color.blue);
                 print("with a desire of: " + desire);
+
+                //add diplo modifiers
+                GetComponent<Faction>().CommittedAct(GameManager.instance.modifiers[2]); // started agro war
 
                 //logic
                 GetComponent<Faction>().atWar = true;
@@ -460,11 +466,13 @@ public class AI_Faction : MonoBehaviour
 
             yield return new WaitUntil(() => arrived == true); // wait until arrived
             print("Arrived at Enemy Settlement");
-            yield return new WaitForSeconds(processingSpeed);
+            yield return new WaitForSeconds(0.5f);
 
+            float siegeTime = chosenSettlement.GetComponent<Settlement>().garrisonSize * 4;
+            siegeTime -= army.GetComponent<Army>().numOfSoldiers;
 
             //invoking the change after prolonged time; Long one this time aye, this one is a coroutine
-            chosenSettlement.GetComponent<Settlement>().province.GetComponent<Tile>().StartCoroutine(chosenSettlement.GetComponent<Settlement>().province.GetComponent<Tile>().ChangeOwner(gameObject, 0));
+            chosenSettlement.GetComponent<Settlement>().province.GetComponent<Tile>().StartCoroutine(chosenSettlement.GetComponent<Settlement>().province.GetComponent<Tile>().ChangeOwner(gameObject, siegeTime));
         }
         else // Bug Fixing
         {

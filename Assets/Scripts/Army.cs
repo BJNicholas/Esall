@@ -65,7 +65,7 @@ public class Army : MonoBehaviour
     {
         agent.SetDestination(target);
         numOfSoldiers = soldiers.ToArray().Length;
-        if (Input.GetKeyDown(KeyCode.Tab) && Inventory.instance.gameObject.activeInHierarchy == false)
+        if (Input.GetKeyDown(KeyCode.I) && Inventory.instance.gameObject.activeInHierarchy == false)
         {
             Inventory.instance.gameObject.SetActive(true);
             Inventory.instance.GenerateListings();

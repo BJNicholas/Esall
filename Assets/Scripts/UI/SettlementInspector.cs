@@ -88,8 +88,8 @@ public class SettlementInspector : MonoBehaviour
         {
             culture.color = Color.red;
         }
-        publicOrder.text = settlement.GetComponent<Settlement>().province.GetComponent<Tile>().publicOrder.ToString();
-        income.text = settlement.GetComponent<Settlement>().province.GetComponent<Tile>().taxIncome.ToString();
+        publicOrder.text = settlement.GetComponent<Settlement>().province.GetComponent<Tile>().publicOrder.ToString("0.0");
+        income.text = settlement.GetComponent<Settlement>().province.GetComponent<Tile>().taxIncome.ToString("0.0");
 
         SetCorrectSettlementType();
     }
@@ -108,6 +108,8 @@ public class SettlementInspector : MonoBehaviour
             settlement.transform.parent.gameObject.GetComponent<Tile>().ownerObject.GetComponent<Faction>().Capitulate(GameManager.instance.playerFactionObject);
         }
         else GameManager.instance.playerFactionObject.GetComponent<Faction>().AddTile(settlement.transform.parent.gameObject);
+
+        settlement.GetComponent<Settlement>().province.GetComponent<Tile>().publicOrder -= 50;
 
         SetCorrectSettlementType();
     }

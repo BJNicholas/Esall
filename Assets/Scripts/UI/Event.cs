@@ -14,7 +14,7 @@ public class Event : MonoBehaviour
     {
         if (!important)
         {
-            Invoke("Dismiss", lifeSpan);
+            StartCoroutine(Dismiss());
             dismiss.text = "Dismiss";
         }
     }
@@ -39,8 +39,14 @@ public class Event : MonoBehaviour
 
 
 
-    public void Dismiss()
+    public IEnumerator Dismiss()
     {
+        yield return new WaitForSecondsRealtime(lifeSpan);
         if(gameObject.activeInHierarchy) Destroy(gameObject);
+    }
+
+    public void CloseWindowButton()
+    {
+        if (gameObject.activeInHierarchy) Destroy(gameObject);
     }
 }

@@ -30,6 +30,11 @@ public class InfoBar : MonoBehaviour
 
     private void Update()
     {
+        //updating the faction macro tabs
+        GovernmentTab.instance.UpdateINFO();
+        EconomyTab.instance.UpdateINFO();
+
+
         treasuryTXT.text = GameManager.instance.playerFactionObject.GetComponent<Faction>().treasury.ToString("0.0");
         monthlyChangeTXT.text = (GameManager.instance.playerFactionObject.GetComponent<Faction>().taxIncome - GameManager.instance.playerFactionObject.GetComponent<Faction>().expenses).ToString("0.0");
         hour.text = Mathf.Round(GameManager.instance.hour).ToString();

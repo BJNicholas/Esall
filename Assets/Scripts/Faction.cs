@@ -23,16 +23,22 @@ public class Faction : MonoBehaviour
 
     [Header("Faction Stats")]
     public float development;
+    public float publicOrder; 
     public List<GameObject> neighbouringTiles;
     [Header("Economics")]
     public float treasury;
+    public float expenses;
+    [Header("mircos")]
     public float taxIncome;
-    public float expenses = 0;
+    [Range(0, 2f)] public float taxRate = 1;
+    public int numOfMerchants;
+    public float monthlyTrade;
 
     [Header("Diplomacy")]
     public bool atWar = false;
     public List<GameObject> allies;
     public List<GameObject> enemies;
+    public List<Opinion> relations;
 
 
     private void Start()
@@ -41,12 +47,73 @@ public class Faction : MonoBehaviour
         {
             Invoke("UpdateOwnedTiles", 0.01f);
         }
+        SetStartingRelations();
     }
 
     private void FixedUpdate()
     {
         CalculateTax();
+        CalculateOrder();
     }
+
+    public void SetStartingRelations()
+    {
+        List<GameObject> otherFactions = new List<GameObject>();
+        GameObject currentTargetedFaction = null;
+        foreach (GameObject faction in FactionManager.instance.factionObjects)
+        {
+            if (faction != gameObject)
+            {
+                otherFactions.Add(faction);
+                Opinion newRelation = new Opinion();
+                newRelation.faction = faction.GetComponent<Faction>().faction;
+                currentTargetedFaction = faction;
+                relations.Add(newRelation);
+            }
+        }
+        foreach (Opinion relation in relations)
+        {
+            relation.opinion = Random.Range(20, 70);
+            //filling out starting Modifiers
+            if (currentTargetedFaction.GetComponent<Faction>().culture != culture)
+            {
+                relation.modifiers.Add(GameManager.instance.modifiers[0]); //Cultural Differences
+            }
+            else
+            {
+                relation.modifiers.Add(GameManager.instance.modifiers[1]); //Cultural Understanding
+            }
+        }
+        AdjustRelations();
+    }
+
+    public void AdjustRelations()
+    {
+        // for each faction 
+        foreach(Opinion relation in relations)
+        {
+            relation.AdjustOpinion();
+        }
+    }
+
+    public void CommittedAct(Modifier mod)
+    {
+        foreach (GameObject faction in FactionManager.instance.factionObjects)
+        {
+            if (faction != gameObject)
+            {
+                foreach (Opinion relation in faction.GetComponent<Faction>().relations)
+                {
+                    if(relation.faction == gameObject.GetComponent<Faction>().faction)
+                    {
+                        relation.modifiers.Add(mod);
+                    }
+                }
+            }
+        }
+    }
+
+
     public void AddTile(GameObject newTile)
     {
         //remove Tile from previous owner;
@@ -112,6 +179,7 @@ public class Faction : MonoBehaviour
         }
 
         print(faction.ToString() + " Has Capitulated to " + victoriousFaction);
+        Console.instance.PrintMessage(faction.ToString() + " Has Capitulated to " + victoriousFaction, Color.magenta);
     }
 
     public void GenerateNamePlacement()
@@ -208,8 +276,24 @@ public class Faction : MonoBehaviour
         taxIncome = 0;
         foreach(GameObject tile in ownedTiles)
         {
+            tile.GetComponent<Tile>().taxIncome = 0;
+
+            tile.GetComponent<Tile>().TaxIncomeCalculation();
+
+            tile.GetComponent<Tile>().taxIncome *= taxRate;
             taxIncome += tile.GetComponent<Tile>().taxIncome;
         }
+        
+    }
+    public void CalculateOrder()
+    {
+        publicOrder = 0;
+        float combinedOrder = 0;
+        foreach (GameObject tile in ownedTiles)
+        {
+            combinedOrder += tile.GetComponent<Tile>().publicOrder;
+        }
+        publicOrder = (combinedOrder / (ownedTiles.ToArray().Length * 100)) * 100;
     }
     public void chargeTax()
     {

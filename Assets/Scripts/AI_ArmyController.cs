@@ -22,27 +22,27 @@ public class AI_ArmyController : MonoBehaviour
         ownerObject.GetComponent<AI_Faction>().GenerateNextTask();
     }
 
+    [HideInInspector]public float resetTimer = 0;
+    public void ResetAI()
+    {
+        resetTimer = 0;
+        print(ownerObject.ToString() + " Is resetting");
+        ownerObject.GetComponent<AI_Faction>().CancelCurrentTask();
+    }
+
     private void Update()
     {
         army.GetComponent<Army>().stateTXT.text = ownerObject.GetComponent<AI_Faction>().currentTask.ToString();
+
+        Vector2 target, current;
+        target = army.GetComponent<Army>().target;
+        current = army.transform.position;
+        if (target == current) resetTimer++;
+        else resetTimer = 0;
+        if (resetTimer >= 5000) ResetAI();
+        
     }
 
-    void Idle()
-    {
-        ////1 province minors default to defending
-        //if(ownerObject.GetComponent<Faction>().ownedTiles.ToArray().Length == 1)
-        //{
-        //    currentState = Army.possibleStates.Defending;
-        //    Defending();
-        //}
-        ////bigger factions..
-        //else
-        //{
-        //    //defaults to patrolling 
-        //    currentState = Army.possibleStates.Patrolling;
-        //    Patrolling();
-        //}
-    }
     void Defending()
     {
         army.GetComponent<Army>().target = ownerObject.GetComponent<Faction>().capitalCity.transform.position;

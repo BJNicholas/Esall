@@ -34,7 +34,7 @@ public class Siege : MonoBehaviour
         //reseting UI
         fill.fillAmount = 0;
 
-        timeRemaining = SettlementInspector.instance.settlement.GetComponent<Settlement>().garrisonSize * 3; //base time
+        timeRemaining = SettlementInspector.instance.settlement.GetComponent<Settlement>().garrisonSize * 4; //base time
         timeRemaining -= army.GetComponent<Army>().numOfSoldiers;
 
         fillTickAmount = 1 / timeRemaining;

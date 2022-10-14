@@ -36,8 +36,8 @@ public class AdministrationHub : MonoBehaviour
         {
             culture.color = Color.red;
         }
-        publicOrder.text = settlement.GetComponent<Settlement>().province.GetComponent<Tile>().publicOrder.ToString();
-        income.text = settlement.GetComponent<Settlement>().province.GetComponent<Tile>().taxIncome.ToString();
+        publicOrder.text = settlement.GetComponent<Settlement>().province.GetComponent<Tile>().publicOrder.ToString("0.0");
+        income.text = settlement.GetComponent<Settlement>().province.GetComponent<Tile>().taxIncome.ToString("0.0");
 
         //prices
         devPRICE.text = FindDevPrice(0f, settlement).ToString();
@@ -91,11 +91,14 @@ public class AdministrationHub : MonoBehaviour
             GameManager.instance.playerFactionObject.GetComponent<Faction>().UpdateOwnedTiles();
             GameManager.instance.playerFactionObject.GetComponent<Faction>().CalculateTax();
 
+            //public order change
+            settlement.GetComponent<Settlement>().province.GetComponent<Tile>().publicOrder += 5;
         }
         else
         {
             print("CAN NOT AFFORD TO RAISE DEVELOPMENT");
         }
+        if (settlement.GetComponent<Settlement>().province.GetComponent<Tile>().development >= 5) settlement.GetComponent<SpriteRenderer>().sprite = settlement.GetComponent<Settlement>().city;
     }
     public void PurchaseMER()
     {
@@ -104,6 +107,8 @@ public class AdministrationHub : MonoBehaviour
         {
             GameManager.instance.playerFactionObject.GetComponent<Faction>().treasury -= FindMerchantPrice(0f, settlement);
             settlement.GetComponent<Settlement>().NewMerchant();
+            //public order change
+            settlement.GetComponent<Settlement>().province.GetComponent<Tile>().publicOrder += 10;
         }
         else
         {
@@ -117,6 +122,9 @@ public class AdministrationHub : MonoBehaviour
         {
             GameManager.instance.playerFactionObject.GetComponent<Faction>().treasury -= FindGarrisonPrice(0f, settlement);
             settlement.GetComponent<Settlement>().garrisonSize += 1;
+
+            //public order change
+            settlement.GetComponent<Settlement>().province.GetComponent<Tile>().publicOrder += 5;
         }
         else
         {

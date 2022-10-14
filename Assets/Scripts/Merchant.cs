@@ -33,8 +33,22 @@ public class Merchant : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
+        target = homeCity.transform;
 
+        //setting the starting faction owner object
+        foreach (GameObject faction in FactionManager.instance.factionObjects)
+        {
+            if (faction.GetComponent<Faction>().faction == owner)
+            {
+                Color32 colour = faction.GetComponent<Faction>().colour;
+                GetComponent<SpriteRenderer>().color = new Color32(colour.r, colour.g, colour.b, 200);
+                ownerObject = faction;
+            }
+        }
+        ownerObject.GetComponent<Faction>().numOfMerchants += 1;
         UpdateOwner(owner);
+
+
         currentSate = possibleStates. Idle;
         purchasePrice = 0;
         BuyAndSell(homeCity, true);
@@ -42,7 +56,13 @@ public class Merchant : MonoBehaviour
 
         transform.rotation = Quaternion.identity; // fixes rotation bug that makes armies/merhcants invisible
     }
-
+    [HideInInspector] public float resetTimer = 0;
+    public void ResetAI()
+    {
+        resetTimer = 0;
+        print(gameObject.name + " Is resetting");
+        ownerObject.GetComponent<AI_Faction>().CancelCurrentTask();
+    }
     private void Update()
     {
         agent.SetDestination(target.position);
@@ -52,18 +72,27 @@ public class Merchant : MonoBehaviour
         {
             Trade(target.gameObject);
         }
+
+        Vector2 heading, current;
+        heading = GetComponent<NavMeshAgent>().destination;
+        current = gameObject.transform.position;
+        if (heading == current) resetTimer++;
+        else resetTimer = 0;
+        if (resetTimer >= 5000) ResetAI();
     }
 
     public void UpdateOwner(FactionManager.factions newOwner)
     {
+        ownerObject.GetComponent<Faction>().numOfMerchants -= 1;
         owner = newOwner;
-        foreach(GameObject faction in FactionManager.instance.factionObjects)
+        foreach (GameObject faction in FactionManager.instance.factionObjects)
         {
             if(faction.GetComponent<Faction>().faction == owner)
             {
                 Color32 colour = faction.GetComponent<Faction>().colour;
                 GetComponent<SpriteRenderer>().color = new Color32(colour.r, colour.g, colour.b, 200);
                 ownerObject = faction;
+                ownerObject.GetComponent<Faction>().numOfMerchants += 1;
             }
         }
     }
@@ -124,7 +153,7 @@ public class Merchant : MonoBehaviour
                 //print("sold " + item.name + " for a profit of: " + (localPrice - item.baseValue).ToString());
             }
             sellValue += (saleProfit + saleProfit / 2);
-            print(sellValue + " and bought for " + purchasePrice);
+            //print(sellValue + " and bought for " + purchasePrice);
             storedItems.Clear();
 
             PayTax();
@@ -164,6 +193,7 @@ public class Merchant : MonoBehaviour
             }
             //print("after purchase, I have " + treasury.ToString() + " due to a cost of " + (oldTreasuryValue - treasury).ToString());
             ownerObject.GetComponent<Faction>().treasury += (purchasePrice);
+            ownerObject.GetComponent<Faction>().monthlyTrade += purchasePrice;
             //print(owner.ToString() + " has collected: $" + (purchasePrice).ToString() + " from the purchase of Items in " + homeCity.ToString());
         }
         else
@@ -184,6 +214,7 @@ public class Merchant : MonoBehaviour
         if(profit > 0)
         {
             ownerObject.GetComponent<Faction>().treasury += (profit * 0.5f); // maybe have an ajustable tax rate later
+            ownerObject.GetComponent<Faction>().monthlyTrade += (profit * 0.5f);
         }
         //print(owner.ToString() + " has collected: $" + (profit * 0.5f).ToString() + " in taxes from a merchant of " + homeCity.ToString());
     }
