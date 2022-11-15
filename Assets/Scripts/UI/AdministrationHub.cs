@@ -89,7 +89,7 @@ public class AdministrationHub : MonoBehaviour
             settlement.GetComponent<Settlement>().province.GetComponent<Tile>().taxIncome += settlement.GetComponent<Settlement>().province.GetComponent<Tile>().development / 10;
             print("Tax income in " + settlementName.text + " increased by: " + settlement.GetComponent<Settlement>().province.GetComponent<Tile>().development / 10);
             GameManager.instance.playerFactionObject.GetComponent<Faction>().UpdateOwnedTiles();
-            GameManager.instance.playerFactionObject.GetComponent<Faction>().CalculateTax();
+            GameManager.instance.playerFactionObject.GetComponent<Faction>().CalculateIncome();
 
             //public order change
             settlement.GetComponent<Settlement>().province.GetComponent<Tile>().publicOrder += 5;
@@ -98,7 +98,7 @@ public class AdministrationHub : MonoBehaviour
         {
             print("CAN NOT AFFORD TO RAISE DEVELOPMENT");
         }
-        if (settlement.GetComponent<Settlement>().province.GetComponent<Tile>().development >= 5) settlement.GetComponent<SpriteRenderer>().sprite = settlement.GetComponent<Settlement>().city;
+        if (settlement.GetComponent<Settlement>().province.GetComponent<Tile>().development >= 5 && settlement.GetComponent<Settlement>().capital == false) settlement.GetComponent<SpriteRenderer>().sprite = settlement.GetComponent<Settlement>().city;
     }
     public void PurchaseMER()
     {

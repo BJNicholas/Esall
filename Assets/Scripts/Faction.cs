@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using UnityEngine.AI;
 
 public class Faction : MonoBehaviour
 {
@@ -21,16 +22,28 @@ public class Faction : MonoBehaviour
     public GameObject capitalCity;
     public GameObject army;
 
+    [Space]
+    public GameObject ruler;
+    [Space]
+
     [Header("Faction Stats")]
     public float development;
     public float publicOrder; 
     public List<GameObject> neighbouringTiles;
+    public List<NationalModifier> nationalMods;
+
     [Header("Economics")]
     public float treasury;
     public float expenses;
+    public float income;
     [Header("mircos")]
     public float taxIncome;
+    public float PO_bonus;
+    public float armyWages;
+    public float merchantWages;
     [Range(0, 2f)] public float taxRate = 1;
+    [Range(1, 10f)] public float armyWageRate = 0;
+    [Range(1, 10f)] public float merchantWageRate = 5;
     public int numOfMerchants;
     public float monthlyTrade;
 
@@ -45,15 +58,23 @@ public class Faction : MonoBehaviour
     {
         if(faction != FactionManager.factions.Observer)
         {
+            ruler = CharacterManager.instance.CreateNewCharacter(ruler, capitalCity);
+
+
             Invoke("UpdateOwnedTiles", 0.01f);
+            capitalCity.GetComponent<SpriteRenderer>().sprite = capitalCity.GetComponent<Settlement>().capitalCity;
         }
         SetStartingRelations();
     }
 
     private void FixedUpdate()
     {
-        CalculateTax();
+        CalculateExpenses();
+        CalculateIncome();
         CalculateOrder();
+
+
+        capitalCity.GetComponent<SpriteRenderer>().sprite = capitalCity.GetComponent<Settlement>().capitalCity;
     }
 
     public void SetStartingRelations()
@@ -67,6 +88,7 @@ public class Faction : MonoBehaviour
                 otherFactions.Add(faction);
                 Opinion newRelation = new Opinion();
                 newRelation.faction = faction.GetComponent<Faction>().faction;
+                newRelation.factionObj = faction;
                 currentTargetedFaction = faction;
                 relations.Add(newRelation);
             }
@@ -165,15 +187,39 @@ public class Faction : MonoBehaviour
 
     public void Capitulate(GameObject victoriousFaction)
     {
+        if (gameObject != GameManager.instance.playerFactionObject)
+        {
+            GetComponent<AI_Faction>().StopAllCoroutines();
+            GetComponent<AI_Faction>().enabled = false;
+            DiplomacyTab.instance.DestroyDeadFactionFromUI(gameObject);
+
+            //player wins
+            if(DiplomacyTab.instance.allRelationUI_Objects.ToArray().Length == 0)
+            {
+                //playerr dies and lose screen is activated
+                GameManager.instance.win.SetActive(true);
+                Time.timeScale = 1f;
+            }
+        }
+        else
+        {
+            //playerr dies and lose screen is activated
+            GameManager.instance.lose.SetActive(true);
+            Time.timeScale = 1f;
+            Camera.main.GetComponent<CameraController>().target = GameManager.instance.gameObject;
+        }
+
         if (army != null) Destroy(army);
-        int tilesLeft = ownedTiles.ToArray().Length -1;
-        while(tilesLeft != 0 -1)
+        int tilesLeft = ownedTiles.ToArray().Length - 1;
+        capitalCity.GetComponent<SpriteRenderer>().sprite = capitalCity.GetComponent<Settlement>().city;
+        capitalCity.GetComponent<Settlement>().capital = false;
+        while (tilesLeft != 0 - 1)
         {
             victoriousFaction.GetComponent<Faction>().AddTile(ownedTiles[tilesLeft]);
             tilesLeft -= 1;
         }
         atWar = false;
-        foreach(GameObject faction in enemies)
+        foreach (GameObject faction in enemies)
         {
             faction.GetComponent<Faction>().enemies.Remove(gameObject);
         }
@@ -252,6 +298,9 @@ public class Faction : MonoBehaviour
 
                 army = newArmy;
 
+                army.GetComponent<Army>().soldiers.Add(Instantiate(army.GetComponent<Army>().soldiers[0]));
+                army.GetComponent<Army>().soldiers.RemoveAt(0);
+
                 if (faction == GameManager.instance.playerFaction)
                 {
                     newArmy.GetComponent<Army>().isPlayer = true;
@@ -271,9 +320,14 @@ public class Faction : MonoBehaviour
         }
     }
 
-    public void CalculateTax()
+    public void CalculateIncome()
     {
+        income = 0;
+
         taxIncome = 0;
+        PO_bonus = 0;
+
+        //Tax
         foreach(GameObject tile in ownedTiles)
         {
             tile.GetComponent<Tile>().taxIncome = 0;
@@ -283,7 +337,50 @@ public class Faction : MonoBehaviour
             tile.GetComponent<Tile>().taxIncome *= taxRate;
             taxIncome += tile.GetComponent<Tile>().taxIncome;
         }
-        
+
+        //PO Bonus
+        if(publicOrder >= 80)
+        {
+            PO_bonus += (publicOrder - 80) * (development / 20);
+        }
+        else
+        {
+            PO_bonus -= 5;
+            PO_bonus -= (80 - publicOrder) * (development / 20);
+        }
+
+        //toatls
+        income += taxIncome;
+        income += PO_bonus;
+    }
+
+    public void CalculateExpenses()
+    {
+        //reset vars
+        expenses = 0;
+        armyWages = 0;
+        merchantWages = 0;
+
+
+        //army
+        if(army != null)
+        {
+            foreach (Soldier soldier in army.GetComponent<Army>().soldiers)
+            {
+                armyWages += soldier.cpm;
+            }
+            armyWages *= armyWageRate;
+        }
+        else armyWages = 0;
+
+        //merchants
+        merchantWages += numOfMerchants * merchantWageRate;
+
+
+        //total
+        expenses += armyWages;
+        expenses += merchantWages;
+
     }
     public void CalculateOrder()
     {
@@ -295,14 +392,28 @@ public class Faction : MonoBehaviour
         }
         publicOrder = (combinedOrder / (ownedTiles.ToArray().Length * 100)) * 100;
     }
-    public void chargeTax()
+    public void ChargeForIncome()
     {
-        treasury += taxIncome;
-        //print(faction.ToString() + " taxable income = " + development / 10);
+        treasury += income;
     }
 
     public void PayExpenses()
     {
         treasury -= expenses;
+
+        #region functions of expenses
+
+        //army.GetComponent<NavMeshAgent>().speed = 0.1f * armyWageRate;
+
+        //merchant speed affected
+        foreach (GameObject merchant in GameManager.instance.merchants)
+        {
+            if(merchant.GetComponent<Merchant>().owner == faction)
+            {
+                merchant.GetComponent<NavMeshAgent>().speed = 0.1f * merchantWageRate;
+            }
+        }
+
+        #endregion
     }
 }

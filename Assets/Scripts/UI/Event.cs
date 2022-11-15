@@ -5,17 +5,29 @@ using UnityEngine.UI;
 
 public class Event : MonoBehaviour
 {
-    public Text title, description, dismiss;
+    public Text title, description, change, dismiss;
+    public Image image;
     public float lifeSpan = 5f;
     public bool important = false;
+
+    public PossibleEvent PE;
 
 
     private void Start()
     {
+        change.text = "";
         if (!important)
         {
             StartCoroutine(Dismiss());
             dismiss.text = "Dismiss";
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (PE != null)
+        {
+            PE.EventSetUp(gameObject);
         }
     }
 
@@ -42,6 +54,7 @@ public class Event : MonoBehaviour
     public IEnumerator Dismiss()
     {
         yield return new WaitForSecondsRealtime(lifeSpan);
+
         if(gameObject.activeInHierarchy) Destroy(gameObject);
     }
 

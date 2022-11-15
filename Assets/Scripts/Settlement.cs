@@ -11,7 +11,7 @@ public class Settlement : MonoBehaviour
         City
     }
     public settlementType type;
-    public Sprite village, city;
+    public Sprite village, city, capitalCity;
     public string settlementName;
     public Text nameTXT;
 
@@ -62,7 +62,7 @@ public class Settlement : MonoBehaviour
                 {
                     army.GetComponent<Army>().ownerObject.GetComponent<Faction>().treasury -= price;
                     army.GetComponent<Army>().ownerObject.GetComponent<Faction>().expenses += availableSoldiers[0].cpm;
-                    army.GetComponent<Army>().soldiers.Add(availableSoldiers[0]);
+                    army.GetComponent<Army>().soldiers.Add(Instantiate(availableSoldiers[0]));
 
                     availableSoldiers.Remove(availableSoldiers[0]);
                 }

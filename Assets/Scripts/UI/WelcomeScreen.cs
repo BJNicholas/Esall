@@ -20,6 +20,11 @@ public class WelcomeScreen : MonoBehaviour
         gameObject.SetActive(false);
 
         GameManager.instance.Save();
+
+        foreach(Opinion relation in chosenFaction.GetComponent<Faction>().relations)
+        {
+            DiplomacyTab.instance.CreateNewRelationUI(relation, DiplomacyTab.instance.normalRelationsList);
+        }
     }
     public void Observe(GameObject chosenFaction)
     {
@@ -30,7 +35,7 @@ public class WelcomeScreen : MonoBehaviour
             faction.GetComponent<Faction>().SpawnNewArmy();
             faction.AddComponent<AI_Faction>();
         }
-        HUD.SetActive(true);
+        HUD.SetActive(false);
         gameObject.SetActive(false);
 
         GameManager.instance.Save();

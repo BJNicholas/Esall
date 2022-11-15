@@ -40,7 +40,7 @@ public class Tile : MonoBehaviour
         //starting tax income calculation
         for (float i = 0; i <= development; i++)
         {
-            taxIncome += i / 10;
+            taxIncome += i * 2f;
             manpowerCap += 1.5f;
         }
     }
@@ -83,7 +83,7 @@ public class Tile : MonoBehaviour
             print(owner.ToString() + " cannot afford to develop " + settlement.GetComponent<Settlement>().settlementName);
         }
 
-        if (development >= 5) settlement.GetComponent<SpriteRenderer>().sprite = settlement.GetComponent<Settlement>().city;
+        if (development >= 5 && settlement.GetComponent<Settlement>().capital == false) settlement.GetComponent<SpriteRenderer>().sprite = settlement.GetComponent<Settlement>().city;
     }
 
     public void PublicOrderChange()
@@ -158,7 +158,7 @@ public class Tile : MonoBehaviour
             }
             else newOwner.GetComponent<Faction>().AddTile(settlement.transform.parent.gameObject);
         }
-        publicOrder -= 50;
+        publicOrder -= 30;
         if (culture == newOwner.GetComponent<Faction>().culture) publicOrder += 20;
     }
 

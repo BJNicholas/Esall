@@ -9,21 +9,26 @@ public class EconomyTab : MonoBehaviour
     [Header("MACRO")]
     public Text treasuryTXT;
     public Text monthlyChangeTXT;
+    public Text macroChangeTXT;
 
     [Header("Expenses")]
     public Text armyExpTXT;
+    public Text merchantExpTXT;
     public Text totalExpensesTXT;
 
     [Header("Income")]
     public Text taxIncomeTXT;
+    public Text EffectfromPO;
     public Text tradeIncomeTXT;
-    public Text totalIncomeTXT;
+    public Text merchantCountTXT;
 
     [Header("Graph")]
     public UILineRenderer line;
     public UIGridRenderer grid;
 
     [Header("Budgets")]
+    public Slider armyWageSlider;
+    public Slider merchantWageSlider;
     public Slider taxSlider;
 
 
@@ -37,17 +42,53 @@ public class EconomyTab : MonoBehaviour
     {
         //totals
         treasuryTXT.text = GameManager.instance.playerFactionObject.GetComponent<Faction>().treasury.ToString("0.0");
-        monthlyChangeTXT.text = (GameManager.instance.playerFactionObject.GetComponent<Faction>().taxIncome - GameManager.instance.playerFactionObject.GetComponent<Faction>().expenses).ToString("0.0");
+        float monthlyChange = (GameManager.instance.playerFactionObject.GetComponent<Faction>().income - GameManager.instance.playerFactionObject.GetComponent<Faction>().expenses);
+        monthlyChangeTXT.text = monthlyChange.ToString("0.0");
+        macroChangeTXT.text = (GameManager.instance.playerFactionObject.GetComponent<Faction>().income - GameManager.instance.playerFactionObject.GetComponent<Faction>().expenses).ToString("0.0");
+        //colouring
+        if (float.Parse(monthlyChangeTXT.text) > 0)
+        {
+            monthlyChangeTXT.color = Color.green;
+            macroChangeTXT.color = Color.green;
+        }
+        else
+        {
+            monthlyChangeTXT.color = Color.red; 
+            macroChangeTXT.color = Color.red;
+        }
+        //simplfying
+        if (monthlyChange > 1000)
+        {
+            macroChangeTXT.text = (monthlyChange / 1000).ToString("F") + "K";
+        }
+        if (monthlyChange > 1000000)
+        {
+            macroChangeTXT.text = (monthlyChange / 1000000).ToString("F") + "M";
+        }
+
         //income
         taxIncomeTXT.text = GameManager.instance.playerFactionObject.GetComponent<Faction>().taxIncome.ToString("0.0");
+        EffectfromPO.text = GameManager.instance.playerFactionObject.GetComponent<Faction>().PO_bonus.ToString("0.0");
+        //colouring
+        if (float.Parse(EffectfromPO.text) > 0)
+        {
+            EffectfromPO.color = Color.green;
+        }
+        else
+        {
+            EffectfromPO.color = Color.red;
+        }
         tradeIncomeTXT.text = GameManager.instance.playerFactionObject.GetComponent<Faction>().monthlyTrade.ToString("0.0");
-        totalIncomeTXT.text = GameManager.instance.playerFactionObject.GetComponent<Faction>().taxIncome.ToString("0.0");
+        merchantCountTXT.text = GameManager.instance.playerFactionObject.GetComponent<Faction>().numOfMerchants.ToString("0");
         //expense
-        armyExpTXT.text = GameManager.instance.playerFactionObject.GetComponent<Faction>().expenses.ToString("0.0");
+        armyExpTXT.text = GameManager.instance.playerFactionObject.GetComponent<Faction>().armyWages.ToString("0.0");
+        merchantExpTXT.text = GameManager.instance.playerFactionObject.GetComponent<Faction>().merchantWages.ToString("0.0");
         totalExpensesTXT.text = GameManager.instance.playerFactionObject.GetComponent<Faction>().expenses.ToString("0.0");
 
         //budgets
         GameManager.instance.playerFactionObject.GetComponent<Faction>().taxRate = taxSlider.value;
+        GameManager.instance.playerFactionObject.GetComponent<Faction>().armyWageRate = armyWageSlider.value;
+        GameManager.instance.playerFactionObject.GetComponent<Faction>().merchantWageRate = merchantWageSlider.value;
 
     }
 
@@ -56,10 +97,11 @@ public class EconomyTab : MonoBehaviour
         grid.SetAllDirty();
         line.SetAllDirty();
 
+        Vector2 newLine;
+
         if (line.points.ToArray().Length < grid.gridSize.x + 1)
         {
-            Vector2 newLine = new Vector2(line.points.ToArray().Length, currentTreasury);
-            line.points.Add(newLine);
+            newLine = new Vector2(line.points.ToArray().Length, currentTreasury);
         }
         else
         {
@@ -70,26 +112,24 @@ public class EconomyTab : MonoBehaviour
                 line.points[i] = new Vector2(line.points[i].x - 1, line.points[i].y);
                 if (line.points[i].y > largest) largest = line.points[i].y;
             }
-            Vector2 newLine = new Vector2(line.points.ToArray().Length, currentTreasury);
-            line.points.Add(newLine);
+            newLine = new Vector2(line.points.ToArray().Length, currentTreasury);
             grid.gridSize.y = Mathf.RoundToInt(largest);
         }
-        
-        //colouring
-        for (int i = 0; i < line.points.ToArray().Length; i++)
+
+        if(currentTreasury <= 0) // to make sure it doesn't clip off the edge
         {
-            if(line.points.IndexOf(line.points[i]) == line.points.ToArray().Length)
-            {
-                if(line.points[i - 1].y > line.points[i].y)
-                {
-                    line.color = Color.red;
-                }
-                else
-                {
-                    line.color = Color.green;
-                }
-            }
+            newLine = new Vector2(line.points.ToArray().Length, 0);
         }
+        line.points.Add(newLine);
+        float monthlyChange = (GameManager.instance.playerFactionObject.GetComponent<Faction>().income - GameManager.instance.playerFactionObject.GetComponent<Faction>().expenses);
+        //colouring
+        if (monthlyChange > 0)
+        {
+            line.color = Color.green;
+        }
+        else line.color = Color.red;
+
+
         if (currentTreasury > grid.gridSize.y)
         {
             grid.gridSize.y = Mathf.RoundToInt(currentTreasury);

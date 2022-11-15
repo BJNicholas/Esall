@@ -87,6 +87,9 @@ public class DiploHub : MonoBehaviour
             faction.GetComponent<Faction>().enemies.Add(player);
             faction.GetComponent<AI_Faction>().CancelCurrentTask();
 
+            //update Diplo tab
+            DiplomacyTab.instance.SetRelationsToWar(faction);
+
             if(faction.GetComponent<Faction>().allies.ToArray().Length > 0)
             {
                 foreach (GameObject ally in faction.GetComponent<Faction>().allies)
@@ -101,21 +104,7 @@ public class DiploHub : MonoBehaviour
 
             print(faction.name + " CANCELLED BECAUSE A WAR STARTED");
 
-            GameObject newEvent = Instantiate(GameManager.instance.eventPrefab, GameObject.Find("UI").transform);
-            newEvent.GetComponent<Event>().title.text = "WAR";
-            newEvent.GetComponent<Event>().description.text = player.name + " has declared war with " + faction.GetComponent<Faction>().faction.ToString();
-            newEvent.GetComponent<Event>().dismiss.text = "And we will win!";
-
-            if (faction.GetComponent<Faction>().allies.ToArray().Length > 0)
-            {
-                newEvent.GetComponent<Event>().description.text += " and their allies: ";
-                foreach (GameObject ally in faction.GetComponent<Faction>().allies)
-                {
-                    newEvent.GetComponent<Event>().description.text += ", " + ally.GetComponent<Faction>().faction.ToString();
-                }
-            }
-
-            Close(); // close diplo tab
+            if(DiploHub.instance.gameObject.activeInHierarchy) Close(); // close diplo tab
         }
         else
         {
@@ -134,6 +123,9 @@ public class DiploHub : MonoBehaviour
 
         if (GameManager.instance.playerFactionObject.GetComponent<Faction>().enemies.ToArray().Length == 0) GameManager.instance.playerFactionObject.GetComponent<Faction>().atWar = false;
 
+        //update Diplo tab
+        DiplomacyTab.instance.SetRelationsToNormal(faction);
+
         Close();
     }
 
@@ -142,6 +134,8 @@ public class DiploHub : MonoBehaviour
         GameManager.instance.playerFactionObject.GetComponent<Faction>().allies.Add(faction); //add to player allies
         faction.GetComponent<Faction>().allies.Add(GameManager.instance.playerFactionObject); //add player to allies
 
+        //update Diplo tab
+        DiplomacyTab.instance.SetRelationsToAlly(faction);
 
         SetDecisions();
     }
@@ -149,6 +143,9 @@ public class DiploHub : MonoBehaviour
     {
         GameManager.instance.playerFactionObject.GetComponent<Faction>().allies.Remove(faction); //remove from player allies
         faction.GetComponent<Faction>().allies.Remove(GameManager.instance.playerFactionObject); //remove player from allies
+
+        //update Diplo tab
+        DiplomacyTab.instance.SetRelationsToNormal(faction);
 
 
         SetDecisions();

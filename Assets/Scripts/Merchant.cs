@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.AI;
+using System.Linq;
 
 public class Merchant : MonoBehaviour
 {
@@ -61,7 +62,7 @@ public class Merchant : MonoBehaviour
     {
         resetTimer = 0;
         print(gameObject.name + " Is resetting");
-        ownerObject.GetComponent<AI_Faction>().CancelCurrentTask();
+        Idle();
     }
     private void Update()
     {
@@ -79,6 +80,11 @@ public class Merchant : MonoBehaviour
         if (heading == current) resetTimer++;
         else resetTimer = 0;
         if (resetTimer >= 5000) ResetAI();
+
+        if(ownerObject.activeInHierarchy == false)
+        {
+            UpdateOwner(homeCity.GetComponent<Settlement>().province.GetComponent<Tile>().owner);
+        }
     }
 
     public void UpdateOwner(FactionManager.factions newOwner)
@@ -136,10 +142,11 @@ public class Merchant : MonoBehaviour
 
     void BuyAndSell(GameObject settlement, bool home)
     {
+        sellValue = 0;
+        purchasePrice = 0;
         if (!home)
         {
             //selling
-            sellValue = 0;
             float saleProfit = 0;
             foreach (Item item in storedItems)//items stored in the merchant's inventory
             {
@@ -150,37 +157,36 @@ public class Merchant : MonoBehaviour
                 }
                 saleProfit += item.baseValue;
                 settlement.GetComponent<Settlement>().storedItems.Add(item);
-                //print("sold " + item.name + " for a profit of: " + (localPrice - item.baseValue).ToString());
             }
             sellValue += (saleProfit + saleProfit / 2);
-            //print(sellValue + " and bought for " + purchasePrice);
             storedItems.Clear();
 
             PayTax();
-        }
-        else
-        {
-            sellValue = 0;
         }
 
         if (home)
         {
             //buying
-            purchasePrice = 0;
             List<Item> desiredItems = new List<Item>();
-            desiredItems.Add(settlement.GetComponent<Settlement>().storedItems[0]);
-            foreach (Item item in settlement.GetComponent<Settlement>().storedItems)//items stored in the settlements market
+            if (settlement.GetComponent<Settlement>().storedItems.ToArray().Length > 0)
             {
-                if (settlement.GetComponent<Settlement>().producedItems.Contains(item))
+                desiredItems.Add(settlement.GetComponent<Settlement>().storedItems[0]);
+                foreach (Item item in settlement.GetComponent<Settlement>().storedItems)//items stored in the settlements market
                 {
-                    if (!desiredItems.Contains(item))
+                    if (settlement.GetComponent<Settlement>().producedItems.Contains(item))
                     {
                         desiredItems.Add(item);
                     }
                 }
+                desiredItems = desiredItems.Distinct().ToList();
             }
-            //print("DESIRES: " + desiredItems.ToArray().Length + " Items");
-
+            else
+            {
+                //nothing there moving on
+                //print(gameObject.name + " nothing stored in settlement, moving on");
+                return;
+            }
+            
             if (desiredItems.ToArray().Length > 0)
             {
                 foreach (Item item in desiredItems) // purchasing items
@@ -191,14 +197,15 @@ public class Merchant : MonoBehaviour
                     purchasePrice += item.baseValue;
                 }
             }
-            //print("after purchase, I have " + treasury.ToString() + " due to a cost of " + (oldTreasuryValue - treasury).ToString());
+            else
+            {
+                //print("No Items to buy, moving on");
+                return;
+            }
+
             ownerObject.GetComponent<Faction>().treasury += (purchasePrice);
             ownerObject.GetComponent<Faction>().monthlyTrade += purchasePrice;
-            //print(owner.ToString() + " has collected: $" + (purchasePrice).ToString() + " from the purchase of Items in " + homeCity.ToString());
-        }
-        else
-        {
-            purchasePrice = 0;
+
         }
 
         //update the trading hub if it is open by player

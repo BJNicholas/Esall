@@ -31,12 +31,23 @@ public class InfoBar : MonoBehaviour
     private void Update()
     {
         //updating the faction macro tabs
-        GovernmentTab.instance.UpdateINFO();
-        EconomyTab.instance.UpdateINFO();
+        if(GameManager.instance.playerFaction != FactionManager.factions.Observer)
+        {
+            GovernmentTab.instance.UpdateINFO();
+            EconomyTab.instance.UpdateINFO();
+        }
 
 
         treasuryTXT.text = GameManager.instance.playerFactionObject.GetComponent<Faction>().treasury.ToString("0.0");
-        monthlyChangeTXT.text = (GameManager.instance.playerFactionObject.GetComponent<Faction>().taxIncome - GameManager.instance.playerFactionObject.GetComponent<Faction>().expenses).ToString("0.0");
+        if(GameManager.instance.playerFactionObject.GetComponent<Faction>().treasury > 1000)
+        {
+            treasuryTXT.text = (GameManager.instance.playerFactionObject.GetComponent<Faction>().treasury / 1000).ToString("F") + "K";
+        }
+        if (GameManager.instance.playerFactionObject.GetComponent<Faction>().treasury > 1000000)
+        {
+            treasuryTXT.text = (GameManager.instance.playerFactionObject.GetComponent<Faction>().treasury / 1000000).ToString("F") + "M";
+        }
+        //monthlyChangeTXT.text = GameManager.instance.playerFactionObject.GetComponent<Faction>().income.ToString("0.0");
         hour.text = Mathf.Round(GameManager.instance.hour).ToString();
         day.text = GameManager.instance.date.x.ToString();
         month.text = GameManager.instance.date.y.ToString();
