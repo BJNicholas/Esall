@@ -17,11 +17,7 @@ MonoBehaviour:
   description: Deals good damage, but takes alot too...
   Prefab: {fileID: 2955642822019962399, guid: 91645b749d62928468ca458ac3715a7b, type: 3}
   icon: {fileID: 21300000, guid: 8b02acb42c11a364bb22cb954f6c3aa5, type: 3}
-  buyPrice: 25
-  cpm: 20
-  supportUnit: 0
-  damage: 20
-  health: 0
+  buyPrice: 15
+  cpm: 2.5
+  heath: 100
   maxHealth: 100
-  charge: 0
-  chargeSpeed: 3

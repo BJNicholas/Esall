@@ -6,7 +6,6 @@ using UnityEngine;
 public class Opinion
 {
     public FactionManager.factions faction;
-    public GameObject factionObj;
     [Range(0,100)]public float opinion;
 
     public List<Modifier> modifiers = new List<Modifier>();
@@ -22,7 +21,10 @@ public class Opinion
                     opinion += mod.opinionChange;
                     mod.activated = true;
                 }
-             
+                
+                if (!mod.permanent) mod.lifeSpan -= 1;
+
+                if (mod.lifeSpan == 0) modifiers.Remove(mod);
             }
         }
     }

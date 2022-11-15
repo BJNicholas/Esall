@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-//using UnityEditorInternal.VersionControl;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,7 +19,6 @@ public class Inventory : MonoBehaviour
 
     private void Start()
     {
-        GenerateListings();
         LiveUpdateListings();
     }
 
@@ -45,8 +43,6 @@ public class Inventory : MonoBehaviour
             //set action
             listing.GetComponent<Button>().onClick.RemoveAllListeners();
             listing.GetComponent<Button>().onClick.AddListener(listing.GetComponent<ItemUI>().Sell);
-            listing.name = listing.GetComponent<ItemUI>().item.ToString();
-            PriceCheck(listing, listing.GetComponent<ItemUI>().item);
         }
     }
 
@@ -87,6 +83,18 @@ public class Inventory : MonoBehaviour
                 }
             }
         }
+
+        foreach (GameObject listing in listings)
+        {
+            //positioning
+            listing.transform.position += new Vector3(0, -40 * listings.IndexOf(listing));
+            //scrollViewArea.GetComponent<RectTransform>().sizeDelta += new Vector2(0, 40);
+
+            //set action
+            listing.GetComponent<Button>().onClick.AddListener(listing.GetComponent<ItemUI>().Sell);
+
+            PriceCheck(listing, listing.GetComponent<ItemUI>().item);
+        }
     }
 
     public void GenerateNewListing(Item newItem)
@@ -107,38 +115,34 @@ public class Inventory : MonoBehaviour
 
     public void PriceCheck(GameObject listing, Item item)
     {
-       listing.GetComponent<ItemUI>().price = item.baseValue;
+        listing.GetComponent<ItemUI>().price = item.baseValue + 0.1f * (10 - listing.GetComponent<ItemUI>().amountRemaining);
+        if (listing.GetComponent<ItemUI>().price <= item.baseValue) listing.GetComponent<ItemUI>().price = item.baseValue;
 
-        if (SettlementInspector.instance.gameObject.activeInHierarchy == false)
-        {
-            listing.GetComponent<ItemUI>().price = item.baseValue;
-        }
-        else
-        {
-            if (SettlementInspector.instance.settlement.GetComponent<Settlement>().storedItems.Contains(item))
-            {
-                print("Market already contains: " + item.name);
-                GameObject matchingListing = null;
-
-          
-                foreach (GameObject listedItem in TradingHub.instance.listings)
-                {
-                    if (listedItem.GetComponent<ItemUI>().item == listing.GetComponent<ItemUI>().item)
-                    {
-                        matchingListing = listedItem;
-                        break;
-                    }
-                }
-
-                print(item + " is being matched against: " + matchingListing.name);
-                listing.GetComponent<ItemUI>().price = matchingListing.GetComponent<ItemUI>().price;
-            }
-            else
-            {
-                print("Market does not contain: " + item.name);
-                listing.GetComponent<ItemUI>().price = item.baseValue +( 0.1f * 10);
-            }
-        }
+        //if (SettlementInspector.instance.gameObject.activeInHierarchy == false)
+        //{
+        //    listing.GetComponent<ItemUI>().price = item.baseValue + 0.1f * (10 - listing.GetComponent<ItemUI>().amountRemaining);
+        //    if (listing.GetComponent<ItemUI>().price <= item.baseValue) listing.GetComponent<ItemUI>().price = item.baseValue;
+        //}
+        //else
+        //{
+        //    if (SettlementInspector.instance.settlement.GetComponent<Settlement>().storedItems.Contains(item))
+        //    {
+        //        print("Market already contains: " + item.name);
+        //        foreach (GameObject listedItem in TradingHub.instance.listings)
+        //        {
+        //            if (listedItem.GetComponent<ItemUI>().item = item)
+        //            {
+        //                listing.GetComponent<ItemUI>().price = listedItem.GetComponent<ItemUI>().price;
+        //            }
+        //        }
+        //    }
+        //    else
+        //    {
+        //        print("Market does not contain: " + item.name);
+        //        listing.GetComponent<ItemUI>().price = item.baseValue + 0.1f * (10 - listing.GetComponent<ItemUI>().amountRemaining);
+        //        if (listing.GetComponent<ItemUI>().price <= item.baseValue) listing.GetComponent<ItemUI>().price = item.baseValue;
+        //    }
+        //}
     }
 
     public void CloseMenu()

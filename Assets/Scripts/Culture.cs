@@ -8,10 +8,6 @@ public class Culture : MonoBehaviour
 
     public Color32 colour;
 
-    public string[] names;
-
-    public Sprite portrait; // add more later
-
     public List<GameObject> cultureTiles;
 
 

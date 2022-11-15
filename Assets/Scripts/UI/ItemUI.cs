@@ -64,10 +64,6 @@ public class ItemUI : MonoBehaviour
 
             GameManager.instance.playerFactionObject.GetComponent<Faction>().treasury += price;
             amountRemaining -= 1;
-
-            TradingHub.instance.LiveUpdateListings();
-            Inventory.instance.LiveUpdateListings();
-            TradingHub.instance.LiveUpdateListings();
         }
         else print("NEED TO TRAVEL TO A TRADING POST");
     }

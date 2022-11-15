@@ -10,7 +10,6 @@ TagManager:
   - Tile
   - Merchant
   - UI
-  - Effect
   layers:
   - Default
   - TransparentFX

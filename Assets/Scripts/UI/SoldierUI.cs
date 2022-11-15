@@ -37,7 +37,7 @@ public class SoldierUI : MonoBehaviour
         {
             SettlementInspector.instance.GetComponent<AudioSource>().clip = soundEffect;
             SettlementInspector.instance.GetComponent<AudioSource>().Play();
-            Inventory.instance.army.GetComponent<Army>().soldiers.Add(Instantiate(soldier));
+            Inventory.instance.army.GetComponent<Army>().soldiers.Add(soldier);
             Inventory.instance.LiveUpdateListings();
 
             RecruitmentHub.instance.settlement.GetComponent<Settlement>().availableSoldiers.Remove(soldier);

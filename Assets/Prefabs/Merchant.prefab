@@ -221,7 +221,6 @@ MonoBehaviour:
   sellValue: 0
   purchasePrice: 0
   storedItems: []
-  resetTimer: 0
 --- !u!50 &3990407957686655914
 Rigidbody2D:
   serializedVersion: 4
@@ -279,7 +278,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.05
-  m_Speed: 0.5
+  m_Speed: 0.3
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120

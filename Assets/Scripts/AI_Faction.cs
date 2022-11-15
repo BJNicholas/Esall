@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Data;
 using UnityEngine;
 
 public class AI_Faction : MonoBehaviour
@@ -60,11 +59,6 @@ public class AI_Faction : MonoBehaviour
 
     private void Update()
     {
-        if(currentTask == PossibleTasks.Encounter)
-        {
-            StopAllCoroutines();
-            CancelCurrentTask();
-        }
         //print(gameObject.name + oldSettlement + " object");
         if (oldSettlement == chosenSettlement && arrived == false)
         {
@@ -93,11 +87,7 @@ public class AI_Faction : MonoBehaviour
                 CancelCurrentTask();
             }
 
-        }
-        else
-        {
-            StopAllCoroutines();
-            chosenSettlement = gameObject.GetComponent<Faction>().capitalCity;
+
         }
 
         if (taskComplete)
@@ -106,13 +96,6 @@ public class AI_Faction : MonoBehaviour
             GenerateNextTask();
             RunTask(currentTask.ToString(), processingSpeed);
             taskComplete = false;
-        }
-
-        if(gameObject.GetComponent<Faction>().ruler == null)
-        {
-            gameObject.GetComponent<Faction>().ruler = CharacterManager.instance.CreateNewCharacter(gameObject.GetComponent<Faction>().ruler, gameObject.GetComponent<Faction>().capitalCity);
-            CreatePersonality();
-            print(gameObject.name + " created a new ruler, with the " + personality.ToString() + " personality");
         }
     }
 
@@ -183,12 +166,12 @@ public class AI_Faction : MonoBehaviour
 
     public void RunTask(string taskName, float delay)
     {
-        if(army != null) army.GetComponent<AI_ArmyController>().resetTimer = 0;
+        army.GetComponent<AI_ArmyController>().resetTimer = 0;
         oldSettlement = chosenSettlement;
         arrived = false;
 
         print(GetComponent<Faction>().faction.ToString() + " Running " + taskName);
-        //Console.instance.PrintMessage(GetComponent<Faction>().faction.ToString() + " Running " + taskName);
+        Console.instance.PrintMessage(GetComponent<Faction>().faction.ToString() + " Running " + taskName);
         StartCoroutine(taskName, delay);
     }
 
@@ -358,15 +341,7 @@ public class AI_Faction : MonoBehaviour
 
             //variables
             //army sizes
-            if (otherFaction.GetComponent<Faction>().army.activeInHierarchy)
-            {
-                desire = difference(GetComponent<Faction>().army.GetComponent<Army>().numOfSoldiers, otherFaction.GetComponent<Faction>().army.GetComponent<Army>().numOfSoldiers, desire, 3);
-            }
-            else
-            {
-                desire += 50;
-            }
-            
+            desire = difference(GetComponent<Faction>().army.GetComponent<Army>().numOfSoldiers, otherFaction.GetComponent<Faction>().army.GetComponent<Army>().numOfSoldiers, desire, 3);
             //development
             desire = difference(GetComponent<Faction>().development, otherFaction.GetComponent<Faction>().development, desire, 1.5f);
 
@@ -409,10 +384,6 @@ public class AI_Faction : MonoBehaviour
                 {
                     otherFaction.GetComponent<AI_Faction>().CancelCurrentTask();
                     print(otherFaction.name + " CANCELLED BECAUSE A WAR STARTED");
-                }
-                else
-                {
-                    DiplomacyTab.instance.SetRelationsToWar(gameObject);
                 }
                 GameObject newEvent = Instantiate(GameManager.instance.eventPrefab, GameObject.Find("UI").transform);
                 newEvent.GetComponent<Event>().title.text = "WAR";
@@ -518,7 +489,7 @@ public class AI_Faction : MonoBehaviour
         GameObject chosenArmy = GetComponent<Faction>().enemies[roll].GetComponent<Faction>().army;
         chosenSettlement = chosenArmy; //just roll with it, it doesn't matter
 
-        if (chosenArmy.gameObject.activeInHierarchy == false)
+        if (!chosenArmy.gameObject.activeInHierarchy)
         {
             CancelCurrentTask();
             print(gameObject.name + " cant attack a dead guy lmao --> " + chosenArmy.name);

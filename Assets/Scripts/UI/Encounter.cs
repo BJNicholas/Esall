@@ -34,24 +34,10 @@ public class Encounter : MonoBehaviour
             dialogueTXT.text = dialogue;
 
             homeFlag.sprite = GameManager.instance.playerFactionObject.GetComponent<Faction>().flag;
-            if (GameManager.instance.playerFactionObject.GetComponent<Faction>().army != null)
-            {
-                homeSoldiers.text = GameManager.instance.playerFactionObject.GetComponent<Faction>().army.GetComponent<Army>().numOfSoldiers.ToString();
-            }
-            else
-            {
-                homeSoldiers.text = "0";
-            }
+            homeSoldiers.text = GameManager.instance.playerFactionObject.GetComponent<Faction>().army.GetComponent<Army>().numOfSoldiers.ToString();
 
             awayFlag.sprite = otherfaction.GetComponent<Faction>().flag;
-            if (otherfaction.GetComponent<Faction>().army != null)
-            {
-                awaySoldiers.text = otherfaction.GetComponent<Faction>().army.GetComponent<Army>().numOfSoldiers.ToString();
-            }
-            else
-            {
-                awaySoldiers.text = "0";
-            }
+            awaySoldiers.text = otherfaction.GetComponent<Faction>().army.GetComponent<Army>().numOfSoldiers.ToString();
 
 
             if (GameManager.instance.playerFactionObject.GetComponent<Faction>().enemies.Contains(otherfaction))
@@ -63,16 +49,12 @@ public class Encounter : MonoBehaviour
                 leaveButton.SetActive(true);
             }
         }
-        else
-        {
-            dialogue += "My land has fallen to foreign invaders, remember me...";
-            Invoke("CloseUI", 1f);
-        }
     }
 
     public void AutoResolve()
     {
         dialogue += "Prepare to die. ";
+        GetComponent<AudioSource>().Play();
         GameManager.instance.timeSpeed = 1f;
         Time.timeScale = 1;
         DiploHub.instance.gameObject.SetActive(false);
@@ -83,16 +65,8 @@ public class Encounter : MonoBehaviour
             DiploHub.instance.DeclareWar();
         }
 
-        
-        Battle.instance.BattleStart(GameManager.instance.playerFactionObject.GetComponent<Faction>().army, otherArmy);
-
-        dialogue = ""; // clear dialogue
-        //reset buttons 
-        foreach (Button button in GetComponentsInChildren<Button>())
-        {
-            button.interactable = true;
-        }
-        gameObject.SetActive(false);
+        GameManager.instance.playerFactionObject.GetComponent<Faction>().army.GetComponent<Army>().Battle(otherArmy);
+        //close UI after
 
     }
 
@@ -106,12 +80,14 @@ public class Encounter : MonoBehaviour
 
     public void Leave()
     {
+        GetComponent<AudioSource>().Stop();
         dialogue += "Fairwell then... ";
         otherfaction.GetComponent<AI_Faction>().GenerateNextTask();
         Invoke("CloseUI", 1f);
     }
     public void CloseUI()
     {
+        GetComponent<AudioSource>().Stop();
         dialogue = ""; // clear dialogue
 
         //reset buttons 

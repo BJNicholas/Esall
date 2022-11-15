@@ -160,7 +160,7 @@ public class Army : MonoBehaviour
 
     public IEnumerator BattleTick(GameObject defendingArmy)
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(3f);
 
         Soldier attacker, defender; //assigning vars
         attacker = soldiers[0];

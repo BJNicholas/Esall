@@ -15,17 +15,13 @@ public class Soldier : ScriptableObject
     [Tooltip("Cost per Month")] public float cpm; // cost per month
 
     [Header("Stats")]
-    public bool supportUnit;
-    public float damage;
-    public float health;
+    public float heath;
     public float maxHealth;
-    [Range(0,100)]public float charge = 0f; //0-100 always starts on 0
-    public float chargeSpeed;
 
 
     private void Awake()
     {
-        health = maxHealth;
+        heath = maxHealth;
     }
 
 }
