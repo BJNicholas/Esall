@@ -9,13 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66cb1f923f26f384e85dfd839f7ae868, type: 3}
+  m_Script: {fileID: 11500000, guid: 33738b28e5d6ff54db72cf594d421728, type: 3}
   m_Name: Cultural Differences
   m_EditorClassIdentifier: 
-  activated: 1
+  activated: 0
   name: Cultural Differences
-  description: These people are strange in their ways, our kind struggle to understand
-    them.
-  opinionChange: -10
+  description: They seem strange to us
+  opinionChange: -5
   permanent: 1
   lifeSpan: 0

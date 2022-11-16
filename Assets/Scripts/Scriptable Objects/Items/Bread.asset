@@ -9,12 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34f8f06cdd4010c4a98c2bb060595164, type: 3}
+  m_Script: {fileID: 11500000, guid: a4b52c4dd29d21849a973e80ee474845, type: 3}
   m_Name: Bread
   m_EditorClassIdentifier: 
   id: 0
   name: Bread
   type: 1
-  description: Simple, cheap and filling
+  description: Yum
   icon: {fileID: 21300000, guid: 2c00149e06f6bbe4abbe32c3650584be, type: 3}
-  baseValue: 0.1
+  baseValue: 1.5

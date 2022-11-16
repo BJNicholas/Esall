@@ -206,7 +206,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 600790447884989547}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85ce16f67075ec14caa96632f64fd18a, type: 3}
+  m_Script: {fileID: 11500000, guid: 837efcaf85299484cba2438ce6d0739f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   soldier: {fileID: 0}
@@ -813,4 +813,4 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 0
+  m_Text: 

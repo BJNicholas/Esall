@@ -20,7 +20,7 @@ public class SoldierProduction : MonoBehaviour
             int temp = baseProductionRate;
             while (temp > 0 && tile.GetComponent<Tile>().settlement.GetComponent<Settlement>().availableSoldiers.ToArray().Length <= tile.GetComponent<Tile>().manpowerCap)
             {
-                tile.GetComponent<Tile>().settlement.GetComponent<Settlement>().availableSoldiers.Add(type);
+                tile.GetComponent<Tile>().settlement.GetComponent<Settlement>().availableSoldiers.Add(Instantiate(type));
                 temp -= 1;
             }
         }

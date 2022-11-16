@@ -28,7 +28,7 @@ public class UIGridRenderer : Graphic
         {
             for (int x = 0; x < gridSize.x; x++)
             {
-                DrawCell(x, y, count, vh);
+                //DrawCell(x, y, count, vh);
                 count++;
             }
         }

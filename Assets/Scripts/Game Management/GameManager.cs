@@ -19,7 +19,6 @@ public class GameManager : MonoBehaviour
     public Soldier[] soldierTypes;
     public GameObject eventPrefab;
     public GameObject offerPrefab;
-    public GameObject pauseMenu;
 
     [Header("Game Details")]
     public FactionManager.factions playerFaction;
@@ -28,6 +27,11 @@ public class GameManager : MonoBehaviour
     public float timeSpeed = 1;
     public float hour;
     public Vector3 date;
+
+    [Header("Setup")]
+    public GameObject pauseMenu;
+    //win and lose screens
+    public GameObject win, lose;
 
     private void Awake()
     {
@@ -89,7 +93,11 @@ public class GameManager : MonoBehaviour
         {
             hour = 0;
             date.x += 1;
-            EconomyTab.instance.UpdateGraph(playerFactionObject.GetComponent<Faction>().treasury);
+            if(playerFactionObject != null || playerFaction != FactionManager.factions.Observer)
+            {
+                EconomyTab.instance.UpdateGraph(playerFactionObject.GetComponent<Faction>().treasury);
+                GovernmentTab.instance.UpdateGraph(playerFactionObject.GetComponent<Faction>().publicOrder);
+            }
         }
         if(date.x >= 32) //end of Month
         {
@@ -104,18 +112,33 @@ public class GameManager : MonoBehaviour
             //monthly Taxes from provinces
             foreach (GameObject faction in FactionManager.instance.factionObjects)
             {
-                faction.GetComponent<Faction>().chargeTax();
-                faction.GetComponent<Faction>().PayExpenses();
                 GetComponent<AudioSource>().Play();
 
                 faction.GetComponent<Faction>().monthlyTrade = 0; //reset monthly trade profit
 
-                faction.GetComponent<Faction>().AdjustRelations(); //revise the current relations in regard to their modifiers
+                if (faction.activeInHierarchy)
+                {
+
+                    faction.GetComponent<Faction>().AdjustRelations(); //revise the current relations in regard to their modifiers
+                    faction.GetComponent<Faction>().ChargeForIncome();
+                    faction.GetComponent<Faction>().PayExpenses();
+
+                    EventFirer.instance.FireEvent(faction); // add rng events for every faction
+                    foreach (NationalModifier natMod in faction.GetComponent<Faction>().nationalMods)
+                    {
+                        natMod.TakeAction();
+                        if (natMod.lifeSpan <= 0) StartCoroutine(natMod.RemoveMod(1.5f));
+                    }
+                }
 
             }
 
             foreach (GameObject resource in resources) resource.GetComponent<ProductionManager>().Produce();
             foreach (GameObject resource in manpowerResources) resource.GetComponent<SoldierProduction>().Produce();
+
+            CharacterManager.instance.AjustLives();
+
+            GovernmentTab.instance.UpdateNationalModsList();
 
         }
         if (date.y >= 13) //end of Year

@@ -9,15 +9,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8fa4b25da6239f549ba69a8d786ca271, type: 3}
+  m_Script: {fileID: 11500000, guid: 6493d3ee79c136a40ab27e08b6960388, type: 3}
   m_Name: Shieldbearer
   m_EditorClassIdentifier: 
   id: 1
-  name: Shieldbearer
-  description: Deals good damage, but takes alot too...
-  Prefab: {fileID: 2955642822019962399, guid: 91645b749d62928468ca458ac3715a7b, type: 3}
+  name: Pikeman
+  description: 
   icon: {fileID: 21300000, guid: 8b02acb42c11a364bb22cb954f6c3aa5, type: 3}
-  buyPrice: 15
-  cpm: 2.5
-  heath: 100
-  maxHealth: 100
+  buyPrice: 25
+  cpm: 20
+  supportUnit: 0
+  damage: 25
+  health: 80
+  maxHealth: 80
+  charge: 0
+  chargeSpeed: 3

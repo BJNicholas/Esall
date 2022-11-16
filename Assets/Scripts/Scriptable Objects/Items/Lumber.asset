@@ -9,12 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34f8f06cdd4010c4a98c2bb060595164, type: 3}
+  m_Script: {fileID: 11500000, guid: a4b52c4dd29d21849a973e80ee474845, type: 3}
   m_Name: Lumber
   m_EditorClassIdentifier: 
   id: 4
   name: Lumber
   type: 0
-  description: The building blocks to our homes
-  icon: {fileID: 21300000, guid: 4a6d8976f47d9114a971d3a382949c47, type: 3}
-  baseValue: 0.4
+  description: Wood
+  icon: {fileID: 21300000, guid: dd4afd379a0863a4fb492a5e11dd2b6d, type: 3}
+  baseValue: 2

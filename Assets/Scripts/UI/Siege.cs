@@ -30,6 +30,7 @@ public class Siege : MonoBehaviour
     public void StartSiege()
     {
         GetComponent<AudioSource>().Play();
+        Effects.instance.SpawnEffect(Effects.instance.fire, SettlementInspector.instance.settlement.transform.position);
         army = GameManager.instance.playerFactionObject.GetComponent<Faction>().army;
         //reseting UI
         fill.fillAmount = 0;

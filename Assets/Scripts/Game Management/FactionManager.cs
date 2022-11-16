@@ -14,7 +14,7 @@ public class FactionManager : MonoBehaviour
         Daifax,
         Ostres,
         Palepaes,
-        Gallifraes,
+        Mycenon,
         Eopicis,
         //"German/ druidic tribe people"
         Gaulis,

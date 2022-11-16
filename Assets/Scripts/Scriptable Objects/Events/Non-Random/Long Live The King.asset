@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecea91edb19cf4d40a3c3da75ba54757, type: 3}
+  m_Name: Long Live The King
+  m_EditorClassIdentifier: 
+  title: Long live the king
+  description: The old king is dead, long live the king. While the capital remains
+    in mourning, we must band together around the new king for the strength of our
+    nation.
+  changeText: = -10 public order for 1 month
+  image: {fileID: 21300000, guid: ead1faac8a5fa4f4995c0f909aff675d, type: 3}
+  dismissText: Hip Hip!
+  modifier: {fileID: 11400000, guid: 87240b340cba5864ca845a21b87b626a, type: 2}

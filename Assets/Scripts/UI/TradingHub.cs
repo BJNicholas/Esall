@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -28,14 +29,10 @@ public class TradingHub : MonoBehaviour
         LiveUpdateListings();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        foreach(GameObject item in listings)
-        {
-            print(item.name + " listing is selling: " + item.GetComponent<ItemUI>().item);
-        }
+        //LiveUpdateListings();
     }
-
 
     public void LiveUpdateListings()
     {
@@ -46,8 +43,8 @@ public class TradingHub : MonoBehaviour
         }
         listings.Clear();
         //re run for new
-        //settlement.GetComponent<Settlement>().storedItems.Sort();
         GenerateListings();
+
 
         foreach (GameObject listing in listings)
         {
@@ -99,7 +96,7 @@ public class TradingHub : MonoBehaviour
 
             PriceCheck(listing, listing.GetComponent<ItemUI>().item);
             //positioning
-            listing.transform.position += new Vector3(0, -40 * listings.IndexOf(listing));
+            //listing.transform.position += new Vector3(0, -40 * listings.IndexOf(listing));
             //scrollViewArea.GetComponent<RectTransform>().sizeDelta += new Vector2(0, 40);
         }
     }

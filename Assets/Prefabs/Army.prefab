@@ -336,7 +336,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6581271770117110711}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75453a50ae4db37458a158ae646ae365, type: 3}
+  m_Script: {fileID: 11500000, guid: 21f4ada8fbbcfd547bbab347e578bd31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   owner: 0
@@ -347,9 +347,9 @@ MonoBehaviour:
   factionTXT: {fileID: 6275535839973886468}
   isGarrison: 0
   numOfSoldiers: 1
-  strength: 100
+  strength: 0
   soldiers:
-  - {fileID: 11400000, guid: e64c11bdbbf6d174c927a9c467de276c, type: 2}
+  - {fileID: 11400000, guid: 8c561d2dd822e3349822877f1c950cd3, type: 2}
   target: {x: 0, y: 0, z: 0}
   storedItems: []
 --- !u!195 &195313964628266841
