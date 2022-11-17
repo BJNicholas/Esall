@@ -408,9 +408,9 @@ MonoBehaviour:
   m_HandleRect: {fileID: 9117945361021028230}
   m_Direction: 0
   m_MinValue: 1
-  m_MaxValue: 15
+  m_MaxValue: 2
   m_WholeNumbers: 0
-  m_Value: 8.1
+  m_Value: 1.5
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -41163,10 +41163,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 3831066491828685608}
   m_HandleRect: {fileID: 5901421177644438445}
   m_Direction: 0
-  m_MinValue: 1
-  m_MaxValue: 15
+  m_MinValue: 0.1
+  m_MaxValue: 2
   m_WholeNumbers: 0
-  m_Value: 4.75
+  m_Value: 0.5
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []

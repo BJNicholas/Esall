@@ -24,6 +24,7 @@ public class Army : MonoBehaviour
     [Header("NavMesh Details")]
     public Vector3 target;
     private NavMeshAgent agent;
+    public float speed = 0.25f;
 
     [Header("Trade")]
     public List<Item> storedItems;
@@ -63,6 +64,7 @@ public class Army : MonoBehaviour
 
     private void Update()
     {
+        agent.speed = speed * GameManager.instance.timeSpeed;
         agent.SetDestination(target);
         numOfSoldiers = soldiers.ToArray().Length;
         if (Input.GetKeyDown(KeyCode.I) && Inventory.instance.gameObject.activeInHierarchy == false)

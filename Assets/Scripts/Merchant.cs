@@ -24,6 +24,7 @@ public class Merchant : MonoBehaviour
     [Header("NAV MESH")]
     public Transform target;
     private NavMeshAgent agent;
+    public float speed = 0.1f;
     [Header("Trading")]
     public float sellValue;
     public float purchasePrice;
@@ -66,6 +67,7 @@ public class Merchant : MonoBehaviour
     }
     private void Update()
     {
+        agent.speed = speed * GameManager.instance.timeSpeed;
         agent.SetDestination(target.position);
         stateTXT.text = currentSate.ToString();
 
@@ -84,6 +86,16 @@ public class Merchant : MonoBehaviour
         if(ownerObject.activeInHierarchy == false)
         {
             UpdateOwner(homeCity.GetComponent<Settlement>().province.GetComponent<Tile>().owner);
+        }
+
+        if (Settings.instance.showMerchants == false)
+        {
+            GetComponent<SpriteRenderer>().enabled = false;
+            GetComponentInChildren<Text>().text = "";
+        }
+        else
+        {
+            GetComponent<SpriteRenderer>().enabled = true;
         }
     }
 

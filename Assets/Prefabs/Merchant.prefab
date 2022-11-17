@@ -218,6 +218,7 @@ MonoBehaviour:
   ownerObject: {fileID: 0}
   currentSate: 0
   target: {fileID: 0}
+  speed: 0.3
   sellValue: 0
   purchasePrice: 0
   storedItems: []

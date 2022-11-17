@@ -42,8 +42,8 @@ public class Faction : MonoBehaviour
     public float armyWages;
     public float merchantWages;
     [Range(0, 2f)] public float taxRate = 1;
-    [Range(1, 10f)] public float armyWageRate = 0;
-    [Range(1, 10f)] public float merchantWageRate = 5;
+    [Range(1, 2f)] public float armyWageRate = 1.5f;
+    [Range(0.1f, 2f)] public float merchantWageRate = 0.5f;
     public int numOfMerchants;
     public float monthlyTrade;
 
@@ -414,7 +414,7 @@ public class Faction : MonoBehaviour
         {
             if(merchant.GetComponent<Merchant>().owner == faction)
             {
-                merchant.GetComponent<NavMeshAgent>().speed = 0.1f * merchantWageRate;
+                merchant.GetComponent<Merchant>().speed *= merchantWageRate;
             }
         }
 

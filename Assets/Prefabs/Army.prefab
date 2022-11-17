@@ -351,6 +351,7 @@ MonoBehaviour:
   soldiers:
   - {fileID: 11400000, guid: 8c561d2dd822e3349822877f1c950cd3, type: 2}
   target: {x: 0, y: 0, z: 0}
+  speed: 0.5
   storedItems: []
 --- !u!195 &195313964628266841
 NavMeshAgent:

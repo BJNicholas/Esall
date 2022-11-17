@@ -51,8 +51,7 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            pauseMenu.SetActive(true);
-            Time.timeScale = 0;
+            Pause.instance.PauseGame();
         }
         if (Input.GetKeyDown(KeyCode.Tab))
         {
@@ -87,7 +86,7 @@ public class GameManager : MonoBehaviour
     }
     public void CalculateTime()
     {
-        Time.timeScale = timeSpeed;
+        //Time.timeScale = timeSpeed;
         hour += 1 * timeSpeed * Time.deltaTime;
         if(hour > 24) //end of Day
         {
