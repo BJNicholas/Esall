@@ -87,7 +87,7 @@ public class GameManager : MonoBehaviour
     public void CalculateTime()
     {
         //Time.timeScale = timeSpeed;
-        hour += 1 * timeSpeed * Time.deltaTime;
+        hour += (2 )* timeSpeed * Time.deltaTime;
         if(hour > 24) //end of Day
         {
             hour = 0;

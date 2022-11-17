@@ -21,6 +21,9 @@ public class PlayerController : MonoBehaviour
                 Debug.DrawLine(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
                 if (hit.collider != null)
                 {
+                    GameObject particle = Instantiate(Effects.instance.travel);
+                    particle.transform.position = hit.point;
+                    Destroy(particle, 1f);
                     if (hit.collider.tag == "UI")
                     {
                         print("Clicked On UI");

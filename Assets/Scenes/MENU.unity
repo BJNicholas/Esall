@@ -393,7 +393,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 133473078}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d371cdd893a3bb544ab1058a39fc5b3b, type: 3}
+  m_Script: {fileID: 11500000, guid: b61d3e9b50d040644b10ba2ce831662f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &148877283
@@ -1035,7 +1035,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 926810955}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
@@ -1292,7 +1292,7 @@ GameObject:
   - component: {fileID: 1173071805}
   m_Layer: 0
   m_Name: Audio Manager
-  m_TagString: Untagged
+  m_TagString: Music
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1416,14 +1416,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1173071802}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3abcb1e2910858649bdcdba0eaf02f18, type: 3}
+  m_Script: {fileID: 11500000, guid: cc9ed2c3ec8a90143826d8006aa9c8b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   currentSong: {fileID: 0}
   songs:
   - {fileID: 8300000, guid: e052e3bc44d181045af0aadb78421ea5, type: 3}
-  - {fileID: 8300000, guid: c2ee80208e43c2b40b752d35f698c7dc, type: 3}
   - {fileID: 8300000, guid: c1523beb612eb5b428f381ad76630a4f, type: 3}
+  - {fileID: 8300000, guid: c2ee80208e43c2b40b752d35f698c7dc, type: 3}
 --- !u!1 &1278680074
 GameObject:
   m_ObjectHideFlags: 0

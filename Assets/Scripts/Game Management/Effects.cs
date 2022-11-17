@@ -8,6 +8,7 @@ public class Effects : MonoBehaviour
     public static Effects instance;
 
     public GameObject fire;
+    public GameObject travel;
 
     private void Awake()
     {

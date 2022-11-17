@@ -3026,7 +3026,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  cameraSpeed: 1
+  cameraSpeed: 3
   scrollSpeed: 30
   resetDelay: 2
   scrollBounds: {x: 1.5, y: 6.5}
@@ -6504,6 +6504,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fire: {fileID: 7643806380853459452, guid: c1a67f9955f136244bd86f90b39572fa, type: 3}
+  travel: {fileID: 7643806380853459452, guid: 9d1d55bfb4761464c9374d5fb3d00880, type: 3}
 --- !u!1 &1022064790
 GameObject:
   m_ObjectHideFlags: 0
@@ -15425,6 +15426,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2293966486855708963, guid: 5281fceab6417844db065bee3e53c78b, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.000015258789
+      objectReference: {fileID: 0}
+    - target: {fileID: 2293966486855708963, guid: 5281fceab6417844db065bee3e53c78b, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.000014305115
+      objectReference: {fileID: 0}
     - target: {fileID: 2570236576206572918, guid: 5281fceab6417844db065bee3e53c78b, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -15.356384
@@ -15432,6 +15441,14 @@ PrefabInstance:
     - target: {fileID: 2570236576206572918, guid: 5281fceab6417844db065bee3e53c78b, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0.000061035156
+      objectReference: {fileID: 0}
+    - target: {fileID: 4087179684384453125, guid: 5281fceab6417844db065bee3e53c78b, type: 3}
+      propertyPath: m_Value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6546262517223841000, guid: 5281fceab6417844db065bee3e53c78b, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.0017700195
       objectReference: {fileID: 0}
     - target: {fileID: 6781039135271985785, guid: 5281fceab6417844db065bee3e53c78b, type: 3}
       propertyPath: m_IsActive
