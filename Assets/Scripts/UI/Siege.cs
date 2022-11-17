@@ -45,7 +45,7 @@ public class Siege : MonoBehaviour
 
     public IEnumerator SiegeTick()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds((1 / GameManager.instance.timeSpeed) * GameManager.instance.playerFactionObject.GetComponent<Faction>().armyWageRate);
         timeRemaining -= 1;
         //Update UI
         fill.fillAmount += fillTickAmount;

@@ -16,6 +16,7 @@ public class InfoBar : MonoBehaviour
     [Header("Time/Date Info")]
     public Text hour;
     public Text day, month, year;
+    public Slider monthTimer;
 
     private void Awake()
     {
@@ -52,6 +53,8 @@ public class InfoBar : MonoBehaviour
         day.text = GameManager.instance.date.x.ToString();
         month.text = GameManager.instance.date.y.ToString();
         year.text = GameManager.instance.date.z.ToString();
+
+        monthTimer.value = GameManager.instance.date.x;
     }
 
 

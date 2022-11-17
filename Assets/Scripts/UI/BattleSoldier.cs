@@ -71,7 +71,7 @@ public class BattleSoldier : MonoBehaviour
     {
         if (fighting && Battle.instance.fighting)
         {
-            soldier.charge += (5  * Random.Range(1f, 1.5f)) * soldier.chargeSpeed * Time.deltaTime;
+            soldier.charge += (soldier.chargeSpeed * 3)* GameManager.instance.timeSpeed * Time.deltaTime;
         }
         else
         {

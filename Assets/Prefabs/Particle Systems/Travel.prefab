@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 7643806380853459452}
   m_LocalRotation: {x: 1, y: 0, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -40,7 +40,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7643806380853459452}
   serializedVersion: 7
-  lengthInSec: 0.75
+  lengthInSec: 1.6
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -115,7 +115,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.8
+      scalar: 1.5
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -222,7 +222,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 0.16159368, b: 0, a: 0.5803922}
+      maxColor: {r: 1, g: 1, b: 1, a: 0.5803922}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -1040,21 +1040,21 @@ ParticleSystem:
         m_Curve:
         - serializedVersion: 3
           time: 0
-          value: 0
-          inSlope: 0.084913276
-          outSlope: 0.084913276
+          value: 1
+          inSlope: 0.4122595
+          outSlope: 0.4122595
           tangentMode: 0
           weightedMode: 0
           inWeight: 0
-          outWeight: 0.1591449
+          outWeight: 0.16389549
         - serializedVersion: 3
           time: 1
-          value: 1
-          inSlope: 2.413595
-          outSlope: 2.413595
+          value: 0
+          inSlope: 0.21881497
+          outSlope: 0.21881497
           tangentMode: 0
           weightedMode: 0
-          inWeight: 0.07838482
+          inWeight: 0.12351543
           outWeight: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
@@ -1362,7 +1362,7 @@ ParticleSystem:
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
-        key1: {r: 1, g: 0, b: 0, a: 0}
+        key1: {r: 1, g: 1, b: 1, a: 0}
         key2: {r: 0.33962262, g: 0, b: 0, a: 0}
         key3: {r: 0.33962262, g: 0, b: 0, a: 0}
         key4: {r: 0.33962262, g: 0, b: 0, a: 0}

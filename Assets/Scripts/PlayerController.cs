@@ -19,6 +19,9 @@ public class PlayerController : MonoBehaviour
             {
                 RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
                 Debug.DrawLine(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+                GetComponent<Rigidbody2D>().velocity = Vector3.zero;
+                GetComponent<Rigidbody2D>().angularVelocity = 0;
+
                 if (hit.collider != null)
                 {
                     GameObject particle = Instantiate(Effects.instance.travel);
