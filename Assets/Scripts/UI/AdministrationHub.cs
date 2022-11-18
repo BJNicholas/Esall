@@ -83,7 +83,6 @@ public class AdministrationHub : MonoBehaviour
         //can afford
         if (GameManager.instance.playerFactionObject.GetComponent<Faction>().treasury >= FindDevPrice(0f, settlement))
         {
-            settlement.GetComponent<Settlement>().province.GetComponent<Tile>().manpowerCap += 1.5f;
             GameManager.instance.playerFactionObject.GetComponent<Faction>().treasury -= FindDevPrice(0f, settlement);
             settlement.GetComponent<Settlement>().province.GetComponent<Tile>().development += 1;
             settlement.GetComponent<Settlement>().province.GetComponent<Tile>().taxIncome += settlement.GetComponent<Settlement>().province.GetComponent<Tile>().development / 10;

@@ -37,11 +37,12 @@ public class Tile : MonoBehaviour
 
     public void TaxIncomeCalculation()
     {
+        manpowerCap = 0;
         //starting tax income calculation
         for (float i = 0; i <= development; i++)
         {
             taxIncome += i * 2f;
-            manpowerCap += 1.5f;
+            manpowerCap += i * 1.5f;
         }
     }
 
@@ -73,7 +74,6 @@ public class Tile : MonoBehaviour
             //develop
             ownerObject.GetComponent<Faction>().treasury -= price;
             development += 1;
-            manpowerCap += 1.5f;
             taxIncome += development / 10;
             ownerObject.GetComponent<Faction>().UpdateOwnedTiles();
         }

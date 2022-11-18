@@ -412,6 +412,7 @@ public class Faction : MonoBehaviour
         //merchant speed affected
         foreach (GameObject merchant in GameManager.instance.merchants)
         {
+            merchant.GetComponent<Merchant>().speed = 0.3f; // the default
             if(merchant.GetComponent<Merchant>().owner == faction)
             {
                 merchant.GetComponent<Merchant>().speed *= merchantWageRate;

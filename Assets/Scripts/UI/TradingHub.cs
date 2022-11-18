@@ -63,9 +63,10 @@ public class TradingHub : MonoBehaviour
                 bool foundListing = false;
                 foreach (GameObject listing in listings) // finding out if item already has a listing
                 {
-                    if(item == listing.GetComponent<ItemUI>().item)
+                    if(item.name == listing.GetComponent<ItemUI>().item.name)
                     {
                         foundListing = true;
+                        listing.GetComponent<ItemUI>().amountRemaining += 1;
                         break;
                     }
                 }
@@ -83,7 +84,7 @@ public class TradingHub : MonoBehaviour
 
                 foreach (Item storedItem in settlement.GetComponent<Settlement>().storedItems)
                 {
-                    if (storedItem == listing.GetComponent<ItemUI>().item)
+                    if (storedItem.name == listing.GetComponent<ItemUI>().item.name)
                     {
                         listing.GetComponent<ItemUI>().amountRemaining += 1;
                     }

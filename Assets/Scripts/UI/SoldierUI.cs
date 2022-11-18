@@ -25,8 +25,8 @@ public class SoldierUI : MonoBehaviour
     private void Update()
     {
 
-        priceTXT.text = price.ToString("0.00");
-        cpmTXT.text = soldier.cpm.ToString("0.00");
+        priceTXT.text = price.ToString();
+        cpmTXT.text = soldier.cpm.ToString();
         amountRemainingTXT.text = amountRemaining.ToString();
     }
 

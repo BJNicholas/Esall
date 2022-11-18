@@ -21,8 +21,14 @@ public class SoldierProduction : MonoBehaviour
             while (temp > 0 && tile.GetComponent<Tile>().settlement.GetComponent<Settlement>().availableSoldiers.ToArray().Length <= tile.GetComponent<Tile>().manpowerCap)
             {
                 tile.GetComponent<Tile>().settlement.GetComponent<Settlement>().availableSoldiers.Add(Instantiate(type));
+                print("produced a " + type + " in " + tile.GetComponent<Tile>().settlement);
                 temp -= 1;
             }
+        }
+
+        if (RecruitmentHub.instance.gameObject.activeInHierarchy)
+        {
+            RecruitmentHub.instance.LiveUpdateListings();
         }
     }
 }

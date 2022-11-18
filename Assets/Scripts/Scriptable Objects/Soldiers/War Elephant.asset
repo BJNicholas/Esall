@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6493d3ee79c136a40ab27e08b6960388, type: 3}
-  m_Name: Archer
+  m_Name: War Elephant
   m_EditorClassIdentifier: 
-  id: 2
-  name: Archer
-  description: 
-  icon: {fileID: 21300000, guid: b0cca5bac7eba9743877ce9bc074d051, type: 3}
-  buyPrice: 25
-  cpm: 20
-  supportUnit: 1
-  damage: 15
-  health: 20
-  maxHealth: 20
+  id: 3
+  name: War Elephant
+  description: Scary big
+  icon: {fileID: 21300000, guid: acf359b4b64735841bf0a9b34761fccb, type: 3}
+  buyPrice: 150
+  cpm: 100
+  supportUnit: 0
+  damage: 100
+  health: 0
+  maxHealth: 200
   charge: 0
-  chargeSpeed: 2
+  chargeSpeed: 0.5

@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6493d3ee79c136a40ab27e08b6960388, type: 3}
-  m_Name: Archer
+  m_Name: Horse Archer
   m_EditorClassIdentifier: 
-  id: 2
-  name: Archer
-  description: 
-  icon: {fileID: 21300000, guid: b0cca5bac7eba9743877ce9bc074d051, type: 3}
-  buyPrice: 25
-  cpm: 20
+  id: 5
+  name: Horse Archer
+  description: Horsey with bow
+  icon: {fileID: 21300000, guid: 9d3f9f194a52f994d986addfedced68f, type: 3}
+  buyPrice: 40
+  cpm: 35
   supportUnit: 1
-  damage: 15
-  health: 20
-  maxHealth: 20
+  damage: 5
+  health: 40
+  maxHealth: 40
   charge: 0
-  chargeSpeed: 2
+  chargeSpeed: 10

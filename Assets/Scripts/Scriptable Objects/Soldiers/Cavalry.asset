@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6493d3ee79c136a40ab27e08b6960388, type: 3}
-  m_Name: Archer
+  m_Name: Cavalry
   m_EditorClassIdentifier: 
-  id: 2
-  name: Archer
-  description: 
-  icon: {fileID: 21300000, guid: b0cca5bac7eba9743877ce9bc074d051, type: 3}
-  buyPrice: 25
+  id: 4
+  name: Cavalry
+  description: Horsey
+  icon: {fileID: 21300000, guid: c08da530cbb2d2342bc91b61965e9975, type: 3}
+  buyPrice: 30
   cpm: 20
-  supportUnit: 1
-  damage: 15
-  health: 20
-  maxHealth: 20
+  supportUnit: 0
+  damage: 10
+  health: 50
+  maxHealth: 50
   charge: 0
-  chargeSpeed: 2
+  chargeSpeed: 15

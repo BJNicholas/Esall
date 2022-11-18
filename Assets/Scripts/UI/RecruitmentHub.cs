@@ -56,9 +56,10 @@ public class RecruitmentHub : MonoBehaviour
                 bool foundListing = false;
                 foreach (GameObject listing in listings) // finding out if item already has a listing
                 {
-                    if (soldier == listing.GetComponent<SoldierUI>().soldier)
+                    if (soldier.name == listing.GetComponent<SoldierUI>().soldier.name)
                     {
                         foundListing = true;
+                        listing.GetComponent<SoldierUI>().amountRemaining += 1;
                         break;
                     }
                 }
@@ -76,7 +77,7 @@ public class RecruitmentHub : MonoBehaviour
 
                 foreach (Soldier storedSoldier in settlement.GetComponent<Settlement>().availableSoldiers)
                 {
-                    if (storedSoldier == listing.GetComponent<SoldierUI>().soldier)
+                    if (storedSoldier.name == listing.GetComponent<SoldierUI>().soldier.name)
                     {
                         listing.GetComponent<SoldierUI>().amountRemaining += 1;
                     }
