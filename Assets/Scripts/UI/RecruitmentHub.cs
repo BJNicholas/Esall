@@ -28,6 +28,11 @@ public class RecruitmentHub : MonoBehaviour
         LiveUpdateListings();
     }
 
+    private void Update()
+    {
+        settlementName.text = settlement.GetComponent<Settlement>().settlementName;
+    }
+
     public void LiveUpdateListings()
     {
         //clear old 

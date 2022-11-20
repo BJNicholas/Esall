@@ -6652,6 +6652,12 @@ MonoBehaviour:
   - {fileID: 1323956105}
   - {fileID: 536331918}
   - {fileID: 407632095}
+  - {fileID: 640328158}
+  - {fileID: 917886100}
+  - {fileID: 1851137960}
+  - {fileID: 1561227579}
+  - {fileID: 582614949}
+  - {fileID: 541148485}
   modifiers:
   - {fileID: 11400000, guid: 55d45fa145efe364e811a427a72fd7e9, type: 2}
   - {fileID: 11400000, guid: a82f5675f96ebec439a22477f524eb61, type: 2}
@@ -6659,9 +6665,15 @@ MonoBehaviour:
   merchantPrefab: {fileID: 5264912686396863402, guid: 937e9e26071c77d40bf565ba290f071b, type: 3}
   armyPrefab: {fileID: 6581271770117110711, guid: 798980bae6327b94b93303e2a19a1627, type: 3}
   soldierTypes:
-  - {fileID: 11400000, guid: 8c561d2dd822e3349822877f1c950cd3, type: 2}
-  - {fileID: 11400000, guid: c52b2177d8019f048b52235a422d73ce, type: 2}
   - {fileID: 11400000, guid: aa70a984a0dc8ad46808ede20d19a729, type: 2}
+  - {fileID: 11400000, guid: f7fc576a472ed8241876ef9711b23002, type: 2}
+  - {fileID: 11400000, guid: fdaf96cd81adf754d8b519f4a62f578e, type: 2}
+  - {fileID: 11400000, guid: 17687714ac7e3664c99117092eab23a4, type: 2}
+  - {fileID: 11400000, guid: d58942b2ea2725b4184ecd67bdea434c, type: 2}
+  - {fileID: 11400000, guid: 991130d25b6c89b4b94c87c935e9a16c, type: 2}
+  - {fileID: 11400000, guid: c52b2177d8019f048b52235a422d73ce, type: 2}
+  - {fileID: 11400000, guid: 8c561d2dd822e3349822877f1c950cd3, type: 2}
+  - {fileID: 11400000, guid: 4825ac201370e674fade905e5e4ea7cc, type: 2}
   eventPrefab: {fileID: 6314514229048610394, guid: 526b052394ba8034bb1ce1a62e2d6c76, type: 3}
   playerFaction: 0
   playerFactionObject: {fileID: 0}

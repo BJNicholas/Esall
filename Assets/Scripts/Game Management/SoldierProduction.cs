@@ -18,10 +18,18 @@ public class SoldierProduction : MonoBehaviour
         foreach (GameObject tile in producingTiles)
         {
             int temp = baseProductionRate;
-            while (temp > 0 && tile.GetComponent<Tile>().settlement.GetComponent<Settlement>().availableSoldiers.ToArray().Length <= tile.GetComponent<Tile>().manpowerCap)
+
+            List<Soldier> soldiersOfType = new List<Soldier>();
+
+            foreach(Soldier unit in tile.GetComponent<Tile>().settlement.GetComponent<Settlement>().availableSoldiers)
+            {
+                if (unit.name == type.name) soldiersOfType.Add(unit);
+            }
+
+            while (temp > 0 && soldiersOfType.ToArray().Length <= tile.GetComponent<Tile>().manpowerCap)
             {
                 tile.GetComponent<Tile>().settlement.GetComponent<Settlement>().availableSoldiers.Add(Instantiate(type));
-                print("produced a " + type + " in " + tile.GetComponent<Tile>().settlement);
+                //print("produced a " + type + " in " + tile.GetComponent<Tile>().settlement);
                 temp -= 1;
             }
         }
