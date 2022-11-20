@@ -3881,8 +3881,8 @@ GameObject:
   - component: {fileID: 48251974759073491}
   - component: {fileID: 370381978087134020}
   - component: {fileID: 36284917077162349}
-  - component: {fileID: 7377788938491145091}
   - component: {fileID: 5154217215135584189}
+  - component: {fileID: 7377788938491145091}
   m_Layer: 5
   m_Name: DIPLOMACY
   m_TagString: Untagged
@@ -3950,6 +3950,23 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &5154217215135584189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1659761310671510839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed25dd98f0586d6498634ed1c4a85689, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  relationUI_Prefab: {fileID: 1475522795330305361, guid: 91637716e99ad8a49894e2279835cac6, type: 3}
+  allRelationUI_Objects: []
+  normalRelationsList: {fileID: 760854384560369334}
+  enemyRelationsList: {fileID: 1405173450253677884}
+  allyRelationsList: {fileID: 5230784807544507242}
 --- !u!82 &7377788938491145091
 AudioSource:
   m_ObjectHideFlags: 0
@@ -4046,23 +4063,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &5154217215135584189
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1659761310671510839}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed25dd98f0586d6498634ed1c4a85689, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  relationUI_Prefab: {fileID: 1475522795330305361, guid: 91637716e99ad8a49894e2279835cac6, type: 3}
-  allRelationUI_Objects: []
-  normalRelationsList: {fileID: 760854384560369334}
-  enemyRelationsList: {fileID: 1405173450253677884}
-  allyRelationsList: {fileID: 5230784807544507242}
 --- !u!1 &1682800743626338377
 GameObject:
   m_ObjectHideFlags: 0

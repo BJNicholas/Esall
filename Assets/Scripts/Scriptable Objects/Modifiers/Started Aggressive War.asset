@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33738b28e5d6ff54db72cf594d421728, type: 3}
   m_Name: Started Aggressive War
   m_EditorClassIdentifier: 
-  activated: 0
+  activated: 1
   name: Aggressive Expansion
   description: Naughty boy
   opinionChange: -5

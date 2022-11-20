@@ -1638,6 +1638,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1840983309, guid: b5656b8e949c9624ea9c82e82462bbbe, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1016264427}
+    - target: {fileID: 1840983309, guid: b5656b8e949c9624ea9c82e82462bbbe, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OrdButton
+      objectReference: {fileID: 0}
     - target: {fileID: 1744709804525414672, guid: b5656b8e949c9624ea9c82e82462bbbe, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -1666,6 +1674,22 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
       value: 
       objectReference: {fileID: 1593791697}
+    - target: {fileID: 2207711814006760099, guid: b5656b8e949c9624ea9c82e82462bbbe, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1016264427}
+    - target: {fileID: 2207711814006760099, guid: b5656b8e949c9624ea9c82e82462bbbe, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: TerButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 2207711814037809313, guid: b5656b8e949c9624ea9c82e82462bbbe, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1016264427}
+    - target: {fileID: 2207711814037809313, guid: b5656b8e949c9624ea9c82e82462bbbe, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: PolButton
+      objectReference: {fileID: 0}
     - target: {fileID: 2207711814355645579, guid: b5656b8e949c9624ea9c82e82462bbbe, type: 3}
       propertyPath: m_Text
       value: Mycenon
@@ -1762,6 +1786,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2207711814590587786, guid: b5656b8e949c9624ea9c82e82462bbbe, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1016264427}
+    - target: {fileID: 2207711814590587786, guid: b5656b8e949c9624ea9c82e82462bbbe, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: CulButton
+      objectReference: {fileID: 0}
     - target: {fileID: 2207711814646709711, guid: b5656b8e949c9624ea9c82e82462bbbe, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
       value: 
@@ -1778,6 +1810,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
       value: 
       objectReference: {fileID: 1865668671}
+    - target: {fileID: 2207711815296863752, guid: b5656b8e949c9624ea9c82e82462bbbe, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1016264427}
+    - target: {fileID: 2207711815296863752, guid: b5656b8e949c9624ea9c82e82462bbbe, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: DevButton
+      objectReference: {fileID: 0}
     - target: {fileID: 2207711815419995792, guid: b5656b8e949c9624ea9c82e82462bbbe, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
       value: 
@@ -6613,9 +6653,9 @@ MonoBehaviour:
   - {fileID: 536331918}
   - {fileID: 407632095}
   modifiers:
-  - {fileID: 11400000, guid: ad886130aa4ecf144930b5d84fec39ea, type: 2}
-  - {fileID: 11400000, guid: d3d0dcd36f0bb0b4c8d3cc44f9dce09a, type: 2}
-  - {fileID: 11400000, guid: a9a2aba6d0ca55943b3906d0213cd94c, type: 2}
+  - {fileID: 11400000, guid: 55d45fa145efe364e811a427a72fd7e9, type: 2}
+  - {fileID: 11400000, guid: a82f5675f96ebec439a22477f524eb61, type: 2}
+  - {fileID: 11400000, guid: a11aa687697dd6d419c61facba0bfaa0, type: 2}
   merchantPrefab: {fileID: 5264912686396863402, guid: 937e9e26071c77d40bf565ba290f071b, type: 3}
   armyPrefab: {fileID: 6581271770117110711, guid: 798980bae6327b94b93303e2a19a1627, type: 3}
   soldierTypes:
@@ -6623,7 +6663,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c52b2177d8019f048b52235a422d73ce, type: 2}
   - {fileID: 11400000, guid: aa70a984a0dc8ad46808ede20d19a729, type: 2}
   eventPrefab: {fileID: 6314514229048610394, guid: 526b052394ba8034bb1ce1a62e2d6c76, type: 3}
-  offerPrefab: {fileID: 6314514229048610394, guid: bd862524dd8853a47b5bd01ad3db0f8f, type: 3}
   playerFaction: 0
   playerFactionObject: {fileID: 0}
   timeSpeed: 1

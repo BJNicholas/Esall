@@ -19,7 +19,7 @@ public class WelcomeScreen : MonoBehaviour
         HUD.SetActive(true);
         gameObject.SetActive(false);
 
-        GameManager.instance.Save();
+        //GameManager.instance.Save();
 
         foreach(Opinion relation in chosenFaction.GetComponent<Faction>().relations)
         {
@@ -38,6 +38,6 @@ public class WelcomeScreen : MonoBehaviour
         HUD.SetActive(false);
         gameObject.SetActive(false);
 
-        GameManager.instance.Save();
+        //GameManager.instance.Save();
     }
 }

@@ -549,59 +549,6 @@ public class AI_Faction : MonoBehaviour
         //this is an exception it is only done when the battle is complete
     }
 
-    public IEnumerator Negotiate(float delay)
-    {
-        if (GetComponent<Faction>().atWar)
-        {
-            //choose an army to focus on
-            int roll = Random.Range(0, GetComponent<Faction>().enemies.ToArray().Length);
-            GameObject chosenArmy = GetComponent<Faction>().enemies[roll].GetComponent<Faction>().army;
-            chosenSettlement = chosenArmy; //just roll with it, it doesn't matter
-
-            if (!chosenArmy.gameObject.activeInHierarchy)
-            {
-                CancelCurrentTask();
-                print(gameObject.name + " wont peace out with a dead guy lmao --> " + chosenArmy.name);
-            }
-            //setting the army target to that settlement
-            army.GetComponent<Army>().target = chosenSettlement.transform.position;
-
-            yield return new WaitUntil(() => arrived == true); // wait until arrived
-            delay = 0;
-            yield return new WaitForSeconds(delay);
-
-
-            //starting coroutine
-            StartCoroutine(ProposePeace(chosenArmy.GetComponent<Army>().ownerObject, 0));
-        }
-        else //bug fixing
-        {
-            print(gameObject.name + " NOT A WAR, NO NEED TO NEGOTIATE - DUMB DUMB");
-            CancelCurrentTask();
-        }
-    }
-    public IEnumerator ProposePeace(GameObject otherFaction, float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        if (gameObject.activeInHierarchy)
-        {
-            if(otherFaction == GameManager.instance.playerFactionObject)
-            {
-                DiploHub.instance.faction = otherFaction;
-                GameObject newEvent = Instantiate(GameManager.instance.offerPrefab, GameObject.Find("UI").transform);
-                newEvent.GetComponent<Event>().title.text = "PEACE";
-                newEvent.GetComponent<Event>().description.text = GetComponent<Faction>().faction.ToString() + " wishes to end this unnecessary violence and pain, how do you respond?";
-            }
-            else
-            {
-                otherFaction.GetComponent<Faction>().enemies.Remove(gameObject);
-                gameObject.GetComponent<Faction>().enemies.Remove(otherFaction);
-                //playing next task after completion
-                GenerateNextTask();
-                taskComplete = true;
-            }
-        }
-    }
 
 
 

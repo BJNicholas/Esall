@@ -11,6 +11,9 @@ public class Pause : MonoBehaviour
     private void Awake()
     {
         instance = this;
+    }
+    private void Start()
+    {
         gameObject.SetActive(false);
     }
 

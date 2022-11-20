@@ -103,14 +103,14 @@ public class Faction : MonoBehaviour
             //filling out starting Modifiers
             if (currentTargetedFaction.GetComponent<Faction>().culture != culture)
             {
-                relation.modifiers.Add(GameManager.instance.modifiers[0]); //Cultural Differences
+                relation.modifiers.Add(Instantiate(GameManager.instance.modifiers[0])); //Cultural Differences
             }
             else
             {
-                relation.modifiers.Add(GameManager.instance.modifiers[1]); //Cultural Understanding
+                relation.modifiers.Add(Instantiate(GameManager.instance.modifiers[1])); //Cultural Understanding
             }
         }
-        AdjustRelations();
+        //AdjustRelations();
     }
 
     public void AdjustRelations()
@@ -132,7 +132,7 @@ public class Faction : MonoBehaviour
                 {
                     if(relation.faction == gameObject.GetComponent<Faction>().faction)
                     {
-                        relation.modifiers.Add(mod);
+                        relation.modifiers.Add(Instantiate(mod));
                     }
                 }
             }
