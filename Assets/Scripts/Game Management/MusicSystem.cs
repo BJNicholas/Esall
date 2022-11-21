@@ -13,10 +13,7 @@ public class MusicSystem : MonoBehaviour
         instance = this;
         DontDestroyOnLoad(gameObject);
         GetComponent<AudioSource>().Stop();
-        GetComponent<AudioSource>().clip = songs[Random.Range(0, songs.Length)];
-        GetComponent<AudioSource>().Play();
-
-        currentSong = GetComponent<AudioSource>().clip;
+        NextSong();
 
     }
 
@@ -29,15 +26,24 @@ public class MusicSystem : MonoBehaviour
 
     void NextSong()
     {
+        int randomIndex = Random.Range(0, songs.Length);
+
         foreach(AudioClip song in songs)
         {
-            if (song != currentSong)
+            if (songs[randomIndex] == song)
             {
-                GetComponent<AudioSource>().clip = song;
-                GetComponent<AudioSource>().Play();
+                if (song == currentSong)
+                {
+                    NextSong();//repeat until not the same
+                }
+                else
+                {
+                    print("chose song: " + song);
+                    GetComponent<AudioSource>().clip = song;
+                    GetComponent<AudioSource>().Play();
 
-                currentSong = song;
-
+                    currentSong = song;
+                }
             }
         }
     }

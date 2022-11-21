@@ -189,7 +189,7 @@ public class AI_Faction : MonoBehaviour
 
         print(GetComponent<Faction>().faction.ToString() + " Running " + taskName);
         //Console.instance.PrintMessage(GetComponent<Faction>().faction.ToString() + " Running " + taskName);
-        StartCoroutine(taskName, delay);
+        StartCoroutine(taskName, delay / GameManager.instance.timeSpeed);
     }
 
     public IEnumerator Develop(float delay)
