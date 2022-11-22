@@ -16,6 +16,7 @@ public class SettlementInspector : MonoBehaviour
     public GameObject enemy;
     public GameObject owned;
     public GameObject capital;
+    public GameObject allSubPanels;
     public GameObject siege;
 
     [Header("Non-static Tabs")]
@@ -26,6 +27,15 @@ public class SettlementInspector : MonoBehaviour
     {
         instance = this;
         gameObject.SetActive(false);
+    }
+
+    public void CloseAllDown()
+    {
+        for (int i = 0; i < allSubPanels.transform.childCount; i++)
+        {
+            allSubPanels.transform.GetChild(i).gameObject.SetActive(false);
+        }
+        Leave();
     }
 
 

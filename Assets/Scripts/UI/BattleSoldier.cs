@@ -70,7 +70,7 @@ public class BattleSoldier : MonoBehaviour
     {
         if (fighting && Battle.instance.fighting)
         {
-            soldier.charge += (soldier.chargeSpeed * 3)* GameManager.instance.timeSpeed * Time.deltaTime;
+            soldier.charge += (soldier.chargeSpeed * 20) * Time.deltaTime;
         }
         else
         {
