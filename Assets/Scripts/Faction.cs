@@ -208,6 +208,7 @@ public class Faction : MonoBehaviour
         else
         {
             //playerr dies and lose screen is activated
+            SettlementInspector.instance.CloseAllDown();
             GameManager.instance.lose.SetActive(true);
             Time.timeScale = 1f;
             Camera.main.GetComponent<CameraController>().target = GameManager.instance.gameObject;

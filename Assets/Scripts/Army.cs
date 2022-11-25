@@ -95,7 +95,7 @@ public class Army : MonoBehaviour
         {
             if (SettlementInspector.instance.gameObject.activeInHierarchy)
             {
-                SettlementInspector.instance.Leave();
+                SettlementInspector.instance.CloseAllDown();
             }
         }
     }

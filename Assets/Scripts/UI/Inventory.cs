@@ -8,7 +8,7 @@ public class Inventory : MonoBehaviour
 {
     public static Inventory instance;
     public GameObject army;
-    public GameObject scrollViewArea;
+    public GameObject itemViewArea, armyViewArea;
     public GameObject itemListingPrefab;
     public List<GameObject> listings;
 
@@ -60,8 +60,9 @@ public class Inventory : MonoBehaviour
                 bool foundListing = false;
                 foreach (GameObject listing in listings) // finding out if item already has a listing
                 {
-                    if (item == listing.GetComponent<ItemUI>().item)
+                    if (item.name == listing.GetComponent<ItemUI>().item.name)
                     {
+                        listing.GetComponent<ItemUI>().amountRemaining += 1;
                         foundListing = true;
                         break;
                     }
@@ -73,14 +74,14 @@ public class Inventory : MonoBehaviour
             }
             else // make the first Listing
             {
-                GameObject listing = Instantiate(itemListingPrefab, scrollViewArea.transform);
+                GameObject listing = Instantiate(itemListingPrefab, itemViewArea.transform);
                 listing.GetComponent<ItemUI>().item = item;
 
                 listings.Add(listing);
 
                 foreach (Item storedItem in army.GetComponent<Army>().storedItems)
                 {
-                    if (storedItem == listing.GetComponent<ItemUI>().item)
+                    if (storedItem.name == listing.GetComponent<ItemUI>().item.name)
                     {
                         listing.GetComponent<ItemUI>().amountRemaining += 1;
                     }
@@ -91,7 +92,7 @@ public class Inventory : MonoBehaviour
 
     public void GenerateNewListing(Item newItem)
     {
-        GameObject listing = Instantiate(itemListingPrefab, scrollViewArea.transform);
+        GameObject listing = Instantiate(itemListingPrefab, itemViewArea.transform);
         listing.GetComponent<ItemUI>().item = newItem;
         listings.Add(listing);
 
