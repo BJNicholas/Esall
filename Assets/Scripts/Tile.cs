@@ -44,8 +44,6 @@ public class Tile : MonoBehaviour
             taxIncome += i * 2f;
             manpowerCap += i * 1.5f;
         }
-
-        if (settlement.GetComponent<Settlement>().capital) taxIncome *= 1.5f;
     }
 
     private void Update()
@@ -93,7 +91,7 @@ public class Tile : MonoBehaviour
         float change = 0;
         //cultural effect
         if (culture == ownerObject.GetComponent<Faction>().culture) change += 1.5f;
-        else change -= 0.5f;
+        else change -= 1.5f;
         //taxtion effect
         if (ownerObject.GetComponent<Faction>().taxRate > 1) change -= ownerObject.GetComponent<Faction>().taxRate * 2;
         else change +=  (1 - ownerObject.GetComponent<Faction>().taxRate) * 2;

@@ -20,7 +20,7 @@ public class Siege : MonoBehaviour
 
     private void Update()
     {
-        if (Battle.instance.gameObject.activeInHierarchy)
+        if (Encounter.instance.gameObject.activeInHierarchy)
         {
             Abandon();
         }

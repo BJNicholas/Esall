@@ -17,60 +17,19 @@ public class Battle : MonoBehaviour
     public GameObject afterBattlePopUp;
     public Text victorText;
     public Image playerFlag, aiFlag;
-    public Slider battleProgressSlider;
 
     [Header("Player UI SetUp")]
     public Transform playerFL;
     public Transform playerRes, playerSup, playerLos;
-    public Text playerAlive, playerDead;
 
     [Header("AI UI SetUp")]
     public Transform aiFL;
     public Transform aiRes, aiSup, aiLos;
-    public Text aiAlive, aiDead;
 
     private void Start()
     {
         instance = this;
         gameObject.SetActive(false);
-    }
-
-    private void Update()
-    {
-        GameManager.instance.timeSpeed = 0.1f;
-
-        playerAlive.text = (player.GetComponent<Army>().numOfSoldiers - ArmyDeadTotal(player, 0f)).ToString();
-        playerDead.text = ArmyDeadTotal(player, 0f).ToString();
-
-        aiAlive.text = (AI.GetComponent<Army>().numOfSoldiers - ArmyDeadTotal(AI, 0f)).ToString();
-        aiDead.text = ArmyDeadTotal(AI, 0f).ToString();
-        UpdateSlider();
-    }
-
-    public void UpdateSlider()
-    {
-        float playerAlive = player.GetComponent<Army>().numOfSoldiers - ArmyDeadTotal(player, 0f);
-        float aiAlive = AI.GetComponent<Army>().numOfSoldiers - ArmyDeadTotal(AI, 0f);
-
-        float total = playerAlive + aiAlive;
-
-        battleProgressSlider.value = (playerAlive / total) * 100;
-
-        battleProgressSlider.gameObject.GetComponent<Image>().color = AI.GetComponent<Army>().ownerObject.GetComponent<Faction>().colour;
-        battleProgressSlider.fillRect.gameObject.GetComponent<Image>().color = player.GetComponent<Army>().ownerObject.GetComponent<Faction>().colour;
-    }
-
-    public float ArmyDeadTotal(GameObject army, float dead)
-    {
-
-        for (int i = 0; i < army.GetComponent<Army>().numOfSoldiers; i++)
-        {
-            if (army.GetComponent<Army>().soldiers[i].health <= 0)
-            {
-                dead += 1;
-            }
-        }
-        return dead;
     }
 
     public void BattleStart(GameObject playerArmy, GameObject aiArmy)
@@ -89,9 +48,6 @@ public class Battle : MonoBehaviour
 
         fighting = true;
         FrontLineCheck();
-
-        GameManager.instance.timeSpeed = 0.1f;
-        SettlementInspector.instance.CloseAllDown();
     }
 
     public void FrontLineCheck()
@@ -226,7 +182,6 @@ public class Battle : MonoBehaviour
 
     public void CloseBattle()
     {
-        GameManager.instance.timeSpeed = 1f;
         for (int i = 0; i < playerLos.childCount; i++)
         {
             player.GetComponent<Army>().soldiers.Remove(playerLos.GetChild(i).gameObject.GetComponent<BattleSoldier>().soldier);
