@@ -493,6 +493,7 @@ GameObject:
   - component: {fileID: 1111266581437019490}
   - component: {fileID: 7313246702512462475}
   - component: {fileID: 2457567628847323513}
+  - component: {fileID: 179326554903466468}
   m_Layer: 5
   m_Name: Army
   m_TagString: Untagged
@@ -627,6 +628,34 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 179326554903466468}
+        m_TargetAssemblyTypeName: ArmyInventory, Assembly-CSharp
+        m_MethodName: LiveUpdateListings
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &179326554903466468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 168712104379355447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3cbf06323a63ff45a5049f8e2e60e15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  army: {fileID: 0}
+  armyViewArea: {fileID: 7472828822374593237}
+  unitListingPrefab: {fileID: 6580770347056290713, guid: 6ed7702d53a6dc34f9c167701c8b0a29, type: 3}
+  listings: []
 --- !u!1 &219526935042392878
 GameObject:
   m_ObjectHideFlags: 0
@@ -1441,6 +1470,96 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!1 &588663734175167216
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4905059142096199357}
+  - component: {fileID: 7224017714169323100}
+  - component: {fileID: 9106012614375894970}
+  - component: {fileID: 2172879107503831486}
+  m_Layer: 5
+  m_Name: Mask
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &4905059142096199357
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 588663734175167216}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4717007135064013256}
+  m_Father: {fileID: 886546505919849258}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -0.00076293945, y: 21.6984}
+  m_SizeDelta: {x: -0.0018, y: -43.3964}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &7224017714169323100
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 588663734175167216}
+  m_CullTransparentMesh: 1
+--- !u!114 &9106012614375894970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 588663734175167216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.003921569}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 3cee69bcc3675744ba2beea761776aab, type: 3}
+  m_Type: 2
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2172879107503831486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 588663734175167216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31a19414c41e5ae4aae2af33fee712f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShowMaskGraphic: 1
 --- !u!1 &600031746289978106
 GameObject:
   m_ObjectHideFlags: 0
@@ -5323,6 +5442,7 @@ GameObject:
   - component: {fileID: 4931437842345393268}
   - component: {fileID: 7860472077697902228}
   - component: {fileID: 7154736334963149087}
+  - component: {fileID: 8968470632889623971}
   m_Layer: 5
   m_Name: Inventory tab
   m_TagString: Untagged
@@ -5456,6 +5576,114 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 8968470632889623971}
+        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+--- !u!82 &8968470632889623971
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1871893626992673246}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 0be6ff2781e1cf24b8406aae67cbae3b, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 0.5
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1875726800899679464
 GameObject:
   m_ObjectHideFlags: 0
@@ -11779,7 +12007,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   army: {fileID: 0}
   itemViewArea: {fileID: 2207711815456062614}
-  armyViewArea: {fileID: 7472828822374593237}
   itemListingPrefab: {fileID: 600790447884989547, guid: f92a7f039df302948b3bef3267e20bcd, type: 3}
   listings: []
 --- !u!82 &981247810
@@ -31234,6 +31461,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 886546505919849258}
+  - component: {fileID: 7698713119515572387}
   m_Layer: 5
   m_Name: Army View
   m_TagString: Untagged
@@ -31253,7 +31481,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7932581755906870424}
-  - {fileID: 4717007135064013256}
+  - {fileID: 4905059142096199357}
   m_Father: {fileID: 1923691156723744362}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -31262,6 +31490,36 @@ RectTransform:
   m_AnchoredPosition: {x: -56.210297, y: -250.03429}
   m_SizeDelta: {x: 302.44, y: 458.2895}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &7698713119515572387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2997880609931054964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1aa08ab6e0800fa44ae55d278d1423e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Content: {fileID: 4717007135064013256}
+  m_Horizontal: 0
+  m_Vertical: 1
+  m_MovementType: 1
+  m_Elasticity: 0.1
+  m_Inertia: 1
+  m_DecelerationRate: 0.135
+  m_ScrollSensitivity: 1
+  m_Viewport: {fileID: 0}
+  m_HorizontalScrollbar: {fileID: 0}
+  m_VerticalScrollbar: {fileID: 0}
+  m_HorizontalScrollbarVisibility: 0
+  m_VerticalScrollbarVisibility: 0
+  m_HorizontalScrollbarSpacing: 0
+  m_VerticalScrollbarSpacing: 0
+  m_OnValueChanged:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &3068273468565692212
 GameObject:
   m_ObjectHideFlags: 0
@@ -36926,6 +37184,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 179326554903466468}
+        m_TargetAssemblyTypeName: ArmyInventory, Assembly-CSharp
+        m_MethodName: CloseMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5815056833853136945
 GameObject:
   m_ObjectHideFlags: 0
@@ -36935,6 +37205,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1138704386314509456}
+  - component: {fileID: 6450851107530749697}
   m_Layer: 5
   m_Name: Army Tab
   m_TagString: Untagged
@@ -36964,6 +37235,23 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 480.1967, y: 77.099}
   m_Pivot: {x: 1, y: 0}
+--- !u!114 &6450851107530749697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5815056833853136945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2e2c967373a942468e60f567a175619, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  totalHealth: {fileID: 13368991906048209}
+  numberOfUnits: {fileID: 1500160979696723755}
+  foodReserves: {fileID: 1959739704852814831}
+  milScore: {fileID: 2678632502407119220}
+  monthlyCost: {fileID: 4965823843226010164}
 --- !u!1 &5850025309198077409
 GameObject:
   m_ObjectHideFlags: 0
@@ -40254,13 +40542,13 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 886546505919849258}
-  m_RootOrder: 1
+  m_Father: {fileID: 4905059142096199357}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.8149414, y: 0.000015258789}
-  m_SizeDelta: {x: -1.6284, y: 419.21}
+  m_AnchoredPosition: {x: 0.8149414, y: -0.00016784668}
+  m_SizeDelta: {x: -1.62663, y: 100}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &2422095393687530129
 MonoBehaviour:
@@ -40278,8 +40566,8 @@ MonoBehaviour:
     m_Left: 0
     m_Right: 0
     m_Top: 0
-    m_Bottom: 1000
-  m_ChildAlignment: 2
+    m_Bottom: 10000000
+  m_ChildAlignment: 1
   m_Spacing: 0
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1

@@ -8,7 +8,7 @@ public class Inventory : MonoBehaviour
 {
     public static Inventory instance;
     public GameObject army;
-    public GameObject itemViewArea, armyViewArea;
+    public GameObject itemViewArea;
     public GameObject itemListingPrefab;
     public List<GameObject> listings;
 

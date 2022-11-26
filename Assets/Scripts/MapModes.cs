@@ -42,6 +42,21 @@ public class MapModes : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.Alpha5)) OrdButton();
     }
 
+    public void ResetMapText()
+    {
+        if (currentMode != modes.Cultural)// set the text display to be faction text if not in cultural mode
+        {
+            foreach (GameObject Faction in FactionManager.instance.factionObjects)
+            {
+                Faction.GetComponent<Faction>().factionTxtObject.SetActive(true);
+            }
+            foreach (GameObject culture in CultureManager.instance.cultureObjects)
+            {
+                culture.GetComponent<Culture>().cultureTxtObject.SetActive(false);
+            }
+        }
+    }
+
     public IEnumerator Political()
     {
         yield return new WaitForEndOfFrame();
@@ -53,6 +68,7 @@ public class MapModes : MonoBehaviour
                 tile.GetComponent<SpriteRenderer>().color = faction.GetComponent<Faction>().colour;
             }
         }
+        ResetMapText();
     }
     public IEnumerator Terrain()
     {
@@ -61,6 +77,7 @@ public class MapModes : MonoBehaviour
         {
             tile.GetComponent<SpriteRenderer>().color = new Color32(0, 0, 0, 0);
         }
+        ResetMapText();
     }
     public IEnumerator Development()
     {
@@ -79,12 +96,19 @@ public class MapModes : MonoBehaviour
             Color32 tileColour = tile.GetComponent<SpriteRenderer>().color;
             tile.GetComponent<SpriteRenderer>().color = new Color32(tileColour.r, tileColour.g, tileColour.b, 150);
         }
+        ResetMapText();
     }
     public IEnumerator Cultural()
     {
         yield return new WaitForEndOfFrame();
+        foreach(GameObject Faction in FactionManager.instance.factionObjects)
+        {
+            Faction.GetComponent<Faction>().factionTxtObject.SetActive(false);
+        }
+
         foreach(GameObject culture in CultureManager.instance.cultureObjects)
         {
+            culture.GetComponent<Culture>().GenerateNamePlacement();
             foreach (GameObject tile in culture.GetComponent<Culture>().cultureTiles)
             {
                 tile.GetComponent<SpriteRenderer>().color = culture.GetComponent<Culture>().colour;
@@ -101,6 +125,7 @@ public class MapModes : MonoBehaviour
             Color32 tileColour = tile.GetComponent<SpriteRenderer>().color;
             tile.GetComponent<SpriteRenderer>().color = new Color32(tileColour.r, tileColour.g, tileColour.b, 150);
         }
+        ResetMapText();
     }
 
 

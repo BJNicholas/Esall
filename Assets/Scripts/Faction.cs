@@ -145,7 +145,7 @@ public class Faction : MonoBehaviour
         //remove Tile from previous owner;
         newTile.GetComponent<Tile>().ownerObject.GetComponent<Faction>().ownedTiles.Remove(newTile);
         newTile.GetComponent<Tile>().ownerObject.GetComponent<Faction>().UpdateOwnedTiles();
-        newTile.GetComponent<Tile>().ownerObject.GetComponent<Faction>().GenerateNamePlacement();
+        if(MapModes.instance.currentMode != MapModes.modes.Cultural) newTile.GetComponent<Tile>().ownerObject.GetComponent<Faction>().GenerateNamePlacement();
         newTile.GetComponent<Tile>().owner = faction;
         newTile.GetComponent<Tile>().ownerObject = gameObject;
         ownedTiles.Add(newTile);
