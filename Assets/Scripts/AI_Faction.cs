@@ -25,6 +25,7 @@ public class AI_Faction : MonoBehaviour
         Invest,
         Patrol,
         Muster,
+        Garrison,
         //war
         Attack,
         Siege, 
@@ -151,32 +152,35 @@ public class AI_Faction : MonoBehaviour
         {
             if (personality == leaderType.Administrator)
             {
-                int roll = Random.Range(0, 6); // possible choices, increase number if more are added
+                int roll = Random.Range(0, 7); // possible choices, increase number if more are added
                 if (roll == 0) currentTask = PossibleTasks.Develop;
                 else if (roll == 1) currentTask = PossibleTasks.Stockpile;
                 else if (roll == 2) currentTask = PossibleTasks.Patrol;
                 else if (roll == 3) currentTask = PossibleTasks.Muster;
                 else if (roll == 4) currentTask = PossibleTasks.Invest;
                 else if (roll == 5) currentTask = PossibleTasks.Trade;
+                else if (roll == 6) currentTask = PossibleTasks.Garrison;
             }
             else if (personality == leaderType.Warmonger)
             {
-                int roll = Random.Range(0, 5); // possible choices, increase number if more are added
+                int roll = Random.Range(0, 6); // possible choices, increase number if more are added
                 if (roll == 0) currentTask = PossibleTasks.Muster;
                 else if (roll == 1) currentTask = PossibleTasks.Strategise;
                 else if (roll == 2) currentTask = PossibleTasks.Patrol;
                 else if (roll == 3) currentTask = PossibleTasks.Develop;
                 else if (roll == 4) currentTask = PossibleTasks.Invest;
+                else if (roll == 5) currentTask = PossibleTasks.Garrison;
             }
             else if (personality == leaderType.Diplomat)
             {
-                int roll = Random.Range(0, 6); // possible choices, increase number if more are added
+                int roll = Random.Range(0, 7); // possible choices, increase number if more are added
                 if (roll == 0) currentTask = PossibleTasks.Develop;
                 else if (roll == 1) currentTask = PossibleTasks.Stockpile;
                 else if (roll == 2) currentTask = PossibleTasks.Patrol;
                 else if (roll == 3) currentTask = PossibleTasks.Muster;
                 else if (roll == 4) currentTask = PossibleTasks.Invest;
                 else if (roll == 5) currentTask = PossibleTasks.Trade;
+                else if (roll == 6) currentTask = PossibleTasks.Garrison;
             }
         }
     }
@@ -311,6 +315,23 @@ public class AI_Faction : MonoBehaviour
 
         //invoking the change 
         chosenSettlement.GetComponent<Settlement>().StartCoroutine(chosenSettlement.GetComponent<Settlement>().Invest(gameObject));
+
+        GenerateNextTask();
+    }
+    public IEnumerator Garrison(float delay)
+    {
+        //choose a tile to focus on
+        int roll = Random.Range(0, GetComponent<Faction>().ownedTiles.ToArray().Length);
+        chosenSettlement = GetComponent<Faction>().ownedTiles[roll].GetComponent<Tile>().settlement;
+        //setting the army target to that settlement
+        army.GetComponent<Army>().target = chosenSettlement.transform.position;
+
+        yield return new WaitUntil(() => arrived == true); // wait until arrived
+        yield return new WaitForSeconds(delay);
+
+
+        //invoking the change 
+        chosenSettlement.GetComponent<Settlement>().StartCoroutine(chosenSettlement.GetComponent<Settlement>().GarrisonTroops(gameObject));
 
         GenerateNextTask();
     }

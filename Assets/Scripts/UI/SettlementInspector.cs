@@ -16,6 +16,7 @@ public class SettlementInspector : MonoBehaviour
     public GameObject enemy;
     public GameObject owned;
     public GameObject capital;
+    public GameObject allied;
     public GameObject allSubPanels;
     public GameObject siege;
 
@@ -44,12 +45,14 @@ public class SettlementInspector : MonoBehaviour
         if (settlement.GetComponent<Settlement>().province.GetComponent<Tile>().ownerObject == GameManager.instance.playerFactionObject) // owned by player
         {
             capital.SetActive(false);
+            allied.SetActive(false);
             foreign.SetActive(false);
             enemy.SetActive(false);
             owned.SetActive(true);
             if (settlement == GameManager.instance.playerFactionObject.GetComponent<Faction>().capitalCity)// is capital
             {
                 capital.SetActive(true);
+                allied.SetActive(false);
                 foreign.SetActive(false);
                 enemy.SetActive(false);
                 owned.SetActive(false);
@@ -60,13 +63,23 @@ public class SettlementInspector : MonoBehaviour
             if (GameManager.instance.playerFactionObject.GetComponent<Faction>().enemies.Contains(settlement.GetComponent<Settlement>().province.GetComponent<Tile>().ownerObject))//enemy
             {
                 capital.SetActive(false);
+                allied.SetActive(false);
                 foreign.SetActive(false);
                 enemy.SetActive(true);
+                owned.SetActive(false);
+            }
+            else if(GameManager.instance.playerFactionObject.GetComponent<Faction>().allies.Contains(settlement.GetComponent<Settlement>().province.GetComponent<Tile>().ownerObject))//ally
+            {
+                capital.SetActive(false);
+                allied.SetActive(true);
+                foreign.SetActive(false);
+                enemy.SetActive(false);
                 owned.SetActive(false);
             }
             else
             {
                 capital.SetActive(false);
+                allied.SetActive(false);
                 foreign.SetActive(true);
                 enemy.SetActive(false);
                 owned.SetActive(false);

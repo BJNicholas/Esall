@@ -29,6 +29,7 @@ public class Settlement : MonoBehaviour
     {
         province = transform.parent.gameObject;
         province.GetComponent<Tile>().settlement = gameObject;
+        gameObject.name = settlementName;
     }
 
     private void Start()
@@ -108,14 +109,32 @@ public class Settlement : MonoBehaviour
         {
             if (faction.GetComponent<Faction>().treasury >= AdministrationHub.instance.FindMerchantPrice(0f, gameObject))
             {
+                province.GetComponent<Tile>().publicOrder += 10;
                 NewMerchant();
+                province.GetComponent<Tile>().ownerObject.GetComponent<Faction>().treasury -= AdministrationHub.instance.FindMerchantPrice(0f, gameObject);
                 print(faction.name + " CREATED A MERCHANT IN " + settlementName);
             }
             else print(faction.name + " CAN NOT AFFORD A MERCHANT");
             faction.GetComponent<AI_Faction>().GenerateNextTask();
         }
     }
-
+    //AI FUNCTION
+    public IEnumerator GarrisonTroops(GameObject faction)
+    {
+        yield return new WaitForSeconds(0);
+        if (faction.activeInHierarchy)
+        {
+            if (faction.GetComponent<Faction>().treasury >= AdministrationHub.instance.FindGarrisonPrice(0f, gameObject))
+            {
+                province.GetComponent<Tile>().publicOrder += 5;
+                garrisonSize += 1;
+                province.GetComponent<Tile>().ownerObject.GetComponent<Faction>().treasury -= AdministrationHub.instance.FindGarrisonPrice(0f, gameObject);
+                print(faction.name + " INCREASED THE GARRISON IN " + settlementName);
+            }
+            else print(faction.name + " CAN NOT AFFORD A LARGER GARRISON");
+            faction.GetComponent<AI_Faction>().GenerateNextTask();
+        }
+    }
     public void SpawnStartingMerchants()
     {
         if (type == settlementType.City)

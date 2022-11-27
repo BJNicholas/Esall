@@ -34,6 +34,11 @@ public class AI_ArmyController : MonoBehaviour
     {
         army.GetComponent<Army>().stateTXT.text = ownerObject.GetComponent<AI_Faction>().currentTask.ToString();
 
+        //if(Vector3.Distance(ownerObject.GetComponent<AI_Faction>().chosenSettlement.transform.position, gameObject.transform.position) <= 0.2f)
+        //{
+        //    ownerObject.GetComponent<AI_Faction>().arrived = true;
+        //}
+
         Vector2 target, current;
         target = army.GetComponent<Army>().target;
         current = army.transform.position;
@@ -43,19 +48,9 @@ public class AI_ArmyController : MonoBehaviour
         
     }
 
-    void Defending()
-    {
-        army.GetComponent<Army>().target = ownerObject.GetComponent<Faction>().capitalCity.transform.position;
-    }
-    void Patrolling()
-    {
-        int roll = Random.Range(0, ownerObject.GetComponent<Faction>().ownedTiles.ToArray().Length);
-        army.GetComponent<Army>().target = ownerObject.GetComponent<Faction>().ownedTiles[roll].GetComponent<Tile>().settlement.transform.position;
-    }
-
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if(collision.gameObject == ownerObject.GetComponent<AI_Faction>().chosenSettlement && ownerObject.GetComponent<AI_Faction>().arrived == false)
+        if (collision.gameObject == ownerObject.GetComponent<AI_Faction>().chosenSettlement && ownerObject.GetComponent<AI_Faction>().arrived == false)
         {
             ownerObject.GetComponent<AI_Faction>().arrived = true;
         }

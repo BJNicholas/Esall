@@ -56,8 +56,13 @@ public class Battle : MonoBehaviour
 
         battleProgressSlider.value = (playerAlive / total) * 100;
 
-        battleProgressSlider.gameObject.GetComponent<Image>().color = AI.GetComponent<Army>().ownerObject.GetComponent<Faction>().colour;
-        battleProgressSlider.fillRect.gameObject.GetComponent<Image>().color = player.GetComponent<Army>().ownerObject.GetComponent<Faction>().colour;
+        Color32 playerCol = player.GetComponent<Army>().ownerObject.GetComponent<Faction>().colour;
+        playerCol = new Color32(playerCol.r, playerCol.g, playerCol.b, 255);
+        Color32 aiCol = AI.GetComponent<Army>().ownerObject.GetComponent<Faction>().colour;
+        aiCol = new Color32(aiCol.r, aiCol.g, aiCol.b, 255);
+
+        battleProgressSlider.gameObject.GetComponent<Image>().color = aiCol;
+        battleProgressSlider.fillRect.gameObject.GetComponent<Image>().color = playerCol;
     }
 
     public float ArmyDeadTotal(GameObject army, float dead)

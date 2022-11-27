@@ -25,7 +25,7 @@ public class NationalModifier : ScriptableObject
     {
         if(affectedVariable == possibleVariables.Culture)
         {
-            affectedArea.GetComponent<Settlement>().province.GetComponent<Tile>().culture = affectedArea.GetComponent<Settlement>().province.GetComponent<Tile>().ownerObject.GetComponent<Faction>().culture;
+            CultureManager.instance.Conversion(affectedArea.GetComponent<Settlement>().province.GetComponent<Tile>(), affectedArea.GetComponent<Settlement>().province.GetComponent<Tile>().ownerObject.GetComponent<Faction>().culture);
         }
         else if(affectedVariable == possibleVariables.Development)
         {

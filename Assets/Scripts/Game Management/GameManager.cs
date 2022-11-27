@@ -106,6 +106,7 @@ public class GameManager : MonoBehaviour
             foreach(GameObject tile in provinces)
             {
                 tile.GetComponent<Tile>().PublicOrderChange();
+                tile.GetComponent<Tile>().ConversionCheck();
             }
             //monthly Taxes from provinces
             foreach (GameObject faction in FactionManager.instance.factionObjects)

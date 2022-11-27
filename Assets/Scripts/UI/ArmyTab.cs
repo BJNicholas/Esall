@@ -12,7 +12,7 @@ public class ArmyTab : MonoBehaviour
     {
         if(GameManager.instance.playerFactionObject.GetComponent<Faction>().army != null)
         {
-            totalHealth.text = "%" + TotalHealthCalculation(GameManager.instance.playerFactionObject.GetComponent<Faction>().army.GetComponent<Army>());
+            totalHealth.text = "%" + TotalHealthCalculation(GameManager.instance.playerFactionObject.GetComponent<Faction>().army.GetComponent<Army>()).ToString("F2");
             numberOfUnits.text = GameManager.instance.playerFactionObject.GetComponent<Faction>().army.GetComponent<Army>().numOfSoldiers.ToString();
             foodReserves.text = FoodReservesCalculation(GameManager.instance.playerFactionObject.GetComponent<Faction>().army.GetComponent<Army>()).ToString();
             monthlyCost.text = GameManager.instance.playerFactionObject.GetComponent<Faction>().armyWages.ToString();

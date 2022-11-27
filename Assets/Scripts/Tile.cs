@@ -32,7 +32,7 @@ public class Tile : MonoBehaviour
 
         //calculate the starting public order
         GenerateStartingOrder();
-
+        gameObject.name = settlement.name;
     }
 
     public void TaxIncomeCalculation()
@@ -53,6 +53,63 @@ public class Tile : MonoBehaviour
         //capping the values
         if (publicOrder > 100) publicOrder = 100;
         else if (publicOrder < 0) publicOrder = 0;
+    }
+
+    public void ConversionCheck()
+    {
+        bool possibleConversion = false;
+        if(culture != ownerObject.GetComponent<Faction>().culture)
+        {
+            bool neighbouring = false;
+            for (int i = 0; i < neighbouringTiles.ToArray().Length; i++)
+            {
+                if (neighbouringTiles[i].GetComponent<Tile>().culture == ownerObject.GetComponent<Faction>().culture)
+                {
+                    neighbouring = true;
+                    break;
+                }
+            }
+
+            if (neighbouring && publicOrder >= 80)
+            {
+                possibleConversion = true;
+            }
+        }
+
+        if (possibleConversion)
+        {
+            float chance = 1 + (publicOrder);
+
+            float roll = Random.Range(0f, 100f);
+
+            if(roll <= chance)
+            {
+                //CONVERT
+                if(ownerObject == GameManager.instance.playerFactionObject)
+                {
+                    PossibleEvent PE = Instantiate(CultureManager.instance.conversionEvent);
+                    GameObject newEvent = Instantiate(GameManager.instance.eventPrefab, GameObject.Find("UI").transform);
+                    EventFirer.instance.FillEventDetails(newEvent, PE);
+
+
+                    NationalModifier uniqueMod = Instantiate(PE.modifier);
+                    PE.modifier = uniqueMod;
+
+                    uniqueMod.affectedArea = settlement;
+
+                    ownerObject.GetComponent<Faction>().nationalMods.Add(uniqueMod);
+                }
+                else
+                {
+                    NationalModifier uniqueMod = Instantiate(CultureManager.instance.conversionEvent.modifier);
+
+                    uniqueMod.affectedArea = settlement;
+
+                    ownerObject.GetComponent<Faction>().nationalMods.Add(uniqueMod);
+                }
+                
+            }
+        }
     }
 
     public void GenerateStartingOrder()
@@ -77,6 +134,7 @@ public class Tile : MonoBehaviour
             ownerObject.GetComponent<Faction>().treasury -= price;
             development += 1;
             taxIncome += development / 10;
+            publicOrder += 5;
             ownerObject.GetComponent<Faction>().UpdateOwnedTiles();
         }
         else
